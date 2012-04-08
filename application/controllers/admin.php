@@ -34,6 +34,22 @@ class Admin extends CI_Controller {
                 
          $this->load->view('admin/template_manager',$data);  // CARGAMOS                       
 	}
+    
+     public function manager2()
+	{
+		//método index del controlador, desde esta función cargamos vistas obtenemos datos de los modelos, etc.
+              
+        //cargamos en la variable 'contenido' del array $data, la vista con el contenido principal del sitio.
+       //tambien cargamos la vista con el formulario de login 
+        /*cargamos la vista login de la seccion de administracion del panel*/
+         
+         $data['header']    ='admin/header/header_main';
+         $data['contenido'] ='admin/contenido/menu_edicion';
+         $data['footer']    ='admin/footer/footer_admin';  
+                
+         $this->load->view('admin/template_manager',$data);  // CARGAMOS                       
+	}
+  
   
     
 }
