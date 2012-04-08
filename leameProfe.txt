@@ -1,0 +1,1 @@
+Profesor, Para instalar, usar cualquier servidor LAMP como xaamp o wampserver, en linux funciona muy bien. El sistema esta hecho en codeignter 2.0 un framework php, solo se debe copiar la carpeta delphos dentro del httdocs de apache, o la carpeta publica del servidor, incluyo delphos.sql el dump de la base de datos hecho con sqlyog.
