@@ -269,7 +269,7 @@ input:hover{
     
 }
 #form_login table{
-    width:90%;
+    width:100%;
     margin:0px;
     font-family:sans-serif;
     font-weight: bold;
@@ -278,7 +278,7 @@ input:hover{
 .error_user, .error_pass{
     font-size: 12px;
     color:red;
-    width: 100%;
+    width: 80%;
     
     text-shadow:2px 2px 5px rgba(0,0,0,0.8);    
 }  

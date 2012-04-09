@@ -38,6 +38,28 @@ $("#avisos").carouFredSel({
 	}
 });
 
+$("#lateral").carouFredSel({
+	
+    direction: 'down',
+	items: {
+	   
+		visible: 2,
+		minimum: 1
+	},
+	scroll: {
+	   
+		fx: "cross",
+        easing:"linear",
+		duration: 2000,
+		items: 1
+		
+	},
+	auto: {
+		pauseDuration: 3000,
+		delay: 2500
+	}
+});
+
 /*--------------------------------------------------------------------------------------------------------------------------
   Esta seccion controla las animaciones del panel principal, es un content rotator que sincroniza las imagenes y los textos 
    En el panel principal

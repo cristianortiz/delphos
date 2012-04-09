@@ -1,22 +1,37 @@
-/*Fuentes personalizadas
+/*Fuentes personalizadas*/
 @font-face{
 font-family: Aquaduct;
 src: url('fuentes/Aquaduct-Full-Set.ttf') format('truetype');    
 }
-*/
+
+@font-face{
+font-family: Opificio;
+src: url('fuentes/Opificio.ttf') format('truetype');    
+}
+
+@font-face{
+font-family: Opificio_Bold;
+src: url('fuentes/Opificio_Bold.ttf') format('truetype');    
+}
+
+@font-face{
+font-family: Decker;
+src: url('fuentes/DeckerB.ttf') format('truetype');    
+}
 /*Estilos basicos*/
+
 h1,h2,h3,h4{
-font-family:Arial,Verdana, sans-serif  ;
 margin: 0px;   
 }
 
 h1{
-    font-size: 38px;  
+    font-size: 42px; 
+    font-family: Decker; 
 }
 
 p{
   margin:0px;  
-  font-family: sans-serif;
+  font-family: Decker;
   font-size: 12px; 
   text-align: left;   
 }
@@ -55,6 +70,12 @@ header{
     height: 100px;
     
 } 
+
+span{
+    font-family: Aquaduct;
+    font-size: 48px;
+    color: lightgray;
+}
 #header-text{
     display: inline-table;
     text-align: center;
@@ -72,6 +93,10 @@ header{
     -webkit-animation-iteration-count:infinite;
     -moz-animation-iteration-count:infinite;   
      
+}
+#header-text h2{
+    
+    font-family: Opificio;
 }
  @-webkit-keyframes registrate{
         0%{text-shadow:0px 0px 15px rgba(0,200,255,0);}
@@ -203,10 +228,10 @@ aside{
     float:right;
     display: block;
     width: 25%;
-    height: auto;
+    height: 460px;
     padding: 10px;
     background: rgba(0,0,0,0.8);
-    border:2px solid black;
+    border:2px solid lightgrey;
     border-radius:15px;
     color: white;
     
@@ -217,14 +242,10 @@ aside{
     
     text-shadow:2px 2px 5px rgba(0,0,0,0.8);
 }
-aside h2{
-    font-size:30px;
-    margin:10px;
-}
 
 aside p{
     margin: 15px;
-    font-size:18px;
+    font-size:24px;
 }
 
 
