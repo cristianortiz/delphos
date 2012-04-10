@@ -4,7 +4,7 @@ class Panel_principal extends CI_Controller {
 
      function __construct() 
      {
-        // Función constructora aquí podemos hacer la carga de algunos elementos adicionales cómo librerías, helpers, etc...
+        // FunciÃ³n constructora aquÃ­ podemos hacer la carga de algunos elementos adicionales cÃ³mo librerÃ­as, helpers, etc...
            parent::__construct();
            $this->load->model('Home_model'); 
            $this->load->model('Panel_principal_model'); 
