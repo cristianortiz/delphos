@@ -32,10 +32,12 @@
              ?>      
           </header>
                <aside id="menu-editable">
+                 
                     <?php 
                         /* vista aside (menu_lateral) de la vista de administracion */
                         $this->load->view($aside);
-                    ?>   
+                    ?>
+                       
                 </aside>
             <section>
             <article>
