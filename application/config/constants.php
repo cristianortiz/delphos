@@ -36,6 +36,16 @@ define('FOPEN_READ_WRITE_CREATE',				'a+b');
 define('FOPEN_WRITE_CREATE_STRICT',				'xb');
 define('FOPEN_READ_WRITE_CREATE_STRICT',		'x+b');
 
+/*
+|--------------------------------------------------------------------------
+| Cantidad de Caracteres por Aviso
+|--------------------------------------------------------------------------
+|
+| Cantidad de caracteres permitido para desplegar en la cinta de
+| de avisos del panel inferior 
+*/
+define('MAX_CHAR_PI', 50);
+
 
 /* End of file constants.php */
 /* Location: ./application/config/constants.php */

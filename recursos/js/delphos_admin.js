@@ -1,6 +1,7 @@
 $(document).ready(function() {
     
     var base_url = 'http://localhost/delphos/';
+    
 /*----------------------------------------------------------------------------------------------------------------------
   TABLA DE EDICION DE AVISOS DEL PANEL INFERIOR, CONTROLA LAS ACCIONES, AGREGAR, EDTIAR Y ELIMINAR AVISOS DE LA CINTA DE
   MENSAJES INFERIOR  
@@ -27,15 +28,18 @@ $('#crearDialog-pi').dialog({
                     url: base_url+'panel_inferior/crear_aviso_pi',
                     type: 'POST',
 					dataType: 'json',
-                    data: $( '#crearDialog-pi form' ).serialize(),
-					
-                    // respuesta en formato JSON desde el metodo editar_aviso_pi()					
-                    success: function( response ) {						
-						
-					        $( '#crearDialog-pi' ).dialog( 'close' );
-                            $( '#msgDialog > p' ).html( response.text );
-		                    $( '#msgDialog' ).dialog( 'option', 'title', 'Aviso Creado' ).dialog( 'open' );
-				        
+                    data: $( '#crearDialog-pi form' ).serialize(),					
+                    // respuesta en formato JSON desde el metodo crear_aviso_pi()					
+                    success: function( response ) {
+                       
+                       if(response.aux != 2){                               
+                                 $( '#crearDialog-pi' ).dialog( 'close' );
+                                 $( '#msgDialog_pi > p' ).html( response.text );
+		                         $( '#msgDialog_pi' ).dialog( 'option', 'title', 'Nuevo Aviso' ).dialog( 'open' );			                                      
+                             }
+                              
+						   $( '#crearDialog-pi > p' ).html( response.text );      
+    			        
                    } //fin success                   
               }); //fin llamada ajax()
              return false; 
@@ -101,8 +105,8 @@ $('#crearDialog-pi').dialog({
                         if(response.aux==1)
 					    {
 					        $( '#editarDialog-pi' ).dialog( 'close' );
-                            $( '#msgDialog > p' ).html( response.text );
-		                    $( '#msgDialog' ).dialog( 'option', 'title', 'Edicion Exitosa' ).dialog( 'open' );
+                            $( '#msgDialog_pi > p' ).html( response.text );
+		                    $( '#msgDialog_pi' ).dialog( 'option', 'title', 'Edicion Exitosa' ).dialog( 'open' );
                             //$( '#ajaxLoadAni' ).fadeOut( 'slow' );		
 						     
 					        $('#fila'+response.id+' > td#f2').html(response.contenido);
@@ -120,13 +124,12 @@ $('#crearDialog-pi').dialog({
     }); //fin del cuadro de dialogo ""editarDialog"  
        
   //cuadro de dialogo de confirmacion de una edicion de aviso  
-  $( '#msgDialog' ).dialog({
+  $( '#msgDialog_pi' ).dialog({
         autoOpen: false,
         
         buttons: {
             'Ok': function() {
-                $( this ).dialog( 'close' );
-                document.location = base_url+'panel_inferior';     
+                document.location = base_url+'panel_inferior/';                           
             }
         },
         modal: true
@@ -166,9 +169,7 @@ $('#crearDialog-pi').dialog({
         height: '350',
         modal: true,
         buttons: {
-            'Eliminar': function() {
-                //$( '#ajaxLoadAni' ).fadeIn( 'slow' );
-				
+            'Eliminar': function() {				
                 $.ajax({
                     url: base_url+'panel_inferior/eliminar_aviso_pi',
                     type: 'POST',
@@ -177,17 +178,12 @@ $('#crearDialog-pi').dialog({
 					
                     // respuesta en formato JSON desde el metodo editar_aviso_pi()					
                     success: function( response ) 
-                    {
-                    
+                    {                   
 						// si la eliminacion del aviso ha sido exitosa se carga el mensaje de confirmacion en otro cuadro de dialogo
                         
 					        $( '#eliminarDialog-pi' ).dialog( 'close' );
-                            $( '#msgDialog > p' ).html( response.text );
-		                    $( '#msgDialog' ).dialog( 'option', 'title', 'Eliminacion Exitosa' ).dialog( 'open' );
-                            //$( '#ajaxLoadAni' ).fadeOut( 'slow' );		
-						     
-					        $('#fila'+response.id).remove();
-				        						
+                            $( '#msgDialog_pi > p' ).html( response.text );
+		                    $( '#msgDialog_pi' ).dialog( 'option', 'title', 'Eliminacion Exitosa' ).dialog( 'open' );    									        						
                    } //fin success                   
               }); //fin llamada ajax()
              return false; 
