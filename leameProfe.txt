@@ -1,1 +1,15 @@
-Profesor, Para instalar, usar cualquier servidor LAMP como xaamp o wampserver, en linux funciona muy bien. El sistema esta hecho en codeignter 2.0 un framework php, solo se debe copiar la carpeta delphos dentro del httdocs de apache, o la carpeta publica del servidor, incluyo delphos.sql el dump de la base de datos hecho con sqlyog.
+Profesor, Para instalar, usar cualquier servidor LAMP como xaamp o wampserver,
+ en linux funciona muy bien. El sistema esta hecho en codeignter 2.0 un framework php,
+  solo se debe copiar la carpeta delphos dentro del httdocs de apache, o la carpeta publica
+   del servidor, incluyo delphos.sql el dump de la base de datos hecho con sqlyog.
+   
+   pendientes:
+   
+   1. modificar la interaccion de contenidos en el panel principal usar otro plugin de JS (jimpress)
+   2. validar los campos de creacion y edicion de contenido, campos requeridos, cantidad de caracteres
+        por campo y tipo de texto ingresado.
+   3. Diseñar algo para mostrar el contenido en texto y el contenido en video del panel principal de forma
+      cicilica, alternada y automatica sin configuraciones por parte del usuario.
+   4. verificar formatos de reproduccion de video, elegir entre formatos html5 o solamente flash
+   5. Determinar la cantidad de caracteres por aviso en el panel inferior cant de caract por noticia en el panel lateral.
+   6. probar en las pantallas del DIICC llevar cable hdmi-dvi para ver la instalacion fisica.     

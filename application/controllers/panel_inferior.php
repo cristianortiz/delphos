@@ -62,7 +62,7 @@ class Panel_inferior extends CI_Controller {
 		     $respuesta['text'] = "<b>Debe incluir el texto del aviso por favor<b>";
 			 $respuesta['aux'] = 2;	
              echo  json_encode($respuesta);		
-			// echo '{"text":"'.$text.'","aux":"'.$aux.'"}';	   
+		   
            }								           
 												           
 	} 

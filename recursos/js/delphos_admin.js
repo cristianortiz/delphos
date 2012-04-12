@@ -22,7 +22,8 @@ $('#crearDialog-pi').dialog({
         height: '350',
         modal: true,
         buttons: {
-            'Crear': function() {				
+            'Crear': function() {
+                
                 $.ajax({
                     url: base_url+'panel_inferior/crear_aviso_pi',
                     type: 'POST',

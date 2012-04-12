@@ -11,8 +11,10 @@
         <link href="<?echo base_url('recursos/css/content-rotator.css');?>" rel="stylesheet" type="text/css" />
         <script type="text/javascript" src="<?echo base_url('recursos/js/jquery-1.4.2.min.js');?>"></script>   
         <script type="text/javascript" src="<?echo base_url('recursos/js/jquery-ui-1.8.6.custom.min.js');?>"></script>
-        <script type="text/javascript" src="<?echo base_url('recursos/js/AjaxUploader/ajaxfileupload.js');?>"></script>   
+        <script type="text/javascript" src="<?echo base_url('recursos/js/AjaxUploader/ajaxfileupload.js');?>"></script>
+         <script type="text/javascript" src="<?echo base_url('recursos/js/jquery.validate.min.js');?>"></script>   
         <script type="text/javascript" src="<?echo base_url('recursos/js/delphos_admin.js');?>"></script>
+        
         
     </head>
     <body>
