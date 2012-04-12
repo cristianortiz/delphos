@@ -29,9 +29,9 @@
       <div id="crearDialog_lat" title="Crear Nueva Noticia">
         <form id="form-crear-lat">
             <h3>Contenido de la Noticia</h3><br />      
-            <textarea  name="contenido" id="contenido"></textarea>     
-            <p></p>
+            <textarea  name="contenido" id="contenido"></textarea>                
          </form>
+          <p></p>
       </div> 
      
      <div id="editarDialog_lat" title="Editar Noticia">
@@ -46,14 +46,14 @@
      
      <div id="eliminarDialog_lat" title="Eliminar Noticia">
        <form id="form-eliminar-lat">
-       <h3>¿Seguro desea eliminar esta noticia?</h3><br />
+       <h3>Â¿Seguro desea eliminar esta noticia?</h3><br />
        
        <textarea readonly="readonly" name="contenido" id="contenido"></textarea>
        <input type="hidden" id="id" name="id" />
        <p></p>
        </form>
      </div> 
-     <div id="msgDialog">
+     <div id="msgDialog_lat">
          <p></p><br/> 
 </div>                                                        
  </div>

@@ -11,5 +11,6 @@ Profesor, Para instalar, usar cualquier servidor LAMP como xaamp o wampserver,
    3. Diseñar algo para mostrar el contenido en texto y el contenido en video del panel principal de forma
       cicilica, alternada y automatica sin configuraciones por parte del usuario.
    4. verificar formatos de reproduccion de video, elegir entre formatos html5 o solamente flash
-   5. Determinar la cantidad de caracteres por aviso en el panel inferior cant de caract por noticia en el panel lateral.
+   5. Determinar la cantidad de caracteres por aviso en el panel inferior cant de caract por noticia en el panel lateral. paginar
+      los resultados al consultar por los avisos y noticias que se vayan agregando
    6. probar en las pantallas del DIICC llevar cable hdmi-dvi para ver la instalacion fisica.     

@@ -43,42 +43,12 @@ class Panel_inferior extends CI_Controller
     mostrado en el cuadro de dialogo para las operaciones edicion o eliminacion
     */
     public function consultar_aviso_pi($id)
-
-	{	
-       $respuesta = $this->Panel_inferior_model->get_aviso($id); 
-      // echo  json_encode($respuesta);
-      // echo  '{"contenido":"'.$respuesta['contenido'].'","id":"'.$respuesta['id'].'"}';                              
-	}
-    
-   public function crear_aviso_pi()
-   {		        		          
-       $contenido  = $this->input->post('contenido');             						 
-      
-	     if(!empty($contenido))
-         { 	 		          
-            $respuesta = $this->Panel_inferior_model->crear_aviso($contenido);
-            $respuesta['aux'] = 1;	
-            $respuesta['contenido'] =$contenido;
-            $respuesta['text'] ="<b>Aviso creado exitosamente</b>";
-             echo  json_encode($respuesta);						 
-		 }
-	     else {
-		      // Si el textarea del form de creacion es enviado sin datos es rechazado
-		     $respuesta['text'] = "<b>Debe incluir el texto del aviso por favor<b>";
-			 $respuesta['aux'] = 2;	
-             echo  json_encode($respuesta);		
-		   
-           }								           
-												           
-	} 
-           
     {
         $respuesta = $this->Panel_inferior_model->get_aviso($id);
-        $response['contenido']  = utf8_encode($respuesta['contenido']);
-        json_encode($response);
-         //echo  '{"contenido":"'.utf8_encode($respuesta['contenido']).'","id":"'.$id.'"}';
+         //echo json_encode($respuesta);            
+        echo  '{"contenido":"'.utf8_encode($respuesta['contenido']).'","id":"'.$id.'"}';
     }
-
+          
     public function crear_aviso_pi()
     {
         $contenido = $this->input->post('contenido');
@@ -103,12 +73,10 @@ class Panel_inferior extends CI_Controller
             echo json_encode($respuesta);
         }
     }
->>>>>>> f1624d8d726bb25ae4a69689ff55e4cf86457d1f
     /* metodo que recibe los datos del form de edicion de mensajes del panel inferior y realiza la actualizacion a traves del metodo
     correspondiente en el modelo Panel_inferior_model()
     */
-    public function editar_aviso_pi()
-    {
+    public function editar_aviso_pi()    {
         $id = $this->input->post('id');
         $contenido = $this->input->post('contenido');
 
@@ -146,9 +114,9 @@ class Panel_inferior extends CI_Controller
         $respuesta['id'] = $id;
         $respuesta['contenido'] = $contenido;
         $respuesta['text'] = "<b>Aviso Eliminado Correctamente</b>";
-
+         echo json_encode($respuesta);
         //Devolvemos mediante notacion JSON los datos del aviso eliminado
-        echo  '{"id":"'.$id.'","contenido":"'.$contenido.'","text":"<b>Aviso Eliminado Correctamente</b>"}';
+        //echo  '{"id":"'.$id.'","contenido":"'.$contenido.'","text":"<b>Aviso Eliminado Correctamente</b>"}';
     }
     /*******************************************************************************************************************************
     FIN SECCION DE GESTION DE CONTENIDO PARA EL  PANEL INFERIOR O CINTA DE MENSAJES*/

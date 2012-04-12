@@ -38,13 +38,15 @@ define('FOPEN_READ_WRITE_CREATE_STRICT',		'x+b');
 
 /*
 |--------------------------------------------------------------------------
-| Cantidad de Caracteres por Aviso
+| Cantidad de Caracteres por Aviso en la cinta de mensajes, y por noticia
+| en el panel lateral
 |--------------------------------------------------------------------------
 |
 | Cantidad de caracteres permitido para desplegar en la cinta de
 | de avisos del panel inferior 
 */
 define('MAX_CHAR_PI', 50);
+define('MAX_CHAR_LAT', 150);
 
 
 /* End of file constants.php */

@@ -53,32 +53,35 @@ class Panel_lateral extends CI_Controller {
     public function consultar_noticia_lat($id)
 	{	
        $respuesta = $this->Panel_lateral_model->get_aviso($id); 
-      echo  json_encode($respuesta);
+       echo  json_encode($respuesta);
       // echo  '{"contenido":"'.$respuesta['contenido'].'","id":"'.$respuesta['id'].'"}';  
                                  
 	}
     
    public function crear_noticia_lat()
    {		        		          
-       $contenido  = $this->input->post('contenido');             						 
-      
-	     if(!empty($contenido))
-         { 	 		          
-            $respuesta = $this->Panel_lateral_model->crear_aviso($contenido);
-            $respuesta['aux'] = 1;
-            $respuesta['text']= "<b>Noticia creada exitosamente</b>";
-             echo  json_encode($respuesta);							 
-            //Devolvemos mediante notacion JSON los datos del aviso nuevo creado	
-         //   echo  '{"contenido":"'.$contenido.'","text":"<b>Noticia creada exitosamente</b>","aux":"'.$aux.'"}';
-				
-		 }
-	     else {
-		      // Si el textarea del form de creacion es enviado sin datos es rechazado
-		     $respuesta['text'] = "<b>Debe incluir el texto de la noticia por favor<b>";
-			 $respuesta['aux'] = 2;
-             echo  json_encode($respuesta);				
-			 //echo '{"text":"'.$text.'","aux":"'.$aux.'"}';	   
-           }								           												           
+       $contenido  = $this->input->post('contenido');
+                    						 
+          if (!empty($contenido)) {
+            if (strlen($contenido) < MAX_CHAR_LAT) {
+                $respuesta = $this->Panel_lateral_model->crear_aviso($contenido);
+                $respuesta['aux'] = 1;
+                $respuesta['contenido'] = $contenido;
+                $respuesta['text'] = "<b>Noticia creada exitosamente</b>";
+                echo json_encode($respuesta);
+            } else {
+                // Si el textarea del form de creacion supera el maximo de caracteres permitido
+                $respuesta['text'] = "<b>El texto supera el maximo de carateres permitido<b>";
+                $respuesta['aux'] = 2;
+                echo json_encode($respuesta);
+            }
+        } else {
+            // Si el textarea del form de creacion es enviado sin datos es rechazado
+            $respuesta['text'] = "<b>La noticia debe incluir el texto por favor<b>";
+            $respuesta['aux'] = 2;
+            echo json_encode($respuesta);
+        }
+     	           
 	} 
            
     /* metodo que recibe los datos del form de edicion de mensajes del panel inferior y realiza la actualizacion a traves del metodo
@@ -92,8 +95,27 @@ class Panel_lateral extends CI_Controller {
        $datos = array(             
                'contenido' => $contenido,              
             );
-	        		          
-	     if(!empty($contenido))
+	       if (!empty($contenido)) {
+            if (strlen($contenido) < MAX_CHAR_LAT) {
+                 $respuesta = $this->Panel_lateral_model->editar_aviso($id,$datos);
+                $respuesta['aux'] = 1;
+                $respuesta['contenido'] = $contenido;
+                $respuesta['text'] = "<b>Noticia Editada Correctamente</b>";
+                echo json_encode($respuesta);
+            } else {
+                // Si el textarea del form de creacion supera el maximo de caracteres permitido
+                $respuesta['text'] = "<b>El texto supera el maximo de carateres permitido<b>";
+                $respuesta['aux'] = 2;
+                echo json_encode($respuesta);
+            }
+        } else {
+            // Si el textarea del form de creacion es enviado sin datos es rechazado
+            $respuesta['text'] = "<b>Debe incluir el texto del aviso por favor<b>";
+            $respuesta['aux'] = 2;
+            echo json_encode($respuesta);
+        }    		          
+	    
+        /* if(!empty($contenido))
          { 	 		          
             $respuesta = $this->Panel_lateral_model->editar_aviso($id,$datos);
             $respuesta['aux'] = 1;
@@ -108,7 +130,7 @@ class Panel_lateral extends CI_Controller {
 			 $respuesta['aux'] = 2;	
              echo json_encode($respuesta);		
 			 	   
-           }								           
+           }	*/							           
 	}
     
    /*Metodo para la eliminacion de un aviso de la cinta de mensajes en base a su id

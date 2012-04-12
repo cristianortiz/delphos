@@ -10,7 +10,7 @@
         <title>Panel Informativo DELPHOS</title>
         <!-- esta etiqueta refresca automaticamente la pagina cada 5 segundos -->
 	      <meta http-equiv="refresh" content="5000" />
-          <meta http-equiv="Content-Type" content="text/html; charset=Latin1" />
+          <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
         <meta name="keywords" content="weblog, html5, ejemplo, tutorial html5" />
         <link href="recursos/css/estilo.css" rel="stylesheet" type="text/css" />
         <link href="recursos/css/content-rotator.css" rel="stylesheet" type="text/css" />
