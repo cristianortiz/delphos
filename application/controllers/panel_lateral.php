@@ -2,22 +2,7 @@
 
 class Panel_lateral extends CI_Controller {
 
-	/**
-	 * Index Page for this controller.
-	 *
-	 * Maps to the following URL
-	 * 		http://example.com/index.php/welcome
-	 *	- or -  
-	 * 		http://example.com/index.php/welcome/index
-	 *	- or -
-	 * Since this controller is set as the default controller in 
-	 * config/routes.php, it's displayed at http://example.com/
-	 *
-	 * So any other public methods not prefixed with an underscore will
-	 * map to /index.php/welcome/<method_name>
-	 * @see http://codeigniter.com/user_guide/general/urls.html
-	 */
-     function __construct() 
+	 function __construct() 
      {
         // Función constructora aquí podemos hacer la carga de algunos elementos adicionales cómo librerías, helpers, etc...
            parent::__construct();
@@ -96,8 +81,8 @@ class Panel_lateral extends CI_Controller {
                'contenido' => $contenido,              
             );
 	       if (!empty($contenido)) {
-            if (strlen($contenido) < MAX_CHAR_LAT) {
-                 $respuesta = $this->Panel_lateral_model->editar_aviso($id,$datos);
+              if (strlen($contenido) < MAX_CHAR_LAT) {
+                $respuesta = $this->Panel_lateral_model->editar_aviso($id,$datos);
                 $respuesta['aux'] = 1;
                 $respuesta['contenido'] = $contenido;
                 $respuesta['text'] = "<b>Noticia Editada Correctamente</b>";
@@ -108,29 +93,12 @@ class Panel_lateral extends CI_Controller {
                 $respuesta['aux'] = 2;
                 echo json_encode($respuesta);
             }
-        } else {
+          } else {
             // Si el textarea del form de creacion es enviado sin datos es rechazado
             $respuesta['text'] = "<b>Debe incluir el texto del aviso por favor<b>";
             $respuesta['aux'] = 2;
             echo json_encode($respuesta);
-        }    		          
-	    
-        /* if(!empty($contenido))
-         { 	 		          
-            $respuesta = $this->Panel_lateral_model->editar_aviso($id,$datos);
-            $respuesta['aux'] = 1;
-            $respuesta['text']	 =	"<b>Noticia Editada Correctamente</b>";
-            $respuesta['id']	 =	$id;
-            echo json_encode($respuesta);					 
-            
-		 }
-	     else {
-		      // Si el textarea del form de edicion es enviado sin datos es rechazado
-		     $respuesta['text'] = "Debe incluir el texto de la noticia por favor";
-			 $respuesta['aux'] = 2;	
-             echo json_encode($respuesta);		
-			 	   
-           }	*/							           
+        }    		                    
 	}
     
    /*Metodo para la eliminacion de un aviso de la cinta de mensajes en base a su id
