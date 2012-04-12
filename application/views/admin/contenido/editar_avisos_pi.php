@@ -3,7 +3,7 @@
  <h2>Editar Panel Inferior</h2>
  <h3>Para agregar un nuevo aviso a la cinta de mensajes presione <a id="crear_aviso" class="crear_aviso_pi" href="#">Nuevo Aviso</a></h3>
  <h3>Utilice la tabla para editar o eliminar los avisos existentes</h3>
- 
+  <div id="reload_files_pi">
      <table id="tabla_avisos">
        <thead>
           <tr>                                                     
@@ -22,7 +22,8 @@
                 </tr> ';           
         }?>
        </tbody>
-     </table> 
+     </table>
+   </div> 
      
      <!-- seccion de cuadros de dialogos, ocultos, desplegados por JQuery, para crear, editar y elminar un aviso
           desde la cinta de mensajes -->
@@ -30,8 +31,8 @@
         <form id="form-crear-pi">
             <h3>Contenido del aviso</h3><br />      
             <textarea  name="contenido" id="contenido"></textarea>     
-            <p></p>
          </form>
+         <p></p>
       </div> 
      
      <div id="editarDialog-pi" title="Editar Aviso">
@@ -46,14 +47,14 @@
      
      <div id="eliminarDialog-pi" title="Eliminar Aviso">
        <form id="form-eliminar-pi">
-       <h3>¿Seguro desea eliminar el sgte. mensaje?</h3><br />
+       <h3>Â¿Seguro desea eliminar el sgte. mensaje?</h3><br />
        
        <textarea readonly="readonly" name="contenido" id="contenido"></textarea>
        <input type="hidden" id="id" name="id" />
        <p></p>
        </form>
      </div> 
-     <div id="msgDialog">
+     <div id="msgDialog_pi">
          <p></p><br/> 
 </div>                                                        
  </div>
