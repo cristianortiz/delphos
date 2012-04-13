@@ -24,8 +24,7 @@ class Panel_lateral extends CI_Controller {
         $data['contenido'] ='admin/contenido/editar_avisos_lat';
         $data['footer']    ='admin/footer/footer_admin';  
         
-        $this->load->view('admin/template_manager',$data);  // CARGAMOS                
-         
+        $this->load->view('admin/template_manager',$data);       
 	}    
  /*******************************************************************************************************************************
    SECCION DE GESTION DE CONTENIDO PARA LAS NOTICIAS DEL PANEL LATERAL, RECUPERACION, EDICION, CREACION y ELIMINACION
@@ -39,8 +38,7 @@ class Panel_lateral extends CI_Controller {
 	{	
        $respuesta = $this->Panel_lateral_model->get_aviso($id); 
        echo  json_encode($respuesta);
-      // echo  '{"contenido":"'.$respuesta['contenido'].'","id":"'.$respuesta['id'].'"}';  
-                                 
+      // echo  '{"contenido":"'.$respuesta['contenido'].'","id":"'.$respuesta['id'].'"}';                                   
 	}
     
    public function crear_noticia_lat()
@@ -65,15 +63,14 @@ class Panel_lateral extends CI_Controller {
             $respuesta['text'] = "<b>La noticia debe incluir el texto por favor<b>";
             $respuesta['aux'] = 2;
             echo json_encode($respuesta);
-        }
-     	           
+        }     	           
 	} 
            
     /* metodo que recibe los datos del form de edicion de mensajes del panel inferior y realiza la actualizacion a traves del metodo
        correspondiente en el modelo Panel_inferior_model()
     */
     public function editar_noticia_lat()
-   {		        		   
+    {		        		   
        $id         = $this->input->post('id');
        $contenido  = $this->input->post('contenido');
        
@@ -104,14 +101,14 @@ class Panel_lateral extends CI_Controller {
    /*Metodo para la eliminacion de un aviso de la cinta de mensajes en base a su id
    */ 
     public function eliminar_noticia_lat()
-   {		        		   
+    {		        		   
        $id         = $this->input->post('id');
        $contenido  = $this->input->post('contenido');       
        $respuesta  = $this->Panel_lateral_model->eliminar_aviso($id);       
        $respuesta['text'] = "<b>Noticia Eliminada Correctamente<b>";	
        $respuesta['id']=$id;	
        echo json_encode($respuesta);          										           
-	} 
+ 	} 
         
    /*******************************************************************************************************************************
      FIN SECCION DE GESTION DE CONTENIDO PARA EL  PANEL LATERAL DE NOTICIAS

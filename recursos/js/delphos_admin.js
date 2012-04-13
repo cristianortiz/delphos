@@ -212,8 +212,7 @@ $('#crearDialog-pi').dialog({
  $( '#edicion_panel').delegate( 'a.crear_noticia_lat', 'click', function(event) {event.preventDefault();
        
         $('#form-crear-lat #contenido').empty(); 
-        $( '#crearDialog_lat' ).dialog( 'open' );
-        
+        $( '#crearDialog_lat' ).dialog( 'open' );       
 	   }) 
 $('#crearDialog_lat').dialog({
         autoOpen: false,
@@ -294,8 +293,7 @@ $('#crearDialog_lat').dialog({
 						
 						if(response.aux==2)// si el texto esta vacio
 						{
-						   $( '#form-edicion-lat > p'  ).html(response.text );                            
-											
+						   $( '#form-edicion-lat > p'  ).html(response.text );                            											
 						}																		
 						// si la actualizacion de la deuda ha sido exitosa se carga el mensaje de confirmacion en otro cuadro de dialogo
                         if(response.aux==1)

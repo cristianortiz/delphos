@@ -1,6 +1,6 @@
 
  <div id="edicion_panel">
-  <h2>Contenidos Panel Principal</h2>
+  <h2>Panel Principal</h2>
  <nav>
    <ul>
 		<li><a href="<?echo base_url('panel_principal');?>">Articulos</a></li>
@@ -9,21 +9,20 @@
 		
 	</ul>
   </nav>
-
-   <h2>Subir Videos</h2>
-   <form method="post" action="" id="upload_file">
+  <h3>Subir Videos</h3>
+ <div id="contenedor_form_video">  
+    <form method="post" action="" class="form_videos" id="upload_file">
       <label for="des">Descripcion</label>
       <input type="text" name="desc" id="desc" value="" />
       <label for="userfile">Video</label>
       <input type="file" name="userfile" id="userfile" size="20" />
       <input type="submit" name="submit" id="submit" value="Subir Video"/>
-   </form>
-   <h2>Archivos</h2>
+    </form>
+ </div>  
+   <h3>Lista de Videos</h3>
    <div id="files"></div>
 
- <h3>En la tabla siguiente puede editar los videos que se mostraran en el panel principal</h3>
- 
-     <table id="tabla_avisos">
+      <table id="tabla_avisos">
        <thead>
           <tr>                                                     
              <th>Nombre</th>

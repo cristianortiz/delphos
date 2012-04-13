@@ -443,8 +443,7 @@ input:hover{
     box-shadow:0px 0px 15px black;
     -moz-box-shadow:0px 0px 15px black;
     -webkit-box-shadow:0px 0px 15px black;
-    -o-box-shadow:0px 0px 15px black;
-    
+    -o-box-shadow:0px 0px 15px black;   
 }
 
 #edicion_panel h2,h3,p{
@@ -558,10 +557,10 @@ nav {
         font-family: verdana;
         height: 40px;
         line-height: 30px;
-        margin: 10px 0px 0px 10px;
-        padding: 0;
+        margin: 10px 10px 0px 10px;
+        padding: 0px;
         text-align: center;
-        width: 95%;
+        width: auto;
         border: 1px solid white;
         border-radius: 5px;
         -moz-border-radius: 5px;
@@ -600,6 +599,23 @@ nav li a{
    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.9);
     
 }
+#contenedor_form_video{
+    
+    margin: 5px 10px 10px 10px;
+    padding: 10px;
+    width: auto;
+    border-radius: 10px;
+    border: 1px solid lightgrey;
+}
+.form_videos{
+    margin:0px;
+    width: auto;
+}
+
+.form_videos input{
+    margin-right:30px;
+}
+
 #visualizar{
     
     border: 1px solid white;

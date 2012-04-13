@@ -1,6 +1,6 @@
 
  <div id="edicion_panel">
-  <h2>Contenidos Panel Principal</h2>
+  <h2> Panel Principal</h2>
  <nav>
     <ul>
 		<li><a href="<?echo base_url('panel_principal');?>">Articulos</a></li>
@@ -9,11 +9,7 @@
 		
 	</ul>
   </nav>
-
-
  <h3>Articulos</h3>
- <h3>En la tabla siguiente puede editar o eliminar los Articulos que se mostraran en el panel principal</h3>
- 
      <table id="tabla_avisos">
        <thead>
           <tr>                                                     
