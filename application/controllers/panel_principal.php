@@ -130,10 +130,11 @@ class Panel_principal extends CI_Controller
         $this->pagination->initialize($config);
 
         $page = ($this->uri->segment(3)) ? $this->uri->segment(3) : 0;
-        $principal['videos'] = $this->Home_model->filas_paginadas('video',$config["per_page"], $page);
-        $principal['links'] = $this->pagination->create_links(); 
-        
-        
+        $principal['videos'] = $this->Home_model->filas_paginadas('video', $config["per_page"],
+            $page);
+        $principal['links'] = $this->pagination->create_links();
+
+
         $this->load->view('admin/contenido/editar_videos', $principal, true); // CARGAMOS el template del sitio, con el contenido principal
 
         $data['header'] = 'admin/header/header_main';
@@ -150,14 +151,21 @@ class Panel_principal extends CI_Controller
         $msg = "";
         $file_element_name = 'userfile';
 
-        if (empty($_POST['desc'])) {
-            $status = "error";
-            $msg = "Please enter a title";
+        $descripcion = $this->input->post('desc');
+
+        if (empty($descripcion)) {
+            $status = 'error';
+            $msg = 'Debe ingresar una descripcion para el video';
         }
 
+        $ruta = './recursos/videos/';
+        if (!file_exists($ruta)) {
+            //creamos el directorio para la empresa nueva agregada y le asignamos permisos de lec/esct
+            mkdir($ruta, 777);
+        }
         if ($status != "error") {
-            $config['upload_path'] = './recursos/videos/';
-            $config['allowed_types'] = 'webm|ogg|mp4|flv|pdf';
+            $config['upload_path'] = $ruta;
+            $config['allowed_types'] = 'webm|ogg|mp4|flv|pdf|docx';
             $config['max_size'] = 1024 * 8;
             $config['encrypt_name'] = false;
 
@@ -168,14 +176,14 @@ class Panel_principal extends CI_Controller
                 $msg = $this->upload->display_errors('', '');
             } else {
                 $data = $this->upload->data();
-                $file_id = $this->Panel_principal_model->insert_file($data['file_name'], $_POST['desc']);
+                $file_id = $this->Panel_principal_model->insert_file($data['file_name'], $descripcion);
                 if ($file_id) {
                     $status = "success";
-                    $msg = "File successfully uploaded";
+                    $msg = "Video Subido Correctamente";
                 } else {
                     unlink($data['full_path']);
                     $status = "error";
-                    $msg = "Something went wrong when saving the file, please try again.";
+                    $msg = "No hemos podido subir el archivo, intente de nuevo por favor";
                 }
             }
             @unlink($_FILES[$file_element_name]);
@@ -196,7 +204,7 @@ class Panel_principal extends CI_Controller
 
         $this->load->view('admin/template_manager', $data); // CARGAMOS
     }
-    
+
     public function actualizar_opcion()
     {
         $id = $this->input->post('id');

@@ -643,7 +643,19 @@ nav li a{
 .form_videos input{
     margin-right:30px;
 }
-
+.error_desc{
+   
+    font-family: sans-serif;
+    color: red;
+    font-weight: bold;
+    font-size: 14px;
+    border: 1px solid red;
+    border-radius: 5px;
+    background: #F89FD3;
+    padding: 10px;
+    margin: 5px;
+    width: 30%;
+}
 #visualizar{
     
     border: 1px solid white;

@@ -439,25 +439,34 @@ $(document).ready(function() {
 	$(function() {
 		$('#upload_file').submit(function(e) {
 			e.preventDefault();
+            var desc  = $('#desc').val();
+           
 			$.ajaxFileUpload({
 				type: 'POST',
-				url: './do_upload/',
+				url: base_url + '/panel_principal/do_upload/',
 				secureuri: false,
 				fileElementId: 'userfile',
 				dataType: 'json',
 				data: {
-					'desc': $('#desc').val()
+					'desc': desc
 				},
 				success: function(data, status) {
-					if (data.status != 'error') {
-						$('#files').html('<p>Cargando lista de archivos...</p>');
-						refresh_files();
-						$('#desc').val('');
-					}
-					alert(data.msg);
+					$('#video_ok_dialog > p').html(data.msg);
+					$('#video_ok_dialog').dialog('option', 'title', 'Subir Videos').dialog('open');
 				}
 			});
 			return false;
 		});
+	});
+    $('#video_ok_dialog').dialog({
+		autoOpen: false,
+		buttons: {
+			'Ok': function() {
+			    document.location = base_url+'panel_principal/videos';   
+				$(this).dialog('close');
+			  
+			}
+		},
+		modal: true
 	});
 });
