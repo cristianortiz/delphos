@@ -13,4 +13,5 @@ Profesor, Para instalar, usar cualquier servidor LAMP como xaamp o wampserver,
    4. verificar formatos de reproduccion de video, elegir entre formatos html5 o solamente flash
    5. Determinar la cantidad de caracteres por aviso en el panel inferior cant de caract por noticia en el panel lateral. paginar
       los resultados al consultar por los avisos y noticias que se vayan agregando
-   6. probar en las pantallas del DIICC llevar cable hdmi-dvi para ver la instalacion fisica.     
+   6. probar en las pantallas del DIICC llevar cable hdmi-dvi para ver la instalacion fisica.  
+   7.implemetanr metodos para elminar videos que hayan sido subidos   
