@@ -451,7 +451,7 @@ input:hover{
 }
 
 #tabla_avisos{
-    margin: 20px 10px 10px 10px;
+    margin: 10px 10px 10px 10px;
     width: 97%;
     border:1px solid white;
     border-collapse: collapse;
@@ -490,19 +490,52 @@ input:hover{
     text-align: left;
     
 }
-#tabla_avisos tr:nth-child(2n+1) {
-    
-      background:rgba(255,255,255,0.5);
-    
-   }
+
 #tabla_avisos tr:hover{
     
-    background:rgba(255,255,255,0.9);
+    background: rgba(255,255,255,0.5);
     font-family: verdana;
-    font-weight: bold;
-    text-shadow:1px 1px 3px rgba(0,0,0,0.5);
+    color: black;
+   
+ }
+ 
+ .editar_pi, .editar_lat{
     
-}
+    font-family: verdana;
+    color: black;
+    text-decoration: none;
+    font-weight: bold;
+   
+ }
+.page_numbers p{
+    
+    margin: 10px 10px 10px 10px;
+    padding: 5px;
+    font-size: 24px;
+    width: auto;  
+}  
+
+.page_numbers a{
+    
+    color:white;
+    text-decoration: none; 
+    font-size: 16px;  
+    background: black; 
+    padding: 5px 8px 5px 8px;
+    border: 1px solid white;
+    border-radius: 5px;
+}  
+
+.page_numbers a:hover{
+    
+    color:black;
+    text-decoration: none; 
+    font-size: 16px;  
+    background: white; 
+    padding: 5px 8px 5px 8px;
+    border: 1px solid lightgrey;
+    border-radius: 5px;
+}       
 #crear_aviso{
     background: rgba(255,255,255,0.7);
     display:inline-table;
@@ -552,7 +585,7 @@ input:hover{
          height: 60px;
 }
 nav {
-        background: rgba(255,255,255,0.8);
+        background: rgba(255,255,255,0.6);
         font-size: 18px;
         font-family: verdana;
         height: 40px;
@@ -576,8 +609,7 @@ nav {
     float: left;
     display: inline;
     margin: 5px 0px 0px 15px; 
-    
-           
+              
     }
 nav li :hover{
     background: rgba(255,255,255,0.9); 
@@ -589,15 +621,11 @@ nav li :hover{
         -moz-border-radius: 5px;
         -webkit-border-radius: 5px;
     color:rgba(0,0,0,0.9);
-     -webkit-text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.9);
-   text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.9);           
+           
     }    
 nav li a{
     text-decoration: none;
     color:rgba(255,255,255,0.9);
-     -webkit-text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.9);
-   text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.9);
-    
 }
 #contenedor_form_video{
     

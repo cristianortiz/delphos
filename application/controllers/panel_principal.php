@@ -17,7 +17,7 @@ class Panel_principal extends CI_Controller
     /* Metodo que recupera los avisos del panel inferior desde la BD, y los pone en
     la cinta mensajes de la vista principal del panel      
     */
-    public function index()
+    public function editar()
     {
         $principal['texto'] = $this->Home_model->get_panel_principal();
         $this->load->view('admin/contenido/editar_principal', $principal, true); // CARGAMOS el template del sitio, con el contenido principal
@@ -121,7 +121,19 @@ class Panel_principal extends CI_Controller
     ******************************************************************************************************************************/
     public function videos()
     {
-        $principal['videos'] = $this->Panel_principal_model->get_videos();
+        $config = array();
+        $config["base_url"] = base_url() . "panel_principal/videos";
+        $config["total_rows"] = $this->Home_model->record_count('video');
+        $config["per_page"] = ROWS_FOR_PAGES;
+        $config["uri_segment"] = 3;
+
+        $this->pagination->initialize($config);
+
+        $page = ($this->uri->segment(3)) ? $this->uri->segment(3) : 0;
+        $principal['videos'] = $this->Home_model->filas_paginadas('video',$config["per_page"], $page);
+        $principal['links'] = $this->pagination->create_links(); 
+        
+        
         $this->load->view('admin/contenido/editar_videos', $principal, true); // CARGAMOS el template del sitio, con el contenido principal
 
         $data['header'] = 'admin/header/header_main';
@@ -130,7 +142,6 @@ class Panel_principal extends CI_Controller
         $data['footer'] = 'admin/footer/footer_admin';
 
         $this->load->view('admin/template_manager', $data); // CARGAMOS
-
     }
 
     public function do_upload()
@@ -184,8 +195,8 @@ class Panel_principal extends CI_Controller
         $data['footer'] = 'admin/footer/footer_admin';
 
         $this->load->view('admin/template_manager', $data); // CARGAMOS
-
     }
+    
     public function actualizar_opcion()
     {
         $id = $this->input->post('id');

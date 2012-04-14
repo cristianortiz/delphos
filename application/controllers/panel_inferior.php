@@ -10,7 +10,7 @@ class Panel_inferior extends CI_Controller
         // Función constructora aquí podemos hacer la carga de algunos elementos adicionales cómo librerías, helpers, etc...
         parent::__construct();
         $this->load->model('Home_model');
-        $this->load->model('Panel_inferior_model');
+        $this->load->model('Panel_inferior_model');       
         $data = array();
         $footer = array();
     }
@@ -19,11 +19,23 @@ class Panel_inferior extends CI_Controller
     la cinta mensajes de la vista principal del panel
     
     */
-    public function index()
+    public function editar()
     {
-        $footer['avisos'] = $this->Home_model->get_panel_inferior();
+        $config = array();
+        $config["base_url"] = base_url() . "panel_inferior/editar";
+        $config["total_rows"] = $this->Home_model->record_count('footer');
+        $config["per_page"] = ROWS_FOR_PAGES;
+        $config["uri_segment"] = 3;
+
+        $this->pagination->initialize($config);
+
+        $page = ($this->uri->segment(3)) ? $this->uri->segment(3) : 0;
+        $footer["avisos"] = $this->Home_model->filas_paginadas('footer',$config["per_page"], $page);
+        $footer["links"] = $this->pagination->create_links();                
         $this->load->view('admin/contenido/editar_avisos_pi', $footer, true);
-        $this->load->view('admin/contenido/reload_files_pi', $footer, true);
+        
+                        
+       
 
         $data['header'] = 'admin/header/header_main';
         $data['aside'] = 'admin/sidebar/menu_lateral';

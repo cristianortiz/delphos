@@ -14,9 +14,19 @@ class Panel_lateral extends CI_Controller {
      /* Metodo que recupera los avisos del panel inferior desde la BD, y los pone en 
          la cinta mensajes de la vista principal del panel      
      */      
-    public function index()
+    public function editar()
 	{
-        $lateral['avisos'] = $this->Home_model->get_panel_lateral();                       
+         $config = array();
+        $config["base_url"] = base_url() . "panel_lateral/editar";
+        $config["total_rows"] = $this->Home_model->record_count('lateral');
+        $config["per_page"] = ROWS_FOR_PAGES;
+        $config["uri_segment"] = 3;
+
+        $this->pagination->initialize($config);
+
+        $page = ($this->uri->segment(3)) ? $this->uri->segment(3) : 0;
+        $lateral["avisos"] = $this->Home_model->filas_paginadas('lateral',$config["per_page"], $page);
+        $lateral["links"] = $this->pagination->create_links();                          
         $this->load->view('admin/contenido/editar_avisos_lat',$lateral,true);  // CARGAMOS el template del sitio, con el contenido principal  
                
         $data['header']    ='admin/header/header_main';

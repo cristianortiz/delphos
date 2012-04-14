@@ -40,6 +40,21 @@ class Home_model extends CI_Model {
         
         
     }
+    
+   public function record_count($tabla) {
+        return $this->db->count_all($tabla);
+    }
+
+    public function filas_paginadas($tabla,$limit, $start) {
+        $this->db->limit($limit, $start);
+        $query = $this->db->get($tabla);
+
+        if ($query->num_rows() > 0) {
+            
+            return $query->result_array();
+        }
+        
+   }
 }
 
 //location: application/models/login_model.php
