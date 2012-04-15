@@ -16,6 +16,21 @@ class Panel_principal_model extends CI_Model {
         return $consulta->row_array();           
     }
     
+     function get_video($id)
+    {
+        $this->db->select('id,nombre');
+        $this->db->where('id', $id);                    
+        $consulta = $this->db->get('video');
+        return $consulta->row_array();           
+    }
+    
+    function borrar_video($id)
+    {       
+        $this->db->where('id', $id);
+        $this->db->delete('video');                    
+        //return $consulta->row_array();           
+    }
+    
     function editar_texto($id,$datos)
     {       
         $this->db->where('id',$id);
@@ -26,7 +41,7 @@ class Panel_principal_model extends CI_Model {
     {       
         $this->db->where('id', $id);
         $this->db->delete('principal');                    
-       // return $consulta->row_array();           
+        return $consulta->row_array();           
     }
     
     function crear_texto($contenido)
@@ -52,11 +67,12 @@ class Panel_principal_model extends CI_Model {
     
     
  
-   public function insert_file($filename, $desc)
+   public function insert_file($filename, $desc,$ruta)
    {
       $data = array(
          'nombre'     => $filename,
-         'descripcion'        => $desc
+         'descripcion'        => $desc,
+         'url'=> $ruta
       );
       $this->db->insert('video', $data);
       return $this->db->insert_id();

@@ -436,37 +436,78 @@ $(document).ready(function() {
 		});
 		return false;
 	});
-	$(function() {
-		$('#upload_file').submit(function(e) {
-			e.preventDefault();
-            var desc  = $('#desc').val();
-           
-			$.ajaxFileUpload({
-				type: 'POST',
-				url: base_url + '/panel_principal/do_upload/',
-				secureuri: false,
-				fileElementId: 'userfile',
-				dataType: 'json',
-				data: {
-					'desc': desc
-				},
-				success: function(data, status) {
-					$('#video_ok_dialog > p').html(data.msg);
-					$('#video_ok_dialog').dialog('option', 'title', 'Subir Videos').dialog('open');
-				}
-			});
-			return false;
+	$('#upload_file').submit(function(event) {
+		event.preventDefault();
+		var desc = $('#desc').val();
+		$.ajaxFileUpload({
+			type: 'POST',
+			url: base_url + '/panel_principal/do_upload/',
+			secureuri: false,
+			fileElementId: 'userfile',
+			dataType: 'json',
+			data: {
+				'desc': desc
+			},
+			success: function(data, status) {
+				$('#video_ok_dialog > p').html(data.msg);
+				$('#video_ok_dialog').dialog('option', 'title', 'Subir Videos').dialog('open');
+			}
 		});
+		return false;
 	});
-    $('#video_ok_dialog').dialog({
+	$('#video_ok_dialog').dialog({
 		autoOpen: false,
 		buttons: {
 			'Ok': function() {
-			    document.location = base_url+'panel_principal/videos';   
+				document.location = base_url + 'panel_principal/videos';
 				$(this).dialog('close');
-			  
 			}
 		},
 		modal: true
+	});
+	$('#tabla_avisos').delegate('a.eliminar_video', 'click', function(event) {
+		event.preventDefault();
+		var id = $(this).attr('href');
+		$.ajax({
+			type: 'POST',
+			url: base_url + 'panel_principal/consultar_video/' + id,
+			dataType: 'json',
+			success: function(data) {
+				$('#form_borrar_video #nombre_video').val(data.nombre);
+				$('#form_borrar_video > h4').html(data.nombre);
+				$('#form_borrar_video #id').val(id);
+				//abrimos el cuadro de dialogo que contendra el mensaje de confirmacion             
+				$('#borrar_video_dialog').dialog('open');
+			}
+		});
+		return false;
+	});
+	$('#borrar_video_dialog').dialog({
+		autoOpen: false,
+		width: '350px',
+		height: '300',
+		modal: true,
+		buttons: {
+			'Eliminar': function() {
+				$.ajax({
+					url: base_url + 'panel_principal/borrar_video',
+					type: 'POST',
+					dataType: 'json',
+					data: $('#form_borrar_video').serialize(),
+					// respuesta en formato JSON desde el metodo editar_aviso_pi()					
+					success: function(data) {
+						// si la eliminacion del aviso ha sido exitosa se carga el mensaje de confirmacion en otro cuadro de dialogo
+						$('#borrar_video_dialog').dialog('close');
+						$('#video_ok_dialog > p').html(data.msg);
+						$('#video_ok_dialog').dialog('option', 'title', 'Eliminar video').dialog('open');
+					} //fin success                   
+				}); //fin llamada ajax()
+				return false;
+			},
+			//boton que cierra el cuadro de dialogo
+			'Cancelar': function() {
+				$(this).dialog('close');
+			}
+		}
 	});
 });

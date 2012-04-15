@@ -13,6 +13,7 @@ class Panel_principal extends CI_Controller
         $this->load->helper('text');
         $data = array();
         $footer = array();
+        //$this->output->enable_profiler(TRUE);
     }
     /* Metodo que recupera los avisos del panel inferior desde la BD, y los pone en
     la cinta mensajes de la vista principal del panel      
@@ -165,7 +166,7 @@ class Panel_principal extends CI_Controller
         }
         if ($status != "error") {
             $config['upload_path'] = $ruta;
-            $config['allowed_types'] = 'webm|ogg|mp4|flv|pdf|docx';
+            $config['allowed_types'] = 'webm|ogg|mp4|flv|ogv|';
             $config['max_size'] = 1024 * 8;
             $config['encrypt_name'] = false;
 
@@ -176,7 +177,7 @@ class Panel_principal extends CI_Controller
                 $msg = $this->upload->display_errors('', '');
             } else {
                 $data = $this->upload->data();
-                $file_id = $this->Panel_principal_model->insert_file($data['file_name'], $descripcion);
+                $file_id = $this->Panel_principal_model->insert_file($data['file_name'], $descripcion,$ruta);
                 if ($file_id) {
                     $status = "success";
                     $msg = "Video Subido Correctamente";
@@ -190,16 +191,7 @@ class Panel_principal extends CI_Controller
         }
         echo json_encode(array('status' => $status, 'msg' => $msg));
     }
-      public function borrar_video($id)
-    {
-        $id = $this->input->post('id');
-        $opcion = $this->input->post('opcion');
-        $datos = array('desplegar' => $opcion, );
-        $respuesta = $this->Panel_principal_model->actualizar_opcion($id, $datos);
-        $respuesta['text'] = "<b>Opcion '" . $opcion . "' Configurada Correctamente<b>";
-        $respuesta['id'] = $id;
-        echo json_encode($respuesta);
-    }
+      
 
     public function opciones()
     {
@@ -223,6 +215,35 @@ class Panel_principal extends CI_Controller
         $respuesta['text'] = "<b>Opcion '" . $opcion . "' Configurada Correctamente<b>";
         $respuesta['id'] = $id;
         echo json_encode($respuesta);
+    }
+    
+    public function consultar_video($id)
+    {
+        $respuesta = $this->Panel_principal_model->get_video($id);
+         //echo json_encode($respuesta);            
+        echo  '{"nombre":"'.utf8_encode($respuesta['nombre']).'","id":"'.$id.'"}';
+    }
+    public function borrar_video()
+    {
+        //parametros para la respuesta a la llamada de Ajax
+        $status = "";
+        $msg = "";
+        
+        $id = $this->input->post('id');
+        $nombre_video = $this->input->post('nombre_video');
+        try {
+           
+            $file_id = $this->Panel_principal_model->borrar_video($id);
+            $status = "success";
+            $msg = "Video borrado exitosamente!";
+
+            unlink('./recursos/videos/' . $nombre_video);
+        }
+        catch (exception $e) {
+            $status = "error";
+            $msg = $e->getMessage();
+        }
+        echo json_encode(array('status' => $status, 'msg' => $msg));
     }
 } // fin clase panel_lateral
 
