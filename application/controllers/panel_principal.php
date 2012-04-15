@@ -182,7 +182,16 @@ class Panel_principal extends CI_Controller
         }
         echo json_encode(array('status' => $status, 'msg' => $msg));
     }
-
+      public function borrar_video($id)
+    {
+        $id = $this->input->post('id');
+        $opcion = $this->input->post('opcion');
+        $datos = array('desplegar' => $opcion, );
+        $respuesta = $this->Panel_principal_model->actualizar_opcion($id, $datos);
+        $respuesta['text'] = "<b>Opcion '" . $opcion . "' Configurada Correctamente<b>";
+        $respuesta['id'] = $id;
+        echo json_encode($respuesta);
+    }
 
     public function opciones()
     {

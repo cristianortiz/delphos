@@ -47,7 +47,7 @@ define('FOPEN_READ_WRITE_CREATE_STRICT',		'x+b');
 */
 define('MAX_CHAR_PI', 50);
 define('MAX_CHAR_LAT', 150);
-define('ROWS_FOR_PAGES',2);
+define('ROWS_FOR_PAGES',10);
 
 
 /* End of file constants.php */
