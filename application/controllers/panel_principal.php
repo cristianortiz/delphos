@@ -20,6 +20,9 @@ class Panel_principal extends CI_Controller
     */
     public function editar()
     {
+        if ($this->session->userdata('logged_in') != true) {
+            redirect('login');
+        }
         $principal['texto'] = $this->Home_model->get_panel_principal();
         $this->load->view('admin/contenido/editar_principal', $principal, true); // CARGAMOS el template del sitio, con el contenido principal
 
@@ -158,8 +161,10 @@ class Panel_principal extends CI_Controller
             $status = 'error';
             $msg = 'Debe ingresar una descripcion para el video';
         }
-
-        $ruta = './recursos/videos/';
+        $last_track = $this->Home_model->record_count('video');
+        $new_track  = $last_track + 1;
+        
+        $ruta = './application/third_party/mediafront/playlist/playlists/default/track'.$new_track;
         if (!file_exists($ruta)) {
             //creamos el directorio para la empresa nueva agregada y le asignamos permisos de lec/esct
             mkdir($ruta, 777);

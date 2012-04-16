@@ -1,12 +1,13 @@
 
  <div id="edicion_panel">
-  <h2> Panel Principal</h2>
+
+  <h2> Panel Principal </h2>
  <nav>
     <ul>
-		<li><a href="<?echo base_url('panel_principal');?>">Articulos</a></li>
+		<li><a href="<?echo base_url('panel_principal/editar');?>">Articulos</a></li>
 		<li><a href="<?echo base_url('panel_principal/videos');?>">Videos</a></li>
 		<li><a href="<?echo base_url('panel_principal/opciones');?>">Opciones</a></li>
-		
+        <li class="session"><a href="<?echo base_url('login/cerrar_sesion');?>">Cerrar Sesion</a></li>		
 	</ul>
   </nav>
  <h3>Articulos</h3>

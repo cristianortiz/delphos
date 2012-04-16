@@ -1,7 +1,7 @@
 <?php
    include("application/third_party/mediafront/OSMPlayer.php");
    $player = new OSMPlayer( array(
-    'playlist' => 'application/third_party/mediafront/videos.xml'
+    'playlist' => 'application/third_party/mediafront/playlist.xml'
    ));
 ?>
 <!DOCTYPE html>

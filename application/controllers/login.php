@@ -90,7 +90,12 @@ class Login extends CI_Controller {
        else{
              return TRUE;
           }
-	} 
+	}
+    
+    function cerrar_sesion(){ //Funcion que permite cerrar  la sesion 
+	    $this->session->sess_destroy(); 
+	    redirect('login');
+	}  
               
 }
 /* End of file login.php */

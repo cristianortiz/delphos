@@ -50,7 +50,7 @@ $("#lateral").carouFredSel({
 	   
 		fx: "cross",
         easing:"linear",
-		duration: 2000,
+		duration: 3000,
 		items: 1
 		
 	},

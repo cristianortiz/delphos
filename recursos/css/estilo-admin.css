@@ -5,6 +5,15 @@ src: url('fuentes/Aquaduct-Full-Set.ttf') format('truetype');
 }
 */
 /*Estilos basicos*/
+@font-face{
+font-family: Opificio;
+src: url('fuentes/Opificio.ttf') format('truetype');    
+}
+
+@font-face{
+font-family: Opificio_Bold;
+src: url('fuentes/Opificio_Bold.ttf') format('truetype');    
+}
 h1,h2,h3,h4{
 font-family:Arial,Verdana, sans-serif  ;
 margin: 0px;   
@@ -298,6 +307,50 @@ input:hover{
     text-shadow:2px 2px 5px rgba(0,0,0,0.8);    
 }  
  
+.block_session{
+    width: 45%;
+    display: inline;
+    margin: 10px 0px 40px 20px;
+    font-family: Opificio;
+    font-size: 22px;
+    float:left;
+    
+} 
+
+.session_close{
+    width: 45%;
+    display: inline;
+    float: right;
+    text-align: right;
+    margin:10px 20px 40px 0px;
+    }
+.session{
+    
+    float: right;
+    text-align: right;
+    margin-right: 30px;  
+    }
+
+   
+.session_close a, .session a {
+    
+    font-family: Arial;
+    font-size: 18px; 
+    color: white;
+    text-decoration: none;
+    border:1px solid lightgray;
+    border-radius: 10px;
+    padding: 8px;
+    background: black; 
+    }
+    
+.session_close a:hover {
+    color: black;
+    background: rgba(255,255,255,0.9);
+    border: 1px solid white;   
+    }    
+    
+    
 #menu-edicion{
 	margin: 10px 10px 10px 10px;
     float:right;
@@ -317,8 +370,8 @@ input:hover{
 
 .ca-menu{
     
-    padding: 12px;
-    margin: 0px;
+    padding: 10px;
+    margin: 10px;
     width: 90%;   
 }
 
