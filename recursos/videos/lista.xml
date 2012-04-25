@@ -1,0 +1,24 @@
+<rss version="2.0" xmlns:media="http://search.yahoo.com/mrss/" xmlns:jwplayer="http://developer.longtailvideo.com/trac/"> 
+  <channel> 
+    <title>MRSS Playlist Playlist</title>
+     <item> 
+      <title>sintel.webm</title> 
+       <media:content url="http://localhost/delphos/recursos/videos/sintel.webm"/> 
+       <media:thumbnail url="http://localhost/delphos/recursos/images/preview.jpg"/>
+       <description>video de sintel</description> 
+       <jwplayer:duration>03:00</jwplayer:duration> 
+        </item>
+        <item> 
+                       <title>video.mp4</title> 
+                       <media:content url="http://localhost/delphos/recursos/videos/video.mp4"/> 
+                       <media:thumbnail url="http://localhost/delphos/recursos/images/preview.jpg"/>
+                       <description>video monitos</description> 
+                       <jwplayer:duration>03:00</jwplayer:duration> 
+                    </item><item> 
+                       <title>video2.mp4</title> 
+                       <media:content url="http://localhost/delphos/recursos/videos/video2.mp4"/> 
+                       <media:thumbnail url="http://localhost/delphos/recursos/images/preview.jpg"/>
+                       <description>video comercial</description> 
+                       <jwplayer:duration>03:00</jwplayer:duration> 
+                    </item></channel> 
+                 </rss>

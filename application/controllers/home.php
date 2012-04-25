@@ -63,25 +63,47 @@ class Home extends CI_Controller
 
     public function editar_xml()
     {
+        $archivo = fopen('recursos/videos/lista.xml', "w+");
+        $encabezado = '<rss version="2.0" xmlns:media="http://search.yahoo.com/mrss/" 
+xmlns:jwplayer="http://developer.longtailvideo.com/trac/"> 
+  <channel> 
+    <title>MRSS Playlist Playlist</title> ';
+        $escritor = fwrite($archivo, $encabezado);
+        fclose($archivo);
+        $archivo1 = fopen('recursos/videos/lista.xml', "a");
+        $videos = $this->Panel_principal_model->get_videos();
+        foreach ($videos as $row) {
 
-        $xml = new DOMDocument('1.0', 'utf-8');
-        $xml->formatOutput = true;
-        $xml->preserveWhiteSpace = false;
-        $xml->load(base_url('recursos/videos/videos.xml'));
-        $newItem = $xml->createElement('track');
-        $newItem->appendChild($xml->createElement('location', '/.videos'));
-        $newItem->appendChild($xml->createElement('creator', 'creador'));
-        $newItem->appendChild($xml->createElement('title', 'titulo'));
-        $newItem->appendChild($xml->createElement('annotation', 'anotacion'));
-        $newItem->appendChild($xml->createElement('image', 'imagem'));
-        $newItem->appendChild($xml->createElement('info', 'informacione'));
-        $xml->getElementsByTagName('trackList')->item(0)->appendChild($newItem);
-        $xml->save(base_url('recursos/videos/videos.xml'));
+            $item = '<item> 
+                       <title>' . $row['nombre'] . '</title> 
+                       <media:content url="' . base_url('recursos/'.$row['url']) .'/'. $row['nombre'] . '"/> 
+                       <media:thumbnail url="' . base_url('recursos/images/preview.jpg') . '"/>
+                       <description>' . $row['descripcion'] . '</description> 
+                       <jwplayer:duration>03:00</jwplayer:duration> 
+                    </item>';
+                    
+            $escritor = fwrite($archivo1, $item);
+        }
+        //introduce final
+        $final = '</channel> 
+                 </rss>';
+        $escritor = fwrite($archivo1, $final);
+        fclose($archivo1);
 
-       echo $xml->saveXML();
 
-
-
+    }
+    
+    public function carga_playlist(){
+        
+        
+        echo '[{"0":{"src":"http://uberelectron.s3.amazonaws.com/uberelectron1.mp4","type":"video/mp4"},"config":{"title":"Hello World."}},
+               {"0":{"src":"http://www.youtube.com/watch?v=wXE2pn_s818","type":"video/youtube"},"config":{"title":"Farbrausch"}},
+               {"0":{"src":"http://localhost/delphos/recursos/videos/sintel.mp4","type":"video/mp4"},"config":{"title":"Vide de Sintel"}}]';
+    }
+    
+    public function llama_playlist(){
+        
+        $this->load->view('muestra_playlist'); 
     }
 
 }

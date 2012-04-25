@@ -1,4 +1,3 @@
-
  <div id="edicion_panel">
  <h2>Editar Panel Inferior</h2>
  <h3>Para agregar un nuevo aviso a la cinta de mensajes presione <a id="crear_aviso" class="crear_aviso_pi" href="#">Nuevo Aviso</a></h3>

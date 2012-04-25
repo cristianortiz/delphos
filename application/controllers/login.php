@@ -41,7 +41,7 @@ class Login extends CI_Controller {
                if($admin['resultado'] > 0)
                {
                   $this->session->set_userdata(array('logged_in' =>true,'username' => $username,'perfil' => $admin['perfil_id']));
-                  redirect("admin/manager");         
+                  redirect(base_url('admin/manager'));         
                }
                // si no es admnistrador se verifica que sea un usuario registrado
                else
