@@ -1,11 +1,8 @@
 <div id="edicion_panel">
-	<h2>
-		Panel Principal
-	</h2>
 	<nav>
 		<ul>
 			<li>
-				<a href="<?echo base_url('panel_principal');?>">Articulos</a>
+				<a href="<?echo base_url('panel_principal/editar');?>">Articulos</a>
 			</li>
 			<li>
 				<a href="<?echo base_url('panel_principal/videos');?>">Videos</a>
@@ -15,19 +12,34 @@
 			</li>
 		</ul>
 	</nav>
-	<h3>
-		Subir Videos
-	</h3>
-	<div id="contenedor_form_video">
+    <h2>Panel Principal: Videos</h2>
+	<a class="subir-video" href="#">Subir Video</a>	<a class="video-online" href="#">Video Online</a>
+	<div id="contenedor_form_video" class="subir-video">
+    <h3>Sube un video desde tu PC</h3>
 		<form method="post" action="" class="form_videos" id="upload_file">
 			<label for="desc">
-				Descripcion
+				Titulo
 			</label>
 			<input type="text" name="desc" id="desc" value="" />
 			<label for="userfile">
 				Video
 			</label>
 			<input type="file" name="userfile" id="userfile" size="20" />
+			<input type="submit" name="submit" id="submit" value="Subir Video"/>
+          
+		</form>
+	</div>
+    <div id="contenedor_form_video" class="video-online">
+     <h3>Agrega un video online</h3>
+		<form method="post" action="" class="form_videos" id="upload_file">
+			<label for="desc">
+				Titulo
+			</label>
+			<input type="text" name="desc" id="desc" value="" />
+			<label for="userfile">
+				Enlace Video
+			</label>
+		    	<input type="text" name="desc" id="desc" value="" />
 			<input type="submit" name="submit" id="submit" value="Subir Video"/>
           
 		</form>

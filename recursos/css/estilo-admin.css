@@ -689,6 +689,12 @@ nav li a{
     border-radius: 10px;
     border: 1px solid lightgrey;
 }
+
+#contenedor_form_video h3{
+    
+    margin: 5px 0px 10px 15px;
+    padding: 0px;
+}
 .form_videos{
     margin:0px;
     width: auto;
@@ -697,6 +703,34 @@ nav li a{
 .form_videos input{
     margin-right:30px;
 }
+
+a.subir-video, a.video-online{
+    display: inline-table;
+    margin: 25px 10px 10px 10px;
+    padding:  5px;
+    font-family: sans-serif;
+    font-weight: bold;
+    font-size: 14px;
+    color:black;
+    border: 1px solid white;
+    border-radius: 5px;
+    background: rgba(255,255,255,0.6);    
+    
+    text-decoration: none;
+}
+
+a.subir-video:hover,a.video-online:hover{
+    
+    background:  rgba(90,170,230,0.8);
+}
+
+a.subir-video:hover ,a.video-online:hover{
+    
+    background:  rgba(90,170,230,0.8);
+}
+ div.video-online{
+    display:none;
+ }
 .error_desc{
    
     font-family: sans-serif;

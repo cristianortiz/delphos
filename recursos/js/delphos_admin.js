@@ -510,4 +510,13 @@ $(document).ready(function() {
 			}
 		}
 	});
+   $("a.subir-video").click( function() {
+              $('div.video-online').slideUp('slow');
+              $('div.subir-video').slideDown('slow');
+           });
+   $("a.video-online").click(function() {
+              $('div.subir-video').slideUp('slow');
+              $('div.video-online').slideDown('slow');
+            	});
+            
 });

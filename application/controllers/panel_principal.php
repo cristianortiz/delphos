@@ -157,10 +157,7 @@ class Panel_principal extends CI_Controller
 
         $descripcion = $this->input->post('desc');
 
-        if (empty($descripcion)) {
-            $status = 'error';
-            $msg = 'Debe ingresar una descripcion para el video';
-        }
+        
         $last_track = $this->Home_model->record_count('video');
         $new_track  = $last_track + 1;
         

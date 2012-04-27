@@ -130,4 +130,14 @@ $("#lateral").carouFredSel({
          /*fin content-rotator panel principal
         ---------------------------------------------------------------------------------------------------------------------*/
   
+   projekktor('#player_a', {
+	debug: false,
+      // poster: 'intro.png',
+      useYTIframeAPI: false, 
+	width: 640,
+	height: 385,
+    playerFlashMP4:         'http://localhost/delphos/recursos/js/jarisplayer.swf',
+	controls: true,
+	playlist: [{0:{src:'http://localhost/delphos/home/carga_playlist', type:"text/json"}}] 
+    });  
 });

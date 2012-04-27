@@ -1,6 +1,5 @@
-
  <div id="edicion_panel">
-  <h2>Contenidos Panel Principal</h2>
+  
  <nav>
     <ul>
 	
@@ -11,10 +10,8 @@
 	
 	</ul>
   </nav>
-
-
- <h3>Opciones</h3>
- <h3>Configurar el panel principal para mostrar videos o articulos de texto en la lista desplegable</h3>
+<h2>Panel Principal: Opciones</h2>
+<h3>Configurar el panel principal para mostrar videos o articulos de texto en la lista desplegable</h3>
  
  <form id="visualizar">
  <label for="opcion">Elegir Visualizacion</label>

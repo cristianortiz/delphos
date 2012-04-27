@@ -1,8 +1,2 @@
 
-<?
- foreach($video as $row){
-    echo '<video src="'. $row['url'].'" controls="controls">
-
-         </video>';
-         
-        }?>
+<div id="player_a" class="projekktor"></div>

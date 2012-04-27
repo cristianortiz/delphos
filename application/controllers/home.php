@@ -1,15 +1,6 @@
 <?php if (!defined('BASEPATH'))
     exit('No direct script access allowed');
 
-/**
- * Home
- * 
- * @package sacfar
- * @author cristian
- * @copyright 2012
- * @version $Id$
- * @access public
- */
 class Home extends CI_Controller
 {
 
@@ -46,7 +37,6 @@ class Home extends CI_Controller
             $opcion = $visualizar['desplegar'];
         } else {
             $principal['video'] = $this->Panel_principal_model->get_videos();
-            $this->load->view('contenido/contenido_videos', $principal, true);
             $vista = 'contenido/contenido_videos';
             $opcion = $visualizar['desplegar'];
         }
@@ -76,12 +66,14 @@ xmlns:jwplayer="http://developer.longtailvideo.com/trac/">
 
             $item = '<item> 
                        <title>' . $row['nombre'] . '</title> 
-                       <media:content url="' . base_url('recursos/'.$row['url']) .'/'. $row['nombre'] . '"/> 
-                       <media:thumbnail url="' . base_url('recursos/images/preview.jpg') . '"/>
+                       <media:content url="' . base_url('recursos/' . $row['url']) .
+                '/' . $row['nombre'] . '"/> 
+                       <media:thumbnail url="' . base_url('recursos/images/preview.jpg') .
+                '"/>
                        <description>' . $row['descripcion'] . '</description> 
                        <jwplayer:duration>03:00</jwplayer:duration> 
                     </item>';
-                    
+
             $escritor = fwrite($archivo1, $item);
         }
         //introduce final
@@ -92,20 +84,15 @@ xmlns:jwplayer="http://developer.longtailvideo.com/trac/">
 
 
     }
-    
-    public function carga_playlist(){
-        
-        
+
+    public function carga_playlist()
+    {
         echo '[{"0":{"src":"http://uberelectron.s3.amazonaws.com/uberelectron1.mp4","type":"video/mp4"},"config":{"title":"Hello World."}},
                {"0":{"src":"http://www.youtube.com/watch?v=wXE2pn_s818","type":"video/youtube"},"config":{"title":"Farbrausch"}},
                {"0":{"src":"http://localhost/delphos/recursos/videos/sintel.mp4","type":"video/mp4"},"config":{"title":"Vide de Sintel"}}]';
     }
-    
-    public function llama_playlist(){
-        
-        $this->load->view('muestra_playlist'); 
-    }
 
+    
 }
 
 /* End of file welcome.php */
