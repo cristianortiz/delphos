@@ -36,12 +36,10 @@
                 </aside>
             <section>
             <article>
-                   <?php 
+                  <?php 
                         /* vista contenido_principal de la vista de administracion */
-                               
-                             $this->load->view($contenido);
-                       
-                         ?>
+                       $this->load->view($contenido);                      
+                  ?>
                         
                </article>                                     
              </section>                                                

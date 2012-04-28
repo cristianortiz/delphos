@@ -455,6 +455,20 @@ $(document).ready(function() {
 		});
 		return false;
 	});
+    
+    $('#video-online').submit(function() {
+		$.ajax({
+			type: 'POST',
+			url: base_url + 'panel_principal/subir_video_online',
+			dataType: 'json',
+			data: $('#video-online').serialize(),
+			success: function(data) {
+				$('#video_ok_dialog > p').html(data.msg);
+				$('#video_ok_dialog').dialog('option', 'title', 'Subir Videos').dialog('open');
+			}
+		});
+		return false;
+	});
 	$('#video_ok_dialog').dialog({
 		autoOpen: false,
 		buttons: {
@@ -475,6 +489,7 @@ $(document).ready(function() {
 			success: function(data) {
 				$('#form_borrar_video #nombre_video').val(data.nombre);
 				$('#form_borrar_video > h4').html(data.nombre);
+                $('#form_borrar_video #tipo_video').val(data.tipo);
 				$('#form_borrar_video #id').val(id);
 				//abrimos el cuadro de dialogo que contendra el mensaje de confirmacion             
 				$('#borrar_video_dialog').dialog('open');

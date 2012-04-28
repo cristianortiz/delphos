@@ -36,7 +36,7 @@ class Home extends CI_Controller
             $vista = 'contenido/contenido_texto';
             $opcion = $visualizar['desplegar'];
         } else {
-            $principal['video'] = $this->Panel_principal_model->get_videos();
+            
             $vista = 'contenido/contenido_videos';
             $opcion = $visualizar['desplegar'];
         }
@@ -87,12 +87,27 @@ xmlns:jwplayer="http://developer.longtailvideo.com/trac/">
 
     public function carga_playlist()
     {
-        echo '[{"0":{"src":"http://uberelectron.s3.amazonaws.com/uberelectron1.mp4","type":"video/mp4"},"config":{"title":"Hello World."}},
-               {"0":{"src":"http://www.youtube.com/watch?v=wXE2pn_s818","type":"video/youtube"},"config":{"title":"Farbrausch"}},
-               {"0":{"src":"http://localhost/delphos/recursos/videos/sintel.mp4","type":"video/mp4"},"config":{"title":"Vide de Sintel"}}]';
+        $videos = $this->Panel_principal_model->get_videos();
+        $inicio =  '[';
+        $cuerpo = '';
+        foreach($videos as $row){
+            
+            $cuerpo = $cuerpo. '{"0":{"src":"'.$row['url'].'","type":"'.$row['tipo'].'"},"config":{"title":"'.$row['descripcion'].'"}},';
+            
+            }
+        $fin = ']';
+        
+        $lista = $inicio.$cuerpo.$fin;
+        $lista = str_replace(",]", "]", $lista);
+        
+        echo  $lista;
+            
+        /*echo '[{"0":{"src":"http://uberelectron.s3.amazonaws.com/uberelectron1.mp4","type":"video/mp4"},"config":{"title":"Hello World."}},
+             {"0":{"src":"http://www.youtube.com/watch?v=wXE2pn_s818","type":"video/youtube"},"config":{"title":"Farbrausch"}},
+             {"0":{"src":"http://localhost/delphos/recursos/videos/sintel.mp4","type":"video/mp4"},"config":{"title":"Vide0 de Sintel"}}]';*/
     }
 
-    
+
 }
 
 /* End of file welcome.php */

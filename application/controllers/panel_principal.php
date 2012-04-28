@@ -157,11 +157,7 @@ class Panel_principal extends CI_Controller
 
         $descripcion = $this->input->post('desc');
 
-        
-        $last_track = $this->Home_model->record_count('video');
-        $new_track  = $last_track + 1;
-        
-        $ruta = './application/third_party/mediafront/playlist/playlists/default/track'.$new_track;
+        $ruta = './recursos/videos';
         if (!file_exists($ruta)) {
             //creamos el directorio para la empresa nueva agregada y le asignamos permisos de lec/esct
             mkdir($ruta, 777);
@@ -179,7 +175,9 @@ class Panel_principal extends CI_Controller
                 $msg = $this->upload->display_errors('', '');
             } else {
                 $data = $this->upload->data();
-                $file_id = $this->Panel_principal_model->insert_file($data['file_name'], $descripcion,$ruta);
+                $url = base_url('recursos/videos').'/'.$data['file_name'];
+                $file_id = $this->Panel_principal_model->insert_file($data['file_name'], $descripcion,
+                    $url, $data['file_type']);
                 if ($file_id) {
                     $status = "success";
                     $msg = "Video Subido Correctamente";
@@ -193,7 +191,25 @@ class Panel_principal extends CI_Controller
         }
         echo json_encode(array('status' => $status, 'msg' => $msg));
     }
-      
+
+    public function subir_video_online()
+    {
+        $titulo = $this->input->post('titulo');
+        $enlace = $this->input->post('enlace');
+
+        $file_id = $this->Panel_principal_model->insert_file('video online', $titulo, $enlace,
+            'video/youtube');
+        if ($file_id) {
+            $status = "success";
+            $msg = "Video Subido Correctamente";
+        } else {
+
+            $status = "error";
+            $msg = "No hemos podido agregar el enlace, intente de nuevo por favor";
+        }
+        echo json_encode(array('status' => $status, 'msg' => $msg));
+
+    }
 
     public function opciones()
     {
@@ -218,28 +234,34 @@ class Panel_principal extends CI_Controller
         $respuesta['id'] = $id;
         echo json_encode($respuesta);
     }
-    
+
     public function consultar_video($id)
     {
         $respuesta = $this->Panel_principal_model->get_video($id);
-         //echo json_encode($respuesta);            
-        echo  '{"nombre":"'.utf8_encode($respuesta['nombre']).'","id":"'.$id.'"}';
+        //echo json_encode($respuesta);
+        // echo '{"nombre":"' . utf8_encode($respuesta['nombre']) . '","id":"' . $id . '"}';
+        echo json_encode(array(
+            'nombre' => utf8_encode($respuesta['url']),
+            'id' => $id,
+            'tipo' => $respuesta['tipo']));
     }
     public function borrar_video()
     {
         //parametros para la respuesta a la llamada de Ajax
         $status = "";
         $msg = "";
-        
+
         $id = $this->input->post('id');
         $nombre_video = $this->input->post('nombre_video');
+        $tipo_video = $this->input->post('tipo_video');
         try {
-           
+
             $file_id = $this->Panel_principal_model->borrar_video($id);
             $status = "success";
             $msg = "Video borrado exitosamente!";
-
-            unlink('./recursos/videos/' . $nombre_video);
+            if ($tipo_video != 'video/youtube') {
+                unlink('./recursos/videos/' . $nombre_video);
+            }
         }
         catch (exception $e) {
             $status = "error";

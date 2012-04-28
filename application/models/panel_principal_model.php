@@ -18,7 +18,7 @@ class Panel_principal_model extends CI_Model {
     
      function get_video($id)
     {
-        $this->db->select('id,nombre');
+        $this->db->select('id,nombre,url,tipo');
         $this->db->where('id', $id);                    
         $consulta = $this->db->get('video');
         return $consulta->row_array();           
@@ -54,7 +54,7 @@ class Panel_principal_model extends CI_Model {
     }
     function get_videos()
     {
-        $this->db->select('id,nombre,descripcion,url');                         
+        $this->db->select('id,nombre,descripcion,url,tipo');                         
         $consulta = $this->db->get('video');
         return $consulta->result_array();           
     }
@@ -67,12 +67,13 @@ class Panel_principal_model extends CI_Model {
     
     
  
-   public function insert_file($filename, $desc,$ruta)
+   public function insert_file($filename, $desc,$ruta,$tipo)
    {
       $data = array(
          'nombre'     => $filename,
          'descripcion'        => $desc,
-         'url'=> $ruta
+         'url'=> $ruta,
+         'tipo'=>$tipo
       );
       $this->db->insert('video', $data);
       return $this->db->insert_id();

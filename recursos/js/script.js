@@ -1,24 +1,5 @@
 $(document).ready(function() {
 
-	/* Using default configuration
-	$("#avisos").carouFredSel();
-
-    /*	CarouFredSel: an infinite, circular jQuery carousel.
-	Configuration created by the "Configuration Robot"
-	at caroufredsel.frebsite.nl
-*/
-/*	CarouFredSel: an infinite, circular jQuery carousel.
-	Configuration created by the "Configuration Robot"
-	at caroufredsel.frebsite.nl
-*/
-/*	CarouFredSel: an infinite, circular jQuery carousel.
-	Configuration created by the "Configuration Robot"
-	at caroufredsel.frebsite.nl
-*/
-/*	CarouFredSel: an infinite, circular jQuery carousel.
-	Configuration created by the "Configuration Robot"
-	at caroufredsel.frebsite.nl
-*/
 $("#avisos").carouFredSel({
 	
 	items: {
