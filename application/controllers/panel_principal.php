@@ -164,7 +164,7 @@ class Panel_principal extends CI_Controller
         }
         if ($status != "error") {
             $config['upload_path'] = $ruta;
-            $config['allowed_types'] = 'webm|ogg|mp4|flv|ogv|';
+            $config['allowed_types'] = 'mp4|ogg|webm';
             $config['max_size'] = 1024 * 8;
             $config['encrypt_name'] = false;
 
@@ -177,7 +177,7 @@ class Panel_principal extends CI_Controller
                 $data = $this->upload->data();
                 $url = base_url('recursos/videos').'/'.$data['file_name'];
                 $file_id = $this->Panel_principal_model->insert_file($data['file_name'], $descripcion,
-                    $url, $data['file_type']);
+                    $url, 'video/'.str_replace(".","",$data['file_ext']));
                 if ($file_id) {
                     $status = "success";
                     $msg = "Video Subido Correctamente";
@@ -260,7 +260,7 @@ class Panel_principal extends CI_Controller
             $status = "success";
             $msg = "Video borrado exitosamente!";
             if ($tipo_video != 'video/youtube') {
-                unlink('./recursos/videos/' . $nombre_video);
+                unlink('.recursos/videos/'.$nombre_video);
             }
         }
         catch (exception $e) {

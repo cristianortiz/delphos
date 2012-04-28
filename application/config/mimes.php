@@ -122,7 +122,7 @@ $mimes = array(
     'eml' => 'message/rfc822',
     'json' => array('application/json', 'text/json'),
     'avi' => 'video/x-msvideo',
-    'mp4' => 'video/mp4',
+    'mp4' => array('video/mp4', 'application/octet-stream'),
     '3gp' => 'video/3gpp',
     'mpeg' => array('video/mpeg', 'application/octet-stream'),
     'mpg' => array('video/mpeg', 'application/octet-stream'),
@@ -146,7 +146,7 @@ $mimes = array(
         'application/octet-stream'),
         
      'webm' =>'video/webm', 
-     'ogg'  =>'video/ogg',
+     'ogg' => array('video/ogg', 'application/octet-stream'),
      'ogv'  =>'video/ogv'
               
   );

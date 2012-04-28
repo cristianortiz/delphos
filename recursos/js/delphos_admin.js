@@ -441,7 +441,7 @@ $(document).ready(function() {
 		var desc = $('#desc').val();
 		$.ajaxFileUpload({
 			type: 'POST',
-			url: base_url + '/panel_principal/do_upload/',
+			url: base_url + 'panel_principal/do_upload/',
 			secureuri: false,
 			fileElementId: 'userfile',
 			dataType: 'json',
@@ -513,7 +513,7 @@ $(document).ready(function() {
 					success: function(data) {
 						// si la eliminacion del aviso ha sido exitosa se carga el mensaje de confirmacion en otro cuadro de dialogo
 						$('#borrar_video_dialog').dialog('close');
-						$('#video_ok_dialog > p').html(data.msg);
+						$('#video_ok_dialog > p').html('<h3>'+data.msg+'</h3>');
 						$('#video_ok_dialog').dialog('option', 'title', 'Eliminar video').dialog('open');
 					} //fin success                   
 				}); //fin llamada ajax()
