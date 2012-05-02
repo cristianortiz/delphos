@@ -9,11 +9,11 @@
         <link href="recursos/css/estilo.css" rel="stylesheet" type="text/css" />
         <link href="recursos/css/content-rotator.css" rel="stylesheet" type="text/css" />
         <link rel="stylesheet" href="<? echo base_url('recursos/css/theme/style.css');?>" type="text/css" media="screen" />
-        <script type="text/javascript" src="<? echo base_url('recursos/js/jquery-1.7.1.min.js');?>"></script>
-	    <script type="text/javascript" src="recursos/js/carouFredSel-5.4.1/jquery.carouFredSel-5.4.1-packed.js"></script>
+        <script type="text/javascript" src="recursos/js/carouFredSel-5.4.1/jquery.js"></script>
+	    <script type="text/javascript" src="<? echo base_url('recursos/js/carouFredSel-5.4.1/jquery.carouFredSel-5.4.1-packed.js');?>"></script>
          <script type="text/javascript" src="<? echo base_url('recursos/js/projekktor-1.0.13r41.min.js');?>"></script> 
-         <script type="text/javascript" src="recursos/js/jquery.easing.1.3.js"></script>       
-        <script type="text/javascript" src="recursos/js/script.js"></script>
+         <script type="text/javascript" src="<? echo base_url('recursos/js/jquery.easing.1.3.js');?>"></script>       
+        <script type="text/javascript" src="<? echo base_url('recursos/js/script.js');?>"></script>
         
     <body>
         <div id="cajaheader">

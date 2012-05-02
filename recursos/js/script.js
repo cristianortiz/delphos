@@ -46,7 +46,7 @@ $("#lateral").carouFredSel({
    En el panel principal
 */
 
- $(function() {
+  $(function() {
                 var current = 1;
                 
                 var iterate		= function(){
@@ -111,12 +111,16 @@ $("#lateral").carouFredSel({
          /*fin content-rotator panel principal
         ---------------------------------------------------------------------------------------------------------------------*/
   
+  /*-------------------------------------------------------------------------------------------------------------
+    Bloque JS para el plugin projekktor, llama al metodo carga_playlist delcontrolador home que carga la lista de
+    reproduccion desde la BD en formato JSON para el reproductor
+  ----------------------------------------------------------------------------------------------------------------*/ 
    projekktor('#player_a', {
 	debug: false,
       // poster: 'intro.png',
       useYTIframeAPI: false, 
-	width: 640,
-	height: 385,
+	width: 980,
+	height: 570,
     playerFlashMP4:         'http://localhost/delphos/recursos/js/jarisplayer.swf',
 	controls: true,
 	playlist: [{0:{src:'http://localhost/delphos/home/carga_playlist', type:"text/json"}}] 

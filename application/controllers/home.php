@@ -34,18 +34,17 @@ class Home extends CI_Controller
             $principal['texto'] = $this->Home_model->get_panel_principal();
             $this->load->view('contenido/contenido_texto', $principal, true);
             $vista = 'contenido/contenido_texto';
-            $opcion = $visualizar['desplegar'];
+           
         } else {
             
             $vista = 'contenido/contenido_videos';
-            $opcion = $visualizar['desplegar'];
+           
         }
 
         //se arma el array data[] con el contenido de cada seccion del panel para ser cargados en la vista template
         $data['header'] = 'header/header_main';
         $data['aside'] = 'sidebar/sidebar';
         $data['contenido'] = $vista;
-        $data['opcion'] = $opcion;
         $data['footer'] = 'footer/footer';
 
         $this->load->view('template', $data); // CARGAMOS el template del sitio, con el contenido principal
