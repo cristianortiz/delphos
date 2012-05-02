@@ -1,6 +1,6 @@
 /*
 SQLyog Ultimate v8.61 
-MySQL - 5.5.16 : Database - sidcad1
+MySQL - 5.5.16 : Database - delphos
 *********************************************************************
 */
 
@@ -12,262 +12,142 @@ MySQL - 5.5.16 : Database - sidcad1
 /*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
 /*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
-CREATE DATABASE /*!32312 IF NOT EXISTS*/`sidcad1` /*!40100 DEFAULT CHARACTER SET latin1 */;
+CREATE DATABASE /*!32312 IF NOT EXISTS*/`delphos` /*!40100 DEFAULT CHARACTER SET latin1 */;
 
-USE `sidcad1`;
+USE `delphos`;
+
+/*Table structure for table `academico` */
+
+DROP TABLE IF EXISTS `academico`;
+
+CREATE TABLE `academico` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `rut` varchar(45) DEFAULT NULL,
+  `username` varchar(45) DEFAULT NULL,
+  `password` varchar(45) DEFAULT NULL,
+  `nombres` varchar(45) DEFAULT NULL,
+  `apellido_paterno` varchar(45) DEFAULT NULL,
+  `apellido_materno` varchar(45) DEFAULT NULL,
+  `grado_academico` varchar(45) DEFAULT NULL,
+  `titulo_profesional` varchar(45) DEFAULT NULL,
+  `email` varchar(45) DEFAULT NULL,
+  `perfil_id` varchar(45) NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `fk_academico_perfil1` (`perfil_id`),
+  CONSTRAINT `fk_academico_perfil1` FOREIGN KEY (`perfil_id`) REFERENCES `perfil` (`id_perfil`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
+
+/*Data for the table `academico` */
+
+insert  into `academico`(`id`,`rut`,`username`,`password`,`nombres`,`apellido_paterno`,`apellido_materno`,`grado_academico`,`titulo_profesional`,`email`,`perfil_id`) values (1,'23537656-0','jcrojas','jcrojas','juan carlos','rojas','thomas','magister en ciencias de la computacion','ingeniero civil informatico','juancarlos.rojas@uda.cl','coordinador'),(2,'1345389-0','drojas','drojas','dario','rojas','diaz','magister en ciencias de la computacion','ingeniero civil informatico','dfrojas@gmail.com','coordinador'),(3,'1356776-9','hcornide','hcornide','hector','cornide','reyes','licenciado en ciencias de la ingenieria','ingeniero civil en computacion e informatica','hector.cornide@uda.cl','coordinador');
 
 /*Table structure for table `administrador` */
 
 DROP TABLE IF EXISTS `administrador`;
 
 CREATE TABLE `administrador` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `id_admin` varchar(45) DEFAULT NULL,
+  `id_admin` varchar(45) NOT NULL,
   `pass_admin` varchar(45) DEFAULT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
+  `perfil_id` varchar(45) NOT NULL,
+  PRIMARY KEY (`id_admin`),
+  KEY `fk_administrador_perfil1` (`perfil_id`),
+  CONSTRAINT `fk_administrador_perfil1` FOREIGN KEY (`perfil_id`) REFERENCES `perfil` (`id_perfil`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 /*Data for the table `administrador` */
 
-insert  into `administrador`(`id`,`id_admin`,`pass_admin`) values (1,'admin','admin');
+insert  into `administrador`(`id_admin`,`pass_admin`,`perfil_id`) values ('admin','jcrojas','administrador');
 
-/*Table structure for table `comprobante` */
+/*Table structure for table `footer` */
 
-DROP TABLE IF EXISTS `comprobante`;
+DROP TABLE IF EXISTS `footer`;
 
-CREATE TABLE `comprobante` (
-  `correlativo` int(11) NOT NULL,
-  `iddocumento` int(11) NOT NULL,
-  `tipo_comprobante` varchar(45) DEFAULT NULL,
-  `glosa_comprobante` varchar(45) DEFAULT NULL,
-  `factura_id` int(11) NOT NULL,
-  `fecha_comprobante` date DEFAULT NULL,
-  PRIMARY KEY (`correlativo`),
-  KEY `fk_Comprobante_Documento1` (`iddocumento`),
-  KEY `fk_comprobante_factura1` (`factura_id`),
-  CONSTRAINT `fk_Comprobante_Documento1` FOREIGN KEY (`iddocumento`) REFERENCES `documento` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  CONSTRAINT `fk_comprobante_factura1` FOREIGN KEY (`factura_id`) REFERENCES `factura` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
-/*Data for the table `comprobante` */
-
-/*Table structure for table `documento` */
-
-DROP TABLE IF EXISTS `documento`;
-
-CREATE TABLE `documento` (
+CREATE TABLE `footer` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `fecha_recep` date DEFAULT NULL,
-  `nombre_documento` varchar(45) DEFAULT NULL,
-  `nombre_archivo` varchar(100) DEFAULT NULL,
-  `idempresa` int(11) NOT NULL,
-  `tipo_documento` varchar(45) DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  KEY `fk_Documento_Empresa1` (`idempresa`),
-  CONSTRAINT `fk_Documento_Empresa1` FOREIGN KEY (`idempresa`) REFERENCES `empresa` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=74 DEFAULT CHARSET=latin1;
-
-/*Data for the table `documento` */
-
-insert  into `documento`(`id`,`fecha_recep`,`nombre_documento`,`nombre_archivo`,`idempresa`,`tipo_documento`) values (1,'2012-04-06','pba waaa','csi_facturas_pba_waaa_2012-04-06_74006.pdf',1,NULL),(2,'2012-04-06','waaaaaa loko','csi_facturas_waaaaaa_loko_2012-04-06_99801.pdf',1,NULL),(3,'2012-04-06','waaaaaa loko222','csi_facturas_waaaaaa_loko222_2012-04-06_46351.pdf',1,NULL),(4,'2012-04-06','waaaaaa loko2223333','csi_facturas_waaaaaa_loko2223333_2012-04-06_97517.pdf',1,NULL),(5,'2012-04-06','waaaaaa loko2223333','csi_facturas_waaaaaa_loko2223333_2012-04-06_40334.pdf',1,NULL),(7,'2012-04-06','waaaaaa loko22233335555666','csi_facturas_waaaaaa_loko22233335555666_2012-04-06_12381.pdf',1,NULL),(8,'2012-04-07','pba','Comercial_San_Ignacio_facturas_pba_2012-04-07_58471.pdf',1,NULL),(9,'2012-04-09','factura a BD','archivo.png',3,'factura'),(10,'2012-04-10','factura a bd2','src_facturas_factura_a_bd2_2012-04-10_43964.pdf',3,''),(11,'2012-04-09','pba gabriel','csi_facturas_pba_gabriel_2012-04-09_58381.pdf',1,''),(12,'2012-04-09','pba el regreso','csi_facturas_pba_el_regreso_2012-04-09_96017.pdf',1,''),(13,'2012-04-10','pba con email','__pba_con_email_2012-04-10_31724.pdf',2,'otros'),(14,'2012-04-10','pba con emial de gmail','__pba_con_emial_de_gmail_2012-04-10_73486.pdf',2,'otros'),(15,'2012-04-10','pba con sesion y weas raras llala','__pba_con_sesion_y_weas_raras_llala_2012-04-10_85458.pdf',2,'otros'),(16,'2012-04-10','pba del panamericano','pnm__pba_del_panamericano_2012-04-10_18983.pdf',4,'otros'),(17,'2012-04-10','pba del panamericano reloaded','pnm__pba_del_panamericano_reloaded_2012-04-10_71529.pdf',4,'otros'),(18,'2012-04-10','lalallaldajkdfjkadklsfjkasdfnkjasd','pnm__lalallaldajkdfjkadklsfjkasdfnkjasd_2012-04-10_63818.pdf',4,'otros'),(19,'2012-04-10','el pico','pnm__el_pico_2012-04-10_21653.pdf',4,'otros'),(20,'2012-04-10','ahhhh nada funciona','pnm__ahhhh_nada_funciona_2012-04-10_83473.pdf',4,'otros'),(21,'2012-04-10','el diablo','csi_facturas_el_diablo_2012-04-10_28609.pdf',1,''),(22,'2012-04-10','el que sabe','pnm_otros_el_que_sabe_2012-04-10_91863.pdf',4,'otros'),(23,'2012-04-10','pba del cristian','src_facturas_pba_del_cristian_2012-04-10_09398.pdf',3,''),(24,'2012-04-10','lalala','sac_facturas_lalala_2012-04-10_53431.pdf',2,''),(25,'2012-04-10','factura de pba 1','pba1.pdf',2,'facturas'),(26,'2012-04-10','factura de pba 2','pba2.pdf',1,'facturas'),(27,'2012-04-10','factura de pba 3','pba3.pdf',3,'facturas'),(28,'2012-04-10','factura de pba 4','pba4.pdf',1,'facturas'),(29,'2012-04-12',NULL,NULL,1,'factura'),(30,'2012-04-12',NULL,NULL,1,'factura'),(31,'2012-04-12',NULL,NULL,1,'factura'),(33,'2012-04-12',NULL,NULL,1,'factura'),(34,'2012-04-12',NULL,NULL,1,'factura'),(35,'2012-04-12',NULL,NULL,1,'factura'),(36,'2012-04-12',NULL,NULL,1,'factura'),(37,'2012-04-12',NULL,NULL,1,'factura'),(38,'2012-04-12',NULL,NULL,1,'factura'),(39,'2012-04-12',NULL,NULL,2,'factura'),(40,'2012-04-12',NULL,NULL,2,'factura'),(41,'2012-04-12',NULL,NULL,2,'factura'),(42,'2012-04-12',NULL,NULL,1,'factura'),(43,'2012-04-12',NULL,NULL,1,'factura'),(44,'2012-04-12',NULL,NULL,1,'factura'),(45,'2012-04-12',NULL,NULL,1,'factura'),(46,'2012-04-12',NULL,NULL,1,'factura'),(47,'2012-04-12',NULL,NULL,1,'nota'),(48,'2012-04-12',NULL,NULL,3,'nota'),(49,'2012-04-12',NULL,NULL,1,'factura'),(50,'2012-04-12',NULL,NULL,1,'factura'),(51,'2012-04-12',NULL,NULL,1,'nota'),(52,'2012-04-12',NULL,NULL,1,'nota'),(53,'2012-04-12',NULL,NULL,2,'nota'),(54,'2012-04-13','pico pal que lee','csi_factura_pico_pal_que_lee_2012-04-13_20887.pdf',1,'factura'),(55,'2012-04-13','pico pal que lee1','sac_nota_pico_pal_que_lee1_2012-04-13_38539.pdf',2,'nota'),(56,'2012-04-13','pico pal que lee2','src_nota_pico_pal_que_lee2_2012-04-13_17924.pdf',3,'nota'),(57,'2012-04-15',NULL,NULL,1,'factura'),(58,'2012-04-15','perico los paltes','src_factura_perico_los_paltes_2012-04-15_60934.pdf',3,'factura'),(59,'2012-04-15','prico plates','sac_factura_prico_plates_2012-04-15_09539.pdf',2,'factura'),(60,'2012-04-16','pba lalala lalal','csi_nota_pba_lalala_lalal_2012-04-16_33361.pdf',1,'nota'),(61,'2012-04-16',NULL,NULL,3,'factura'),(62,'2012-04-16','pba gabriel','src_nota_pba_gabriel_2012-04-16_04928.pdf',3,'nota'),(63,'2012-04-13','hola','sac_factura_hola_2012-04-13_82989.pdf',2,'factura'),(64,'2012-04-16','pba mafo1','src_nota_pba_mafo1_2012-04-16_99372.pdf',3,'nota'),(65,'2012-04-16','pba mafo','src_nota_pba_mafo_2012-04-16_19796.pdf',3,'nota'),(66,'2012-04-16',NULL,NULL,2,'factura'),(67,'2012-04-16',NULL,NULL,1,'nota'),(68,NULL,NULL,NULL,1,'factura'),(69,NULL,'otrapruebamas','csi_factura_otrapruebamas__71065.pdf',1,'factura'),(70,NULL,NULL,NULL,1,'factura'),(71,NULL,NULL,NULL,1,'factura'),(72,NULL,NULL,NULL,1,'factura'),(73,NULL,NULL,NULL,1,'factura');
-
-/*Table structure for table `empleado` */
-
-DROP TABLE IF EXISTS `empleado`;
-
-CREATE TABLE `empleado` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `nombres` varchar(45) DEFAULT NULL,
-  `apellidos` varchar(45) DEFAULT NULL,
-  `rut_empleado` varchar(45) DEFAULT NULL,
-  `correo` varchar(45) DEFAULT NULL,
-  `departamento` varchar(45) DEFAULT NULL,
-  `cargo` varchar(45) DEFAULT NULL,
-  `username` varchar(45) DEFAULT NULL,
-  `password` varchar(45) DEFAULT NULL,
-  `idperfil` int(11) NOT NULL,
-  PRIMARY KEY (`id`),
-  KEY `fk_Empleado_perfil1` (`idperfil`),
-  CONSTRAINT `fk_Empleado_perfil1` FOREIGN KEY (`idperfil`) REFERENCES `perfil` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=latin1;
-
-/*Data for the table `empleado` */
-
-insert  into `empleado`(`id`,`nombres`,`apellidos`,`rut_empleado`,`correo`,`departamento`,`cargo`,`username`,`password`,`idperfil`) values (1,'Gabriel Francisco','Poblete Cuadra','16839237-0','poblete.cuadra@live.cl','partes','secretario','gpc','03012005',1),(3,'Cristian Andres','Ortiz Navia','15030630-8','cristian.ortiz@alumnos.uda.cl','contabilidad','Contador','cortiz','cortiz',2),(7,'Waldemar','Ardiles','16839237-0','waldemar@live.cl','partes','goma','walde','walde',1),(8,'Natalia','Munoz','16839237-0','natalia@live.cl','contabilidad','contadora','natalia','1234',1),(9,'Julio','Poblete','16839237-0','julio@live.cl','tesoreria','tesorero','julio','poblete',1),(10,'Pilar','Cuadra','16839237-0','pilar@live.cl','partes','secretaria','pilar','pili',1),(11,'Maria Isabel','Castillo Rojas','17456890-1','maria.castillo@live.cl','archivo','Encargada Archivos','maria','maria',2);
-
-/*Table structure for table `empresa` */
-
-DROP TABLE IF EXISTS `empresa`;
-
-CREATE TABLE `empresa` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `nombre_empresa` varchar(45) DEFAULT NULL,
-  `rut_empresa` varchar(45) DEFAULT NULL,
-  `rubro_empresa` varchar(45) DEFAULT NULL,
-  `descripcion_empresa` varchar(250) DEFAULT NULL,
-  `sigla_empresa` varchar(45) DEFAULT NULL,
+  `contenido` text,
+  `fecha` date DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=54 DEFAULT CHARSET=latin1;
 
-/*Data for the table `empresa` */
+/*Data for the table `footer` */
 
-insert  into `empresa`(`id`,`nombre_empresa`,`rut_empresa`,`rubro_empresa`,`descripcion_empresa`,`sigla_empresa`) values (1,'Comercial San Ignacio','0000-0',NULL,NULL,'csi'),(2,'Sociedad Administrativa Contable','0000-1',NULL,NULL,'sac'),(3,'Sociedad Rent a Car','0000-2',NULL,NULL,'src'),(4,'Sociedad Panamerica','0000-3','I','Restaurant con harta pechuga..','pnm');
+insert  into `footer`(`id`,`contenido`,`fecha`) values (47,'Se suspende la clase de Sistemas Operativos de hoy martes a las 11:30','2012-04-11'),(48,'Reunion de el CEAL DIICC jueves 25 a las 13:00 no faltar','2012-04-11'),(50,'Seminario de Incorporacion de TI martes 23 a las 17:00 Auditorio edificio de Minas','2012-04-11'),(51,'Prueba de Teoria Economica mañana viernes a las 11:30 sala DIIC-2','2012-04-14'),(52,'Inscripciones abiertas para Ayudantes DIICC dejar datos en Secretaria','2012-04-14'),(53,'Reunion de alumnos memoristas sala viernes 30 15:30 Hr, sala DIIC-1 con el profesor Dante Carrizo','2012-04-16');
 
-/*Table structure for table `factura` */
+/*Table structure for table `lateral` */
 
-DROP TABLE IF EXISTS `factura`;
+DROP TABLE IF EXISTS `lateral`;
 
-CREATE TABLE `factura` (
-  `numero_factura` int(11) DEFAULT NULL,
-  `fecha_emision` date DEFAULT NULL,
-  `iddocumento` int(11) NOT NULL,
-  `idproveedor` int(11) NOT NULL,
+CREATE TABLE `lateral` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `tipo_factura` varchar(45) DEFAULT NULL,
-  `correlativo_manager` varchar(45) DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `id` (`id`),
-  KEY `fk_Factura_Proveedor1` (`idproveedor`),
-  KEY `fk_Factura_Documento` (`iddocumento`),
-  CONSTRAINT `fk_Factura_Documento` FOREIGN KEY (`iddocumento`) REFERENCES `documento` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  CONSTRAINT `fk_Factura_Proveedor1` FOREIGN KEY (`idproveedor`) REFERENCES `proveedor` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=57 DEFAULT CHARSET=latin1;
+  `contenido` text,
+  `fecha` date DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=latin1;
 
-/*Data for the table `factura` */
+/*Data for the table `lateral` */
 
-insert  into `factura`(`numero_factura`,`fecha_emision`,`iddocumento`,`idproveedor`,`id`,`tipo_factura`,`correlativo_manager`) values (1,'2012-04-13',54,5,37,'compra','4849'),(2,'2012-04-13',55,4,38,'debito','4850'),(3,'2012-04-13',56,3,39,'credito','4851'),(4,'2012-04-15',57,2,40,'compra','234'),(5,'2012-04-15',58,1,41,'compra','4850'),(6,'2012-04-13',59,1,42,'compra','4852'),(7,'2012-04-16',60,5,43,'credito','4853'),(8,'2012-04-16',61,5,44,'compra',NULL),(9,'2012-04-16',62,2,45,'debito','4854'),(10,'2012-04-09',63,5,46,'compra','788'),(11,'2012-04-16',64,1,47,'debito','4855'),(12,'2012-04-16',65,1,48,'credito','4856'),(13,'2012-04-16',66,2,49,'compra',NULL),(14,'2012-04-16',67,3,50,'debito',NULL),(15,'2012-04-16',68,3,51,'venta','4856'),(16,'2012-04-16',69,1,52,'venta','4857'),(17,'2012-04-16',70,1,53,'venta','4858'),(19,'2012-04-16',71,3,54,'venta','4859'),(20,'2012-04-16',72,3,55,'venta','4860'),(21,'2012-04-16',73,1,56,'venta','4861');
-
-/*Table structure for table `historial_documento` */
-
-DROP TABLE IF EXISTS `historial_documento`;
-
-CREATE TABLE `historial_documento` (
-  `fecha_envio` datetime NOT NULL,
-  `estado` varchar(45) DEFAULT NULL,
-  `depto_origen` varchar(45) DEFAULT NULL,
-  `depto_destino` varchar(45) DEFAULT NULL,
-  `emp_origen` int(11) DEFAULT NULL,
-  `emp_destino` int(11) DEFAULT NULL,
-  `documento_id` int(11) NOT NULL,
-  KEY `fk_historial_documento_documento1` (`documento_id`),
-  KEY `FK_historial_emp2` (`emp_origen`),
-  CONSTRAINT `FK_historial_emp2` FOREIGN KEY (`emp_origen`) REFERENCES `empleado` (`id`),
-  CONSTRAINT `fk_historial_documento_documento1` FOREIGN KEY (`documento_id`) REFERENCES `documento` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  CONSTRAINT `FK_historial_emp` FOREIGN KEY (`emp_origen`) REFERENCES `empleado` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
-/*Data for the table `historial_documento` */
-
-insert  into `historial_documento`(`fecha_envio`,`estado`,`depto_origen`,`depto_destino`,`emp_origen`,`emp_destino`,`documento_id`) values ('2012-04-13 00:00:00','procesado','partes','tesoreria',1,9,54),('2012-04-15 00:00:00','procesado','partes','tesoreria',1,9,55),('2012-04-15 00:00:00','procesado','partes','tesoreria',1,9,56),('2012-04-15 00:00:00','procesado','partes','tesoreria',1,9,57),('2012-04-15 00:00:00','procesado','partes','tesoreria',1,9,58),('2012-04-15 00:00:00','procesado','partes','tesoreria',1,9,59),('2012-04-15 00:00:00','procesado','tesoreria','archivo',9,11,56),('2012-04-15 00:00:00','archivado','tesoreria','archivo',9,11,55),('2012-04-15 00:00:00','procesado','tesoreria','archivo',9,11,54),('2012-04-16 00:00:00','procesado','archivo','contabilidad',11,8,54),('2012-04-16 00:00:00','procesado','tesoreria','archivo',9,11,58),('2012-04-16 00:00:00','enviado','archivo','contabilidad',11,8,58),('2012-04-16 00:00:00','procesado','tesoreria','archivo',9,11,59),('2012-04-16 00:00:00','enviado','archivo','contabilidad',11,8,59),('2012-04-16 00:00:00','procesado','partes','tesoreria',1,9,60),('2012-04-16 00:00:00','procesado','tesoreria','archivo',9,11,60),('2012-04-16 00:00:00','procesado','archivo','contabilidad',11,8,60),('0000-00-00 00:00:00','cola','partes',NULL,1,NULL,61),('2012-04-16 00:00:00','procesado','partes','tesoreria',1,9,62),('2012-04-16 00:00:00','procesado','partes','tesoreria',1,9,63),('2012-04-16 00:00:00','procesado','tesoreria','archivo',9,11,63),('2012-04-16 00:00:00','enviado','archivo','contabilidad',11,8,63),('2012-04-16 00:00:00','procesado','archivo','contabilidad',11,8,56),('2012-04-16 00:00:00','enviado','tesoreria','default',9,0,57),('2012-04-16 00:00:00','procesado','partes','tesoreria',1,9,64),('2012-04-16 00:00:00','procesado','partes','tesoreria',1,9,65),('2012-04-16 00:00:00','enviado','partes','tesoreria',1,9,66),('2012-04-16 00:00:00','enviado','partes','tesoreria',1,9,67),('2012-04-16 00:00:00','procesado','tesoreria','archivo',9,11,64),('2012-04-16 00:00:00','procesado','tesoreria','archivo',9,11,65),('2012-04-16 00:00:00','archivado','tesoreria','archivo',9,11,62),('2012-04-16 00:00:00','procesado','archivo','contabilidad',11,8,64),('2012-04-16 00:00:00','enviado','archivo','contabilidad',11,8,65),('2012-04-16 00:00:00','archivado','contabilidad','archivo',8,11,54),('2012-04-16 00:00:00','archivado','contabilidad','archivo',8,11,60),('2012-04-16 00:00:00','archivado','contabilidad','archivo',8,11,64),('2012-04-16 00:00:00','enviado','contabilidad','archivo',8,11,56),('2012-04-17 00:00:00','enviado','contabilidad','archivo',8,11,68),('2012-04-17 00:00:00','enviado','contabilidad','archivo',8,11,69),('0000-00-00 00:00:00','cola','contabilidad',NULL,8,NULL,70),('0000-00-00 00:00:00','cola','contabilidad',NULL,8,NULL,71),('0000-00-00 00:00:00','cola','contabilidad',NULL,8,NULL,72),('0000-00-00 00:00:00','cola','contabilidad',NULL,8,NULL,73);
-
-/*Table structure for table `nota` */
-
-DROP TABLE IF EXISTS `nota`;
-
-CREATE TABLE `nota` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `fecha_emision` date DEFAULT NULL,
-  `tipo` varchar(45) DEFAULT NULL,
-  `iddocumento` int(11) NOT NULL,
-  `idproveedor` int(11) NOT NULL,
-  PRIMARY KEY (`id`),
-  KEY `fk_nota_documento1` (`iddocumento`),
-  KEY `fk_nota_proveedor1` (`idproveedor`),
-  CONSTRAINT `fk_nota_documento1` FOREIGN KEY (`iddocumento`) REFERENCES `documento` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  CONSTRAINT `fk_nota_proveedor1` FOREIGN KEY (`idproveedor`) REFERENCES `proveedor` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
-/*Data for the table `nota` */
+insert  into `lateral`(`id`,`contenido`,`fecha`) values (2,'Nuevas publicaciones hechas por los academicos DIICC son seleccionadas para ser expuestas en diversos congresos internacionales.','2012-01-10'),(5,'Parte la seleccion del equipo DIICC para participar en la competencia de programacion de la ASM interesados hablar con el profesor Dante Carrizo\n','2012-03-15'),(6,'proximo a iniciar proyecto para transformar al DIICC en eficio inteligente, charla informativa jueves 15 a las 12:30 hr sala DIICC-1','2012-04-09'),(7,'Se inicia proceso de postulacion a becas de magister  y doctorado en el extranjero del programa Becas Chile mas detalles en www.becaschile.cl','2012-04-09');
 
 /*Table structure for table `perfil` */
 
 DROP TABLE IF EXISTS `perfil`;
 
 CREATE TABLE `perfil` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `tipo` varchar(45) DEFAULT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
+  `id_perfil` varchar(45) NOT NULL,
+  PRIMARY KEY (`id_perfil`),
+  UNIQUE KEY `id_perfil_UNIQUE` (`id_perfil`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 /*Data for the table `perfil` */
 
-insert  into `perfil`(`id`,`tipo`) values (1,'ADMIN'),(2,'OPT');
+insert  into `perfil`(`id_perfil`) values ('administrador'),('coordinador');
 
-/*Table structure for table `proveedor` */
+/*Table structure for table `principal` */
 
-DROP TABLE IF EXISTS `proveedor`;
+DROP TABLE IF EXISTS `principal`;
 
-CREATE TABLE `proveedor` (
+CREATE TABLE `principal` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `rut_proveedor` varchar(45) DEFAULT NULL,
-  `nombre_proveedor` varchar(45) DEFAULT NULL,
-  `rubro_proveedor` varchar(45) DEFAULT NULL,
-  `descripcion_proveedor` varchar(250) DEFAULT NULL,
-  `sigla_proveedor` varchar(45) DEFAULT NULL,
+  `titulo` varchar(50) DEFAULT NULL,
+  `descripcion` varchar(100) DEFAULT NULL,
+  `contenido` text,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
 
-/*Data for the table `proveedor` */
+/*Data for the table `principal` */
 
-insert  into `proveedor`(`id`,`rut_proveedor`,`nombre_proveedor`,`rubro_proveedor`,`descripcion_proveedor`,`sigla_proveedor`) values (1,'1111-1','Cencosud Easy Ltda',NULL,NULL,NULL),(2,'2222-2','Cencosud Jumbo Ltda',NULL,NULL,NULL),(3,'3333-3','Wall-Mart Lider Ltda',NULL,NULL,NULL),(4,'4444-4','Unimarc','H','Empresa de abarrotes',NULL),(5,'5555-5','Santa Isabel Ltda','H','Empresa de abarrotes.','SANIL');
+insert  into `principal`(`id`,`titulo`,`descripcion`,`contenido`) values (1,'Historia','Nuestros Orígenes','El año 2000, se creó el Departamento de Ingeniería Informática y Ciencias de la Computación, a partir de la separación de las áreas de Computación e Industria del Departamento de Matemáticas y Ciencias de la Computación. Paralelamente, ese mismo año se crearon los nuevos planes de estudios de la carrera de Ingenierá Civil en Computación e Informática, la que comienza a recibir sus primeros alumnos a partir del año 2001. Actualmente, el DIICC dicta las carreras de IngenieríaCivil en Computación e Informática, presta servicios a otras unidades académicas de la Universidad, realiza actividades de extensión y se está incorporando a las actividades de investigación'),(2,'Mision/Vision','Lineamientos Estrategicos',' El Departamento de Ingeniería Informática y Ciencias de la Computación pertenece a la Facultad de Ingeniería de la Universidad de Atacama y\r\n comparte con ellas su filosofia centrada en la ética, cultura, desarrollo sustentable y equidad social.\r\n Nuestra misión consiste en cultivar las Ciencias de la Computación y la Ingeniería Informática, a través de la\r\n investigación, divulgación, aplicación y formación de profesionales, contribuyendo de esta forma, al progreso de nuestro país.\r\n <h2>Vision del Departamento</h2>\r\n Ser una unidad académica de excelencia en investigación, docencia y extensión, reconocida a nivel nacional e \r\n internacional en el ámbito de las ciencias de la computación e informática.'),(3,'Carreras','Ingeniería Civil en Computación e Informatica','La carrera de Ingeniería Civil en Computación e Informática tiene como objetivo crear un ingeniero que\neste orientado a diseñar, desarrollar y gestionar soluciones computacionales integradas, \nesto incluye: \ndesarrollo de sistemas, elaboración de planes informáticos y adaptación de nuevas tecnologías en su campo de acción.'),(4,'Áreas','Areas de Desarrollo Profesional','<h2>Desarrollo de Sistemas</h2>\n Comprende asignaturas que incorporan el uso de herramientas de desarrollo, metodologías y técnicas para la construcción de sistemas de información.\n   <h2>Comunicación</h2>\n   Comprende asignaturas que entregan conocimientos para la implementación, administración y gestión de \n   redes de información.\n  <h2>Gestión Informática</h2>\n   Comprende asignaturas que incorporan herramientas y metodologías del área de gestión para administrar \n   recursos informáticos e incorporar tecnologías de la información en las organizaciones.\n  <h2>Gestión Empresarial</h2>\n  Comprende asignaturas que incorporan conocimientos y metodologías para la \n  gestión y creación de empresas, principalmente incorporando tecnologías de la información.');
 
-/* Function  structure for function  `ingresar_documento` */
+/*Table structure for table `video` */
 
-/*!50003 DROP FUNCTION IF EXISTS `ingresar_documento` */;
-DELIMITER $$
+DROP TABLE IF EXISTS `video`;
 
-/*!50003 CREATE DEFINER=`root`@`localhost` FUNCTION `ingresar_documento`(fecha_recep DATE,nombre_documento VARCHAR(45),idempresa INT,tipo_documento VARCHAR(45),
- depto_destino VARCHAR(45), emp_destino VARCHAR(45),nombre_archivo VARCHAR(100) ) RETURNS int(11)
-BEGIN
-	DECLARE id_documento INT;
- 	 INSERT INTO documento (fecha_recep,nombre_documento,nombre_archivo,idempresa,tipo_documento)
- VALUES (fecha_recep,nombre_documento,nombre_archivo,idempresa,tipo_documento);
- 	 SELECT MAX(id) INTO id_documento FROM documento;
- 	 	 INSERT INTO historial_documento (fecha_envio,estado,depto_origen,depto_destino,emp_origen, emp_destino, documento_id)
- VALUES (fecha_recep,'enviado','partes',depto_destino,'test_user', emp_destino, id_documento);
- 	 RETURN 1;
-    END */$$
-DELIMITER ;
+CREATE TABLE `video` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `nombre` varchar(30) DEFAULT NULL,
+  `descripcion` varchar(100) DEFAULT NULL,
+  `url` text,
+  `tipo` varchar(40) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=22 DEFAULT CHARSET=latin1;
 
-/* Function  structure for function  `ingresar_factura` */
+/*Data for the table `video` */
 
-/*!50003 DROP FUNCTION IF EXISTS `ingresar_factura` */;
-DELIMITER $$
+insert  into `video`(`id`,`nombre`,`descripcion`,`url`,`tipo`) values (19,'sintel1.webm','video webm','http://localhost/delphos/recursos/videos/sintel1.webm','video/webm'),(20,'video2.mp4','video mp4 pueba','http://localhost/delphos/recursos/videos/video2.mp4','video/mp4'),(21,'video online','Video de prueba online','http://www.youtube.com/watch?v=wXE2pn_s818','video/youtube');
 
-/*!50003 CREATE DEFINER=`root`@`localhost` FUNCTION `ingresar_factura`(idempresa INT,tipo_documento VARCHAR(45),tipo_factura VARCHAR(45),
-idproveedor INT(11),numero_factura INT,fecha_recep DATE, fecha_emi DATE, emp_origen VARCHAR(45), depto_origen VARCHAR(45), estado VARCHAR (45)) RETURNS int(11)
-BEGIN
- 	 DECLARE id_documento INT;
-		INSERT INTO documento (fecha_recep,idempresa,tipo_documento)
-		VALUES (fecha_recep,idempresa,tipo_documento);
- 	 SELECT MAX(id) INTO id_documento FROM documento;
- 	 	 INSERT INTO factura (numero_factura,fecha_emision,iddocumento,idproveedor,tipo_factura)
-		 VALUES (numero_factura,fecha_emi,id_documento,idproveedor,tipo_factura);
-		 INSERT INTO historial_documento(depto_origen, emp_origen, documento_id, estado)
-		 VALUES(depto_origen, emp_origen, id_documento, estado);
- 	 RETURN 1;
- 		 END */$$
-DELIMITER ;
+/*Table structure for table `visualizar` */
 
-/* Function  structure for function  `ingresar_factura_venta` */
+DROP TABLE IF EXISTS `visualizar`;
 
-/*!50003 DROP FUNCTION IF EXISTS `ingresar_factura_venta` */;
-DELIMITER $$
+CREATE TABLE `visualizar` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `desplegar` varchar(20) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
 
-/*!50003 CREATE DEFINER=`root`@`localhost` FUNCTION `ingresar_factura_venta`(idempresa INT,tipo_documento VARCHAR(45),tipo_factura VARCHAR(45),
-idproveedor INT(11),numero_factura INT, fecha_emi DATE, correlativo VARCHAR(45),emp_origen VARCHAR(45), depto_origen VARCHAR(45), estado VARCHAR (45)) RETURNS int(11)
-BEGIN
- 	 DECLARE id_documento INT;
-		INSERT INTO documento (idempresa,tipo_documento)
-		VALUES (idempresa,tipo_documento);
- 	 SELECT MAX(id) INTO id_documento FROM documento;
- 	 	 INSERT INTO factura (numero_factura,fecha_emision,iddocumento,idproveedor,tipo_factura, correlativo_manager)
-		 VALUES (numero_factura,fecha_emi,id_documento,idproveedor,tipo_factura, correlativo);
-		 INSERT INTO historial_documento(depto_origen, emp_origen, documento_id, estado)
-		 VALUES(depto_origen, emp_origen, id_documento, estado);
- 	 RETURN 1;
- 		 END */$$
-DELIMITER ;
+/*Data for the table `visualizar` */
+
+insert  into `visualizar`(`id`,`desplegar`) values (1,'texto');
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
 /*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
