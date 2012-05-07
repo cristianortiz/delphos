@@ -6,11 +6,12 @@
     <ul>
 		<li><a href="<?echo base_url('panel_principal/editar');?>">Articulos</a></li>
 		<li><a href="<?echo base_url('panel_principal/videos');?>">Videos</a></li>
-		<li><a href="<?echo base_url('panel_principal/opciones');?>">Opciones</a></li>
-        <li class="session"><a href="<?echo base_url('login/cerrar_sesion');?>">Cerrar Sesion</a></li>		
+		<li><a href="<?echo base_url('panel_principal/opciones');?>">Opciones</a></li>		
 	</ul>
   </nav>
+  <h4>Bienvenido <?php echo strtoupper($this->session->userdata('username'));?> <a id="session_panel" href="<? echo base_url('login/cerrar_sesion');?>">Cerrar Sesion</a></h4>
   <h2> Panel Principal: Articulos </h2>
+  
  <h3>Lista de Articulos del Panel Principal</h3>
      <table id="tabla_avisos">
        <thead>

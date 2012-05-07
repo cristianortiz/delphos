@@ -1,9 +1,9 @@
 
  <div id="edicion_panel">
- <h2>Editar Panel Lateral</h2>
- <h3>Para agregar una nueva noticiao al panel lateral  presione <a id="crear_aviso"  class="crear_noticia_lat" href="#">Nueva Noticia</a></h3>
- <h3>Utilice la tabla para editar o eliminar las Noticias existentes</h3>
- 
+ <h4>Bienvenido <?php echo strtoupper($this->session->userdata('username'));?> <a id="session_panel" href="<? echo base_url('login/cerrar_sesion');?>">Cerrar Sesion</a></h4>
+ <h2>Panel Lateral: Editar Noticias</h2>
+ <h3>Agregar Noticias <a id="crear_aviso"  class="crear_noticia_lat" href="#">Nueva Noticia</a></h3>
+ <h3>Lista de Noticias</h3>
      <table id="tabla_avisos">
        <thead>
           <tr>                                                     

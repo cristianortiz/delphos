@@ -10,8 +10,9 @@
 	
 	</ul>
   </nav>
+<h4>Bienvenido <?php echo strtoupper($this->session->userdata('username'));?> <a id="session_panel" href="<? echo base_url('login/cerrar_sesion');?>">Cerrar Sesion</a></h4>  
 <h2>Panel Principal: Opciones</h2>
-<h3>Configurar el panel principal para mostrar videos o articulos de texto en la lista desplegable</h3>
+<h3>Configurar  para reproducir lista de videos o articulos texto animado</h3>
  
  <form id="visualizar">
  <label for="opcion">Elegir Visualizacion</label>

@@ -238,11 +238,10 @@ class Panel_principal extends CI_Controller
     public function consultar_video($id)
     {
         $respuesta = $this->Panel_principal_model->get_video($id);
-        //echo json_encode($respuesta);
-        // echo '{"nombre":"' . utf8_encode($respuesta['nombre']) . '","id":"' . $id . '"}';
         echo json_encode(array(
-            'nombre' => utf8_encode($respuesta['url']),
+            'nombre' => utf8_encode($respuesta['nombre']),
             'id' => $id,
+            'desc' => $respuesta['descripcion'],
             'tipo' => $respuesta['tipo']));
     }
     public function borrar_video()
@@ -257,11 +256,12 @@ class Panel_principal extends CI_Controller
         try {
 
             $file_id = $this->Panel_principal_model->borrar_video($id);
+            
+            if ($tipo_video != 'video/youtube') {
+                unlink('./recursos/videos/'.$nombre_video);
+            }
             $status = "success";
             $msg = "Video borrado exitosamente!";
-            if ($tipo_video != 'video/youtube') {
-                unlink('.recursos/videos/'.$nombre_video);
-            }
         }
         catch (exception $e) {
             $status = "error";

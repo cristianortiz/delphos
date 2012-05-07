@@ -449,7 +449,7 @@ $(document).ready(function() {
 				'desc': desc
 			},
 			success: function(data, status) {
-				$('#video_ok_dialog > p').html(data.msg);
+				$('#video_ok_dialog > p').html('<h3>'+data.msg+'</h3>');
 				$('#video_ok_dialog').dialog('option', 'title', 'Subir Videos').dialog('open');
 			}
 		});
@@ -463,7 +463,7 @@ $(document).ready(function() {
 			dataType: 'json',
 			data: $('#video-online').serialize(),
 			success: function(data) {
-				$('#video_ok_dialog > p').html(data.msg);
+				$('#video_ok_dialog > p').html('<h3>'+data.msg+'</h3>');
 				$('#video_ok_dialog').dialog('option', 'title', 'Subir Videos').dialog('open');
 			}
 		});
@@ -488,7 +488,7 @@ $(document).ready(function() {
 			dataType: 'json',
 			success: function(data) {
 				$('#form_borrar_video #nombre_video').val(data.nombre);
-				$('#form_borrar_video > h4').html(data.nombre);
+				$('#form_borrar_video > h4').html(data.desc);
                 $('#form_borrar_video #tipo_video').val(data.tipo);
 				$('#form_borrar_video #id').val(id);
 				//abrimos el cuadro de dialogo que contendra el mensaje de confirmacion             
@@ -525,11 +525,13 @@ $(document).ready(function() {
 			}
 		}
 	});
-   $("a.subir-video").click( function() {
+   $("a.subir-video").click( function(event) {
+    event.preventDefault();
               $('div.video-online').slideUp('slow');
               $('div.subir-video').slideDown('slow');
            });
-   $("a.video-online").click(function() {
+   $("a.video-online").click(function(event) {
+    event.preventDefault();
               $('div.subir-video').slideUp('slow');
               $('div.video-online').slideDown('slow');
             	});

@@ -18,7 +18,7 @@ class Panel_principal_model extends CI_Model {
     
      function get_video($id)
     {
-        $this->db->select('id,nombre,url,tipo');
+        $this->db->select('id,nombre,url,tipo,descripcion');
         $this->db->where('id', $id);                    
         $consulta = $this->db->get('video');
         return $consulta->row_array();           

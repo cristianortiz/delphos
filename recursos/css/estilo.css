@@ -71,10 +71,10 @@ header{
     
 } 
 
-span{
+span.diicc{
     font-family: Aquaduct;
     font-size: 48px;
-    color: lightgray;
+    color: white;
 }
 #header-text{
     display: inline-table;
@@ -82,11 +82,33 @@ span{
     color:white;
     padding:  10px;
     width: 72%;
-    text-shadow:0px 0px 5px rgba(0,200,255,0);
-    
     -webkit-text-shadow:0px 0px 5px rgba(0,200,255,0);
     -moz-text-shadow:0px 0px 5px rgba(0,200,255,0);     
-   
+    animation: registrate 2s; 
+      
+    -webkit-animation: registrate 8s;
+    -moz-animation: registrate 8s; 
+                 
+    -webkit-animation-iteration-count:infinite;
+    -moz-animation-iteration-count:infinite;   
+     
+}
+ @-webkit-keyframes registrate{
+        0%{text-shadow:0px 0px 15px rgba(0,200,255,0);}
+        50%{text-shadow:0px 0px 15px rgba(0,200,255,1);}
+        100%{text-shadow:0px 0px 15px rgba(0,200,255,0);}        
+    }
+    
+    @-moz-keyframes registrate{
+        0%{text-shadow:0px 0px 15px rgba(0,200,255,0);}
+        50%{text-shadow:0px 0px 15px rgba(0,200,255,1);}
+        100%{text-shadow:0px 0px 15px rgba(0,200,255,0);}        
+    }
+      @keyframes registrate{
+        0%{text-shadow:0px 0px 15px rgba(0,200,255,0);}
+        50%{text-shadow:0px 0px 15px rgba(0,200,255,1);}
+        100%{text-shadow:0px 0px 15px rgba(0,200,255,0);}        
+    } 
      
 }
 #header-text h2{

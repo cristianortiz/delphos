@@ -1,7 +1,9 @@
  <div id="edicion_panel">
- <h2>Editar Panel Inferior</h2>
- <h3>Para agregar un nuevo aviso a la cinta de mensajes presione <a id="crear_aviso" class="crear_aviso_pi" href="#">Nuevo Aviso</a></h3>
- <h3>Utilice la tabla para editar o eliminar los avisos existentes</h3>
+  <h4>Bienvenido <?php echo strtoupper($this->session->userdata('username'));?> <a id="session_panel" href="<? echo base_url('login/cerrar_sesion');?>">Cerrar Sesion</a></h4>
+  
+ <h2>Panel Inferior: Editar Cinta de Avisos</h2>
+ <h3>Agregar Nuevos Mensajes <a id="crear_aviso" class="crear_aviso_pi" href="#">Nuevo Aviso</a></h3>
+ <h3>Mensajes de la Cinta de Avisos</h3>
  
      <table id="tabla_avisos">
        <thead>

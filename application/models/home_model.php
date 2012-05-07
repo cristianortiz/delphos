@@ -47,6 +47,7 @@ class Home_model extends CI_Model {
 
     public function filas_paginadas($tabla,$limit, $start) {
         $this->db->limit($limit, $start);
+        $this->db->order_by("fecha", "desc"); 
         $query = $this->db->get($tabla);
 
         if ($query->num_rows() > 0) {

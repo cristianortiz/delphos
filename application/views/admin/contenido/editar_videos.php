@@ -12,6 +12,7 @@
 			</li>
 		</ul>
 	</nav>
+    <h4>Bienvenido <?php echo strtoupper($this->session->userdata('username'));?> <a id="session_panel" href="<? echo base_url('login/cerrar_sesion');?>">Cerrar Sesion</a></h4>
     <h2>Panel Principal: Videos</h2>
 	<a class="subir-video" href="#">Subir Video</a>	<a class="video-online" href="#">Video Online</a>
 	<div id="contenedor_form_video" class="subir-video">
@@ -30,7 +31,7 @@
 		</form>
 	</div>
     <div id="contenedor_form_video" class="video-online">
-     <h3>Agrega un video online</h3>
+     <h3>Agrega un video online desde <span style="padding-left: 7px;"><img src="<? echo base_url('recursos/images/youtube-icon.png');?>"  /></span></h3>
 		<form method="post" action="" class="form_videos" id="video-online">
 			<label for="titulo">Titulo</label>
 			<input type="text" name="titulo" id="titulo" value="" />
@@ -52,6 +53,7 @@
 	        <table id="tabla_avisos">
 	         <thead>
 			  <tr>
+                <th>fecha</th>
 				<th>Nombre</th>
 				<th>Descripcion</th>
                 <th>Tipo</th>
@@ -61,11 +63,12 @@
 		     <tbody>		
              <?foreach($videos as $row){
 		       echo '
-              <tr id="fila'.$row[ 'id']. '">                 
-		        <td id="f1"> '.$row[ 'nombre'] . '</td> 
-		        <td id="f2"> '.$row[ 'descripcion'] . '</td>
-                <td id="f1"> '.$row[ 'tipo'] . '</td>
-		        <td id="f4"><a href="'.$row[ 'id']. '" class="eliminar_video">Borrar</a></td>
+              <tr id="fila'.$row[ 'id']. '">
+                <td id="f1"> '.$row[ 'fecha'] . '</td>                 
+		        <td id="f2"> '.$row[ 'nombre'] . '</td> 
+		        <td id="f3"> '.$row[ 'descripcion'] . '</td>
+                <td id="f4"> '.$row[ 'tipo'] . '</td>
+		        <td id="f5"><a href="'.$row[ 'id']. '" class="eliminar_video">Borrar</a></td>
 		      </tr> '; }
                  }?>
 		</tbody>

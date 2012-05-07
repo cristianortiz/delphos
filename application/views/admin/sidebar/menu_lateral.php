@@ -1,5 +1,5 @@
  <div id="menu-lateral">
-       
+  <h3>Menu Principal</h3>     
          <ul class="ca-menu">
             <li><a href="<?echo base_url('panel_principal/editar');?>"><h2 class="ca-main">Panel Principal</h2>
 			            	</a>
