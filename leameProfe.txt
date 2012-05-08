@@ -10,8 +10,17 @@ Profesor, Para instalar, usar cualquier servidor LAMP como xaamp o wampserver,
         por campo y tipo de texto ingresado.
    3. Diseñar algo para mostrar el contenido en texto y el contenido en video del panel principal de forma
       cicilica, alternada y automatica sin configuraciones por parte del usuario.
-   4. verificar formatos de reproduccion de video, elegir entre formatos html5 o solamente flash
-   5. Determinar la cantidad de caracteres por aviso en el panel inferior cant de caract por noticia en el panel lateral. paginar
-      los resultados al consultar por los avisos y noticias que se vayan agregando
-   6. probar en las pantallas del DIICC llevar cable hdmi-dvi para ver la instalacion fisica.  
-   7.implemetanr metodos para elminar videos que hayan sido subidos   
+  
+  
+  configrar en CentOS 6.2
+  - verificar que en /etc/php.ini este habilitado short_open_tag =On
+  -aegurarse que se carga el ModeRewrite en el httpd.conf con:
+     LoadModule rewrite_module modules/mod_rewrite.so 
+  - en /etc/httpd/conf/httpd.conf verificar las siguientes lineas para que funcione el .httacces
+  
+  <Directory "/some/absolute/path/htdocs">
+    Options Indexes Includes FollowSymLinks MultiViews
+    AllowOverride AuthConfig FileInfo
+    Order allow,deny
+    Allow from all
+</Directory> 
