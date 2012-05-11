@@ -3,7 +3,7 @@
  <nav>
     <ul>
 	
-		<li><a href="<?echo base_url('panel_principal');?>">Articulos</a></li>
+		<li><a href="<?echo base_url('panel_principal7editar');?>">Articulos</a></li>
 		<li><a href="<?echo base_url('panel_principal/videos');?>">Videos</a></li>
 		<li><a href="<?echo base_url('panel_principal/opciones');?>">Opciones</a></li>
 		

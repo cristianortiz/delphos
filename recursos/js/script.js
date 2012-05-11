@@ -1,5 +1,5 @@
 $(document).ready(function() {
-
+var base_url = 'localhost/delphos/';
 $("#avisos").carouFredSel({
 	
 	items: {
@@ -121,8 +121,8 @@ $("#lateral").carouFredSel({
       useYTIframeAPI: false, 
 	width: 980,
 	height: 570,
-    playerFlashMP4:         'http://localhost/delphos/recursos/js/jarisplayer.swf',
+    playerFlashMP4:         base_url+'delphos/recursos/js/jarisplayer.swf',
 	controls: true,
-	playlist: [{0:{src:'http://localhost/delphos/home/carga_playlist', type:"text/json"}}] 
+	playlist: [{0:{src:base_url+'delphos/home/carga_playlist', type:"text/json"}}] 
     });  
 });

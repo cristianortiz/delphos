@@ -128,12 +128,13 @@ CREATE TABLE `video` (
   `descripcion` varchar(100) DEFAULT NULL,
   `url` text,
   `tipo` varchar(40) DEFAULT NULL,
+  `fecha` date DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=22 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=30 DEFAULT CHARSET=latin1;
 
 /*Data for the table `video` */
 
-insert  into `video`(`id`,`nombre`,`descripcion`,`url`,`tipo`) values (19,'sintel1.webm','video webm','http://localhost/delphos/recursos/videos/sintel1.webm','video/webm'),(20,'video2.mp4','video mp4 pueba','http://localhost/delphos/recursos/videos/video2.mp4','video/mp4'),(21,'video online','Video de prueba online','http://www.youtube.com/watch?v=wXE2pn_s818','video/youtube');
+insert  into `video`(`id`,`nombre`,`descripcion`,`url`,`tipo`,`fecha`) values (26,'sintel.webm','sintel promocion','http://localhost/delphos/recursos/videos/sintel.webm','video/webm','2012-05-04'),(27,'video.mp4','video mp4 de prueba','http://localhost/delphos/recursos/videos/video.mp4','video/mp4','2012-05-03'),(29,'video online','video online','http://www.youtube.com/watch?v=wXE2pn_s818','video/youtube','2012-05-01');
 
 /*Table structure for table `visualizar` */
 

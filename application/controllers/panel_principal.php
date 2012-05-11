@@ -160,7 +160,7 @@ class Panel_principal extends CI_Controller
         $ruta = './recursos/videos';
         if (!file_exists($ruta)) {
             //creamos el directorio para la empresa nueva agregada y le asignamos permisos de lec/esct
-            mkdir($ruta, 777);
+           mkdir($ruta, 0777);
         }
         if ($status != "error") {
             $config['upload_path'] = $ruta;
