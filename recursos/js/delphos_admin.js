@@ -1,5 +1,6 @@
 $(document).ready(function() {
 	var base_url = 'http://localhost/delphos/';
+ //	var base_url = 'http://146.83.74.15/delphos/';
 	var panel_inferior = 'panel_inferior/editar';
 	var panel_lateral = 'panel_lateral/editar';
 	var base_principal = 'panel_principal/editar';
