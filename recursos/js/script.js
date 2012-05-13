@@ -122,8 +122,8 @@ $("#lateral").carouFredSel({
       useYTIframeAPI: false, 
 	width: 980,
 	height: 570,
-    playerFlashMP4:         base_url+'delphos/recursos/js/jarisplayer.swf',
+    playerFlashMP4:         base_url+'recursos/js/jarisplayer.swf',
 	controls: true,
-	playlist: [{0:{src:base_url+'delphos/home/carga_playlist', type:"text/json"}}] 
+	playlist: [{0:{src:base_url+'/home/carga_playlist', type:"text/json"}}] 
     });  
 });
