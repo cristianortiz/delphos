@@ -1,6 +1,6 @@
 $(document).ready(function() {
 var base_url = 'http://localhost/delphos/';
-//var base_url = 'http://146.83.74.15/delphos/';
+
 $("#avisos").carouFredSel({
 	
 	items: {
@@ -122,7 +122,11 @@ $("#lateral").carouFredSel({
       useYTIframeAPI: false, 
 	width: 980,
 	height: 570,
+<<<<<<< HEAD
     playerFlashMP4:         base_url+'/recursos/js/jarisplayer.swf',
+=======
+    playerFlashMP4:         base_url+'recursos/js/jarisplayer.swf',
+>>>>>>> 4ed20870e432e1e5211c1736dc6d39f3b2918195
 	controls: true,
 	playlist: [{0:{src:base_url+'/home/carga_playlist', type:"text/json"}}] 
     });  
