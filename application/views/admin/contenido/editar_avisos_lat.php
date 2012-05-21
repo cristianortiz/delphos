@@ -16,9 +16,10 @@
        <?
         foreach($avisos as $row){
           echo '<tr id="fila'.$row['id'].'">                 
-                  <td id="f1"> '.strftime("%d-%m-%Y", strtotime($row['fecha'])) .'</td> 
-                  <td id="f2"> '.word_limiter($row['contenido'],5) .'</td>                      
-                  <td id="f3"><a href ='.$row['id'].' class="editar_lat">Editar</a> | <a href="'.$row['id'].'" class="eliminar_lat">Borrar</a></td>
+                  <td style="width:10%;" id="f1"> '.strftime("%d-%m-%Y", strtotime($row['fecha'])) .'</td> 
+                  <td id="f2"> '.word_limiter($row['contenido'],8) .'</td>                      
+                  <td style="width:10%;" id="f3"><a href ='.$row['id'].' class="editar_lat"><img  src="'.base_url('recursos/images/edit.png').'"  /></a>
+                                                 <a href="'.$row['id'].'" class="eliminar_lat"><img  src="'.base_url('recursos/images/trash_full.png').'"  /></a></td>
                 </tr> ';           
         }?>
        </tbody>

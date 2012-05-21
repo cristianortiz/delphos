@@ -30,14 +30,16 @@ class Home extends CI_Controller
 
         $visualizar = $this->Home_model->get_visualizacion();
 
-        if ($visualizar['desplegar'] == 'texto') {
+        if ($visualizar['desplegar'] == TEXT_MODE) {
             $principal['texto'] = $this->Home_model->get_panel_principal();
             $this->load->view('contenido/contenido_texto', $principal, true);
             $vista = 'contenido/contenido_texto';
+            $data['script'] = 'script.js';
            
         } else {
             
             $vista = 'contenido/contenido_videos';
+            $data['script'] = 'script_videos.js';
            
         }
 

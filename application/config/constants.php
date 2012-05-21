@@ -49,6 +49,9 @@ define('MAX_CHAR_PI', 100);
 define('MAX_CHAR_LAT', 150);
 define('ROWS_FOR_PAGES',5);
 
+define('VIDEO_MODE','video');
+define('TEXT_MODE','texto');
+
 
 /* End of file constants.php */
 /* Location: ./application/config/constants.php */

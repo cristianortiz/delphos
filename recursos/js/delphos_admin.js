@@ -1,9 +1,35 @@
 $(document).ready(function() {
 //	var base_url = 'http://localhost/delphos/';
  	var base_url = 'http://146.83.74.15/delphos/';
+
+
 	var panel_inferior = 'panel_inferior/editar';
 	var panel_lateral = 'panel_lateral/editar';
 	var base_principal = 'panel_principal/editar';
+	$("a.editar_princ").tooltip('Haga click para editar este articulo del panel principal ', {
+		mode: 'tr',
+		width: 200
+	});
+	$("a.eliminar_princ").tooltip('Haga click para eliminar de forma permanente este articulo del panel principal.', {
+		mode: 'tr',
+		width: 200
+	});
+	$("a.editar_pi").tooltip('Click para editar este aviso de la cinta en el panel inferior', {
+		mode: 'tr',
+		width: 200
+	});
+	$("a.eliminar_pi").tooltip('Click para borrar  este aviso de la cinta en el panel inferior', {
+		mode: 'tr',
+		width: 200
+	});
+	$("a.editar_lat").tooltip('Click para editar esta noticia del panel lateral', {
+		mode: 'tr',
+		width: 200
+	});
+	$("a.eliminar_lat").tooltip('Click para borrar esta noticia del panel lateral', {
+		mode: 'tr',
+		width: 200
+	});
 /*----------------------------------------------------------------------------------------------------------------------
   TABLA DE EDICION DE AVISOS DEL PANEL INFERIOR, CONTROLA LAS ACCIONES, AGREGAR, EDTIAR Y ELIMINAR AVISOS DE LA CINTA DE
   MENSAJES INFERIOR  
@@ -424,6 +450,73 @@ $(document).ready(function() {
 		},
 		modal: true
 	});
+    
+/*------------------------------------------------------------------------------------------------------------------------------
+ seccion para eliminar un articulo del panel principal, se elimina el contenido el titulo la descripcion y la imagen asociada
+ al articulo animado que se muestra*/
+ 
+ 	$('#tabla_avisos').delegate('a.eliminar_princ', 'click', function(event) {
+		event.preventDefault();
+		var id = $(this).attr('href');
+		//alert('Eliminar aviso con id :'+id);
+		$.ajax({
+			url: base_url + 'panel_principal/consultar_texto/' + id,
+			type: 'POST',
+			dataType: 'json',
+			success: function(respuesta) {
+				// se cargan en el cuadro de confirmacion  los datos del aviso a eliminar 
+				// se cargan en el form de actualizacion los datos del aviso a editar 
+				$('#form-eliminar-princ #id').val(id);
+              	$('#form-eliminar-princ #contenido').val(respuesta.contenido);
+				//abrimos el cuadro de dialogo que contendra el form de actualizacion             
+				$('#eliminar_dialog_princ').dialog('open');
+			}
+		});
+		return false;
+	})
+	//configuracion del cuadro de dialogo para eliminar un aviso  
+	$('#eliminar_dialog_princ').dialog({
+		autoOpen: false,
+		width: '450px',
+		height: '350',
+		modal: true,
+		buttons: {
+			'Eliminar': function() {
+				//$( '#ajaxLoadAni' ).fadeIn( 'slow' );				
+				$.ajax({
+					url: base_url + 'panel_principal/eliminar_articulo',
+					type: 'POST',
+					dataType: 'json',
+					data: $('#eliminar_dialog_princ > #form-eliminar-princ').serialize(),
+					// respuesta en formato JSON desde el metodo editar_aviso_pi()					
+					success: function(response) {
+						// si la eliminacion del aviso ha sido exitosa se carga el mensaje de confirmacion en otro cuadro de dialogo
+						$('#eliminar_dialog_princ').dialog('close');
+						$('#eliminar_dialog > p').html(response.text);
+						$('#eliminar_dialog').dialog('option', 'title', 'Eliminacion Exitosa').dialog('open');
+						//$( '#ajaxLoadAni' ).fadeOut( 'slow' );		
+						$('#fila' + response.id).remove();
+					} //fin success                   
+				}); //fin llamada ajax()
+				return false;
+			},
+			//boton que cierra el cuadro de dialogo
+			'Cancelar': function() {
+				$(this).dialog('close');
+			}
+		}
+	}); //fin del cuadro de dialogo ""eliminarDialog" 
+   $('#eliminar_dialog').dialog({
+		autoOpen: false,
+		buttons: {
+			'Ok': function() {
+				$(this).dialog('close');
+				//document.location = base_url+'panel_lateral';     
+			}
+		},
+		modal: true
+	}); 
+/*----------------------------------------------------------------------------------------------------------------------------*/    
 	$('#visualizar').submit(function() {
 		$.ajax({
 			type: 'POST',
@@ -450,21 +543,20 @@ $(document).ready(function() {
 				'desc': desc
 			},
 			success: function(data, status) {
-				$('#video_ok_dialog > p').html('<h3>'+data.msg+'</h3>');
+				$('#video_ok_dialog > p').html('<h3>' + data.msg + '</h3>');
 				$('#video_ok_dialog').dialog('option', 'title', 'Subir Videos').dialog('open');
 			}
 		});
 		return false;
 	});
-    
-    $('#video-online').submit(function() {
+	$('#video-online').submit(function() {
 		$.ajax({
 			type: 'POST',
 			url: base_url + 'panel_principal/subir_video_online',
 			dataType: 'json',
 			data: $('#video-online').serialize(),
 			success: function(data) {
-				$('#video_ok_dialog > p').html('<h3>'+data.msg+'</h3>');
+				$('#video_ok_dialog > p').html('<h3>' + data.msg + '</h3>');
 				$('#video_ok_dialog').dialog('option', 'title', 'Subir Videos').dialog('open');
 			}
 		});
@@ -490,7 +582,7 @@ $(document).ready(function() {
 			success: function(data) {
 				$('#form_borrar_video #nombre_video').val(data.nombre);
 				$('#form_borrar_video > h4').html(data.desc);
-                $('#form_borrar_video #tipo_video').val(data.tipo);
+				$('#form_borrar_video #tipo_video').val(data.tipo);
 				$('#form_borrar_video #id').val(id);
 				//abrimos el cuadro de dialogo que contendra el mensaje de confirmacion             
 				$('#borrar_video_dialog').dialog('open');
@@ -514,7 +606,7 @@ $(document).ready(function() {
 					success: function(data) {
 						// si la eliminacion del aviso ha sido exitosa se carga el mensaje de confirmacion en otro cuadro de dialogo
 						$('#borrar_video_dialog').dialog('close');
-						$('#video_ok_dialog > p').html('<h3>'+data.msg+'</h3>');
+						$('#video_ok_dialog > p').html('<h3>' + data.msg + '</h3>');
 						$('#video_ok_dialog').dialog('option', 'title', 'Eliminar video').dialog('open');
 					} //fin success                   
 				}); //fin llamada ajax()
@@ -526,15 +618,14 @@ $(document).ready(function() {
 			}
 		}
 	});
-   $("a.subir-video").click( function(event) {
-    event.preventDefault();
-              $('div.video-online').slideUp('slow');
-              $('div.subir-video').slideDown('slow');
-           });
-   $("a.video-online").click(function(event) {
-    event.preventDefault();
-              $('div.subir-video').slideUp('slow');
-              $('div.video-online').slideDown('slow');
-            	});
-            
+	$("a.subir-video").click(function(event) {
+		event.preventDefault();
+		$('div.video-online').slideUp('slow');
+		$('div.subir-video').slideDown('slow');
+	});
+	$("a.video-online").click(function(event) {
+		event.preventDefault();
+		$('div.subir-video').slideUp('slow');
+		$('div.video-online').slideDown('slow');
+	});
 });

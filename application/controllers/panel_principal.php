@@ -110,12 +110,12 @@ class Panel_principal extends CI_Controller
 
     /*Metodo para la eliminacion de un aviso de la cinta de mensajes en base a su id
     */
-    public function eliminar_texto()
+    public function eliminar_articulo()
     {
         $id = $this->input->post('id');
         $contenido = $this->input->post('contenido');
-        $respuesta = $this->Panel_lateral_model->eliminar_aviso($id);
-        $respuesta['text'] = "<b>Noticia Eliminada Correctamente<b>";
+        $respuesta = $this->Panel_principal_model->eliminar_texto($id);
+        $respuesta['text'] = "<h3>Articulo Eliminado Correctamente</h3>";
         $respuesta['id'] = $id;
         echo json_encode($respuesta);
     }
