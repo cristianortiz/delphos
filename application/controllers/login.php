@@ -31,7 +31,7 @@ class Login extends CI_Controller {
 		}
         // si los datos pasan las validaciones se limpia el POST y se inicia el proceso de login para ingresar al sistema
 		else
-        {
+        {     
 	        $username = $this->input->post('username');
 	        $password = $this->input->post('password'); 
              

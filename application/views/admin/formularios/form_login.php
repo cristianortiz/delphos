@@ -21,6 +21,5 @@
                <td><input type="submit" value="Ingresar" /> 
                </td>
            </table>    
-            </form>
-            
+            </form>            
 </div>

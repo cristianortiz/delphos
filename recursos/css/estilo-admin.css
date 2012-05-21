@@ -357,10 +357,11 @@ input:hover{
     display:inline-table;
     border:1px solid white;
     border-radius:5px;
-    padding: 5px;
+    padding: 3px;
     text-decoration: none;
     margin-left:10px ;
-    color:black; 
+    color:black;
+    font-size: 14px; 
   
    }
    
@@ -369,7 +370,7 @@ input:hover{
     display:inline-table;
     border:1px solid white;
     border-radius:5px;
-    padding: 5px;
+    padding: 3px;
     text-decoration: none;
     margin-left:10px ; 
     color:white;   

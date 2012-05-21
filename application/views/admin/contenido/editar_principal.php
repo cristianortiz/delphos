@@ -1,7 +1,4 @@
-
- <div id="edicion_panel">
-
-  
+<div id="edicion_panel">  
  <nav>
     <ul>
 		<li><a href="<?echo base_url('panel_principal/editar');?>">Articulos</a></li>
@@ -29,7 +26,8 @@
                   <td id="f1"> '.$row['titulo'] .'</td> 
                   <td id="f2"> '.$row['descripcion'] .'</td>
                   <td id="f3"> '.word_limiter(str_replace('<h2>',"",$row['contenido']),5) .'</td>                                   
-                  <td id="f4"><a href ='.$row['id'].' class="editar_princ">Editar</a> | <a href="'.$row['id'].'" class="eliminar_princ">Borrar</a></td>
+                  <td id="f4"><a href ='.$row['id'].' class="editar_princ"><img  src="'.base_url('recursos/images/edit.png').'"  /></a>
+                              <a href="'.$row['id'].'" class="eliminar_princ"><img  src="'.base_url('recursos/images/trash_full.png').'"  /></a></td>
                 </tr> ';           
         }?>
        </tbody>
@@ -65,19 +63,20 @@
        <p></p>
        </form>
      </div> 
-    <!--
-     <div id="eliminarDialog_princ" title="Eliminar Articulo">
+        
+     <div id="eliminar_dialog_princ" title="Eliminar Articulo">
        <form id="form-eliminar-princ">
-       <h3>¿Seguro desea eliminar este articulo?</h3><br />
-       
+       <h3>¿Seguro desea eliminar este articulo?</h3><br />       
        <textarea readonly="readonly" name="contenido" id="contenido"></textarea>
        <input type="hidden" id="id" name="id" />
        <p></p>
        </form>
      </div> 
-     -->
+     
+      <div id="eliminar_dialog">
+         <p></p><br/> 
+     
      <div id="msgDialog">
          <p></p><br/> 
 </div>                                                        
  </div>
-
