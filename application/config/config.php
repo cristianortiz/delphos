@@ -14,7 +14,7 @@
 | path to your installation.
 |
 */
-$config['base_url']	= 'http://localhost/delphos/';
+$config['base_url']	= 'http://146.83.74.15/delphos/';
 
 
 
