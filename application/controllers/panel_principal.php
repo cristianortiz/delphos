@@ -115,7 +115,7 @@ class Panel_principal extends CI_Controller
         $id = $this->input->post('id');
         $contenido = $this->input->post('contenido');
         $respuesta = $this->Panel_principal_model->eliminar_texto($id);
-        $respuesta['text'] = "<h3>Articulo Eliminado Correctamente<h3>";
+        $respuesta['text'] = "<h3>Articulo Eliminado Correctamente</h3>";
         $respuesta['id'] = $id;
         echo json_encode($respuesta);
     }
