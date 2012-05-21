@@ -45,9 +45,9 @@ class Panel_principal extends CI_Controller
     public function consultar_texto($id)
     {
         $respuesta = $this->Panel_principal_model->get_texto($id);
-        $response['contenido'] = (utf8_encode($respuesta['contenido']));
-        $response['titulo'] = (utf8_encode($respuesta['titulo']));
-        $response['descripcion'] = (utf8_encode($respuesta['descripcion']));
+        $response['contenido'] = $respuesta['contenido'];
+        $response['titulo'] = $respuesta['titulo'];
+        $response['descripcion'] = $respuesta['descripcion'];
         echo json_encode($response);
     }
 
@@ -78,9 +78,9 @@ class Panel_principal extends CI_Controller
     public function editar_texto_principal()
     {
         $id = $this->input->post('id');
-        $titulo = utf8_decode($this->input->post('titulo'));
-        $descripcion = utf8_decode($this->input->post('desc'));
-        $contenido = utf8_decode($this->input->post('contenido'));
+        $titulo = $this->input->post('titulo');
+        $descripcion = $this->input->post('desc');
+        $contenido = $this->input->post('contenido');
 
         $datos = array(
             'titulo' => $titulo,
