@@ -83,6 +83,10 @@ class CI_Session {
 		session_destroy();
 	}
 
+        function sess_destroy()
+      {
+        $this->destroy();
+      }
 	/**
     * Reads given session attribute value
     */    

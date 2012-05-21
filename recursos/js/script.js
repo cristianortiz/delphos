@@ -1,6 +1,6 @@
 $(document).ready(function() {
-var base_url = 'http://localhost/delphos/';
-//var base_url = 'http://146.83.74.15/delphos/';
+//var base_url = 'http://localhost/delphos/';
+var base_url = 'http://146.83.74.15/delphos/';
 $("#avisos").carouFredSel({
 	
 	items: {
