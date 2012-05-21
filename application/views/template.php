@@ -12,7 +12,7 @@
 	    <script type="text/javascript" src="<? echo base_url('recursos/js/carouFredSel-5.4.1/jquery.carouFredSel-5.4.1-packed.js');?>"></script>
          <script type="text/javascript" src="<? echo base_url('recursos/js/projekktor-1.0.13r41.min.js');?>"></script> 
          <script type="text/javascript" src="<? echo base_url('recursos/js/jquery.easing.1.3.js');?>"></script>       
-        <script type="text/javascript" src="<? echo base_url('recursos/js/'.$script.'');?>"></script>
+        <script type="text/javascript" src="<? echo base_url('recursos/js/script.js');?>"></script>
        
     <body>
         <div id="cajaheader">

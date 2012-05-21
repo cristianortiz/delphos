@@ -34,12 +34,12 @@ class Home extends CI_Controller
             $principal['texto'] = $this->Home_model->get_panel_principal();
             $this->load->view('contenido/contenido_texto', $principal, true);
             $vista = 'contenido/contenido_texto';
-            $data['script'] = 'script.js';
+           
            
         } else {
             
             $vista = 'contenido/contenido_videos';
-            $data['script'] = 'script_videos.js';
+            
            
         }
 
