@@ -10,7 +10,7 @@ class Panel_inferior extends CI_Controller
         // Función constructora aquí podemos hacer la carga de algunos elementos adicionales cómo librerías, helpers, etc...
         parent::__construct();
         $this->load->model('Home_model');
-        $this->load->model('Panel_inferior_model');       
+        $this->load->model('Panel_inferior_model');
         $data = array();
         $footer = array();
     }
@@ -30,12 +30,11 @@ class Panel_inferior extends CI_Controller
         $this->pagination->initialize($config);
 
         $page = ($this->uri->segment(3)) ? $this->uri->segment(3) : 0;
-        $footer["avisos"] = $this->Home_model->filas_paginadas('footer',$config["per_page"], $page);
-        $footer["links"] = $this->pagination->create_links();                
+        $footer["avisos"] = $this->Home_model->filas_paginadas('footer', $config["per_page"],
+            $page);
+        $footer["links"] = $this->pagination->create_links();
         $this->load->view('admin/contenido/editar_avisos_pi', $footer, true);
-        
-                        
-       
+
 
         $data['header'] = 'admin/header/header_main';
         $data['aside'] = 'admin/sidebar/menu_lateral';
@@ -45,7 +44,7 @@ class Panel_inferior extends CI_Controller
         $this->load->view('admin/template_manager', $data);
 
     }
-  
+
     /*******************************************************************************************************************************
     SECCION DE GESTION DE CONTENIDO PARA EL  PANEL INFERIOR O CINTA DE MENSAJES, RECUPERACION, EDICION, CREACION y ELIMINACION
     DE MENSAJES 
@@ -57,17 +56,17 @@ class Panel_inferior extends CI_Controller
     public function consultar_aviso_pi($id)
     {
         $respuesta = $this->Panel_inferior_model->get_aviso($id);
-         //echo json_encode($respuesta);            
-        echo  '{"contenido":"'.utf8_encode($respuesta['contenido']).'","id":"'.$id.'"}';
+        //echo json_encode($respuesta);
+        echo '{"contenido":"' . $respuesta['contenido'] . '","id":"' . $id . '"}';
     }
-          
+
     public function crear_aviso_pi()
     {
         $contenido = $this->input->post('contenido');
 
         if (!empty($contenido)) {
             if (strlen($contenido) < MAX_CHAR_PI) {
-                $respuesta = $this->Panel_inferior_model->crear_aviso(utf8_decode($contenido));
+                $respuesta = $this->Panel_inferior_model->crear_aviso($contenido);
                 $respuesta['aux'] = 1;
                 $respuesta['contenido'] = $contenido;
                 $respuesta['text'] = "<b>Aviso creado exitosamente</b>";
@@ -88,17 +87,18 @@ class Panel_inferior extends CI_Controller
     /* metodo que recibe los datos del form de edicion de mensajes del panel inferior y realiza la actualizacion a traves del metodo
     correspondiente en el modelo Panel_inferior_model()
     */
-    public function editar_aviso_pi()    {
+    public function editar_aviso_pi()
+    {
         $id = $this->input->post('id');
         $contenido = $this->input->post('contenido');
 
-        $datos = array('contenido' => utf8_decode($contenido), );
-        
-         if (!empty($contenido)) {
+        $datos = array('contenido' => $contenido, );
+
+        if (!empty($contenido)) {
             if (strlen($contenido) < MAX_CHAR_PI) {
                 $respuesta = $this->Panel_inferior_model->editar_aviso($id, $datos);
                 $respuesta['aux'] = 1;
-                $respuesta['contenido'] = utf8_encode($contenido);
+                $respuesta['contenido'] = $contenido;
                 $respuesta['text'] = "<b>Aviso Editado Correctamente</b>";
                 echo json_encode($respuesta);
             } else {
@@ -126,7 +126,7 @@ class Panel_inferior extends CI_Controller
         $respuesta['id'] = $id;
         $respuesta['contenido'] = $contenido;
         $respuesta['text'] = "<b>Aviso Eliminado Correctamente</b>";
-         echo json_encode($respuesta);
+        echo json_encode($respuesta);
         //Devolvemos mediante notacion JSON los datos del aviso eliminado
         //echo  '{"id":"'.$id.'","contenido":"'.$contenido.'","text":"<b>Aviso Eliminado Correctamente</b>"}';
     }

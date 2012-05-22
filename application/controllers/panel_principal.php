@@ -93,8 +93,8 @@ class Panel_principal extends CI_Controller
             $respuesta['aux'] = 1;
             $respuesta['text'] = "<b>Articulo Editado Correctamente</b>";
             $respuesta['id'] = $id;
-            $respuesta['titulo'] = utf8_encode($titulo);
-            $respuesta['descripcion'] = utf8_encode($descripcion);
+            $respuesta['titulo'] = $titulo;
+            $respuesta['descripcion'] = $descripcion;
             $respuesta['contenido'] = word_limiter(str_replace('<h2>', "", utf8_encode($contenido)),
                 5);
             echo json_encode($respuesta);
