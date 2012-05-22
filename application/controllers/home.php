@@ -38,9 +38,7 @@ class Home extends CI_Controller
            
         } else {
             
-            $vista = 'contenido/contenido_videos';
-            
-           
+            $vista = 'contenido/contenido_videos';          
         }
 
         //se arma el array data[] con el contenido de cada seccion del panel para ser cargados en la vista template
@@ -113,3 +111,4 @@ xmlns:jwplayer="http://developer.longtailvideo.com/trac/">
 
 /* End of file welcome.php */
 /* Location: ./application/controllers/home.php */
+?>

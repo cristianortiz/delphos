@@ -15,7 +15,7 @@
 |
 */
 
-$config['base_url']	= 'http://146.83.74.15/delphos/';
+$config['base_url']	= 'http://localhost/delphos/';
 
 
 
@@ -24,7 +24,7 @@ $config['base_url']	= 'http://146.83.74.15/delphos/';
   bloque para configurar base_url en el server descomentar estas lineas al subr al server de produccion
   $config['base_url']	= 'http://146.83.74.15/delphos/';
 
-/*
+
 |--------------------------------------------------------------------------
 | Index File
 |--------------------------------------------------------------------------
