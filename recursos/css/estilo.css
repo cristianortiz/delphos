@@ -155,19 +155,19 @@ section{
 
 article{
     padding:0px;
-    width:70%;   
+    width:68%;   
     height:auto;
          
 }
 
 
 aside{
-    margin: 10px 10px 10px 10px;
+    margin: 10px 10px 10px 0px;
     float:right;
     display: block;
-    width: 25%;
-    height: 460px;
-    padding: 10px 10px 0px 10px;
+    width: 29%;
+    height: 500px;
+    padding: 10px 5px 0px 5px;
     background: rgba(0,0,0,0.8);
     border:2px solid lightgrey;
     border-radius:15px;
@@ -181,13 +181,14 @@ aside{
     text-shadow:2px 2px 5px rgba(0,0,0,0.8);
 }
 
-aside p{
-    margin: 0px;
-    font-size:26px;
-    padding: 10px;
+
+#lateral div{
+    font-family: sans-serif; 
+    margin: 10px 0px 0px 5px;
+    font-size:30px;
+    padding-bottom: 5px;
     border-bottom: 1px solid lightgray;
 }
-
 
 
 

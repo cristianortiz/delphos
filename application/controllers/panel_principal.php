@@ -50,6 +50,8 @@ class Panel_principal extends CI_Controller
         $response['descripcion'] = $respuesta['descripcion'];
         echo json_encode($response);
     }
+    
+   
 
     public function crear_texto_principal()
     {
@@ -230,8 +232,9 @@ class Panel_principal extends CI_Controller
         $opcion = $this->input->post('opcion');
         $datos = array('desplegar' => $opcion, );
         $respuesta = $this->Panel_principal_model->actualizar_opcion($id, $datos);
-        $respuesta['text'] = "<b>Opcion '" . $opcion . "' Configurada Correctamente<b>";
+        $respuesta['text'] = "<h3>Opcion '" . $opcion . "' Configurada Correctamente</h3>";
         $respuesta['id'] = $id;
+        $respuesta['status'] = 'succes';
         echo json_encode($respuesta);
     }
 
@@ -273,3 +276,4 @@ class Panel_principal extends CI_Controller
 
 /* End of file welcome.php */
 /* Location: ./application/controllers/home.php */
+?>

@@ -1,16 +1,13 @@
- <div id="edicion_panel">
-  
+ <div id="edicion_panel"> 
  <nav>
-    <ul>
-	
-		<li><a href="<?echo base_url('panel_principal7editar');?>">Articulos</a></li>
-		<li><a href="<?echo base_url('panel_principal/videos');?>">Videos</a></li>
-		<li><a href="<?echo base_url('panel_principal/opciones');?>">Opciones</a></li>
-		
-	
+    <ul>	
+		<li><a href="<? echo base_url('panel_principal/editar'); ?>">Articulos</a></li>
+		<li><a href="<? echo base_url('panel_principal/videos'); ?>">Videos</a></li>
+		<li><a href="<? echo base_url('panel_principal/opciones'); ?>">Opciones</a></li>			
 	</ul>
   </nav>
-<h4>Bienvenido <?php echo strtoupper($this->session->userdata('username'));?> <a id="session_panel" href="<? echo base_url('login/cerrar_sesion');?>">Cerrar Sesion</a></h4>  
+<h4>Bienvenido <?php echo strtoupper($this->session->userdata('username')); ?> <a id="session_panel" href="<? echo
+base_url('login/cerrar_sesion'); ?>">Cerrar Sesion</a></h4>  
 <h2>Panel Principal: Opciones</h2>
 <h3>Configurar  para reproducir lista de videos o articulos texto animado</h3>
  
@@ -20,7 +17,7 @@
 	<option value="video">Mostrar Videos</option>
 	<option value="texto">Mostrar Articulos</option>   
 </select>
-<input type="hidden" id="id" name="id" value="<?echo $opcion['id'] ?>" />
+<input type="hidden" id="id" name="id" value="<? echo $opcion['id'] ?>" />
 <input type="submit" value="Configurar" />
 
 <p></p>

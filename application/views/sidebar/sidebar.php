@@ -1,7 +1,7 @@
  <div id="lateral">
                   <?php foreach ($noticias as $item):?>
 
-                            <p><?php echo $item['contenido'];?></p>
+                            <div><?php echo $item['contenido'];?></div>
                             
                             <?php endforeach;?>
   </div>                          

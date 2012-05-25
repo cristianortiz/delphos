@@ -30,12 +30,12 @@
      
      <!-- seccion de cuadros de dialogos, ocultos, desplegados por JQuery, para crear, editar y elminar un aviso
           desde la cinta de mensajes -->
-      <div id="crearDialog_lat" title="Crear Nueva Noticia">
+      <div id="crearDialog_lat" style="width: 400px;" title="Crear Nueva Noticia">
         <form id="form-crear-lat">
             <h3>Contenido de la Noticia</h3><br />      
-            <textarea  name="contenido" id="contenido"></textarea>                
+            <textarea  rows="4" name="contenido" id="contenido"></textarea>                      
          </form>
-          <p></p>
+          <h4></h4>
       </div> 
      
      <div id="editarDialog_lat" title="Editar Noticia">

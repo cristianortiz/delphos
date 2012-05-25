@@ -42,8 +42,10 @@ $(document).ready(function() {
 		event.preventDefault();
 		$('#form-crear-pi #contenido').empty();
 		$('#crearDialog-pi').dialog('open');
+        
 	})
 	$('#crearDialog-pi').dialog({
+	   
 		autoOpen: false,
 		width: '450px',
 		height: '350',
@@ -208,15 +210,27 @@ $(document).ready(function() {
 	 Seccion para crear una noticia nueva en el panel laterla de noticias, se captura el evento click adael enlace Nueva Noticia,
 	 se consultan los datos de la noticia   se abre un cuadro de dialogo con un formulario para crear la noticia, se valida y se muestra un mensaje de confirmacion.
 	 ******************************************************************************************************************************/
+     
 	$('#edicion_panel').delegate('a.crear_noticia_lat', 'click', function(event) {
 		event.preventDefault();
 		$('#form-crear-lat #contenido').empty();
-		$('#crearDialog_lat').dialog('open');
+        $('#crearDialog_lat > p').empty();
+		$('#crearDialog_lat').dialog('open');       
 	})
+    
+     var options2 = {
+				'maxCharacterSize': 200,
+				'originalStyle': 'originalDisplayInfo',
+				'warningStyle': 'warningDisplayInfo',
+				'warningNumber': 40,
+				'displayFormat': '#input Caracteres | #left Restantes | #words Palabras'
+			};
+			$('#crearDialog_lat  #contenido').textareaCount(options2);
+    
 	$('#crearDialog_lat').dialog({
 		autoOpen: false,
-		width: '450px',
-		height: '350',
+		width: '460px',
+		height: '400',
 		modal: true,
 		buttons: {
 			'Crear': function() {
@@ -229,10 +243,10 @@ $(document).ready(function() {
 					success: function(response) {
 						if (response.aux != 2) {
 							$('#crearDialog_lat').dialog('close');
-							$('#msgDialog_lat > p').html(response.text);
+							$('#msgDialog_lat > h4').html(response.text);
 							$('#msgDialog_lat').dialog('option', 'title', 'Nueva Noticia').dialog('open');
 						}
-						$('#crearDialog_lat > p').html(response.text);
+						$('#crearDialog_lat > h4').html(response.text);
 					} //fin success                   
 				}); //fin llamada ajax()
 				return false;
@@ -618,6 +632,10 @@ $(document).ready(function() {
 			}
 		}
 	});
+    
+   
+		
+    
 	$("a.subir-video").click(function(event) {
 		event.preventDefault();
 		$('div.video-online').slideUp('slow');

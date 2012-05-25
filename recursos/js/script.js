@@ -10,35 +10,33 @@ $("#avisos").carouFredSel({
 	scroll: {
 		fx: "cross",
         easing:"linear",
-		duration: 6000,
+		duration: 9000,
 		items: 1
 		
 	},
 	auto: {
-		pauseDuration: 4500,
-		delay: 4000
+		pauseDuration: 7500,
+		delay: 6000
 	}
 });
 
 $("#lateral").carouFredSel({
 	
     direction: 'down',
-	items: {
-	   
+	items: {	   
 		visible: 2,
 		minimum: 1
 	},
-	scroll: {
-	   
+	scroll: {	   
 		fx: "cross",
         easing:"linear",
-		duration: 3000,
+		duration: 6000,
 		items: 1
 		
 	},
 	auto: {
-		pauseDuration: 3000,
-		delay: 2500
+		pauseDuration: 6000,
+		delay: 5000
 	}
 });
 
@@ -119,12 +117,32 @@ $("#lateral").carouFredSel({
 	debug: true,
       // poster: 'intro.png',
       useYTIframeAPI: false, 
-	width: 980,
-	height: 570,
+	width: 970,
+	height: 500,
     playerFlashMP4: base_url+'recursos/js/jarisplayer.swf',
 	controls: true,
-	playlist: [{0:{src:base_url+'home/carga_playlist', type:"text/json"}}] 
-    });  
+	playlist: [{0:{src:base_url+'home/carga_playlist', type:"text/json"}}]     
+    },
+        function(player) {
+          player.addListener('done', function () {
+              var mostrar ='texto';
+            	$.ajax({
+		          	url: base_url + 'panel_principal/actualizar_opcion/',
+		          	type: 'POST',
+                    data:{'id':'1','opcion':'texto'},
+		          	dataType: 'json',
+		          	success: function(respuesta) {
+		          	   if(respuesta.status =='succes'){
+			         	document.location = base_url;  
+			         }
+                   }
+	           	});
+	           	return false;
+            });
+          
+        }
+     );
+    
   
   
 });

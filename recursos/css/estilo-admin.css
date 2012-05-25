@@ -540,6 +540,13 @@ aside h3{
      font-family: Decker;
 }
 
+#crearDialog_lat h4{
+    padding:15px 0px 5px 0px;
+    font-family: sans-serif;
+    font-size: 16px;
+    color: red ;
+   
+}
 #tabla_avisos{
     margin: 10px 10px 10px 10px;
     width: 97%;
@@ -732,8 +739,9 @@ nav li a{
     width: auto;
 }
 
-.form_videos input{
+.form_videos #titulo{
     margin-right:30px;
+    width: 150px;
 }
 
 a.subir-video, a.video-online{
@@ -751,15 +759,13 @@ a.subir-video, a.video-online{
     text-decoration: none;
 }
 
-a.subir-video:hover,a.video-online:hover{
-    
-    background:  rgba(90,170,230,0.8);
-}
-
 a.subir-video:hover ,a.video-online:hover{
     
     background:  rgba(90,170,230,0.8);
 }
+
+
+
  div.video-online{
     display:none;
  }
