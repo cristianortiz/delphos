@@ -1,16 +1,36 @@
 $(document).ready(function() {
+/* ------------------------------------------------------------------------------------------------------------------
+   Seccion de configuracion de variables usadas por el script 
+*/
+	// URL primaria del sitio, configurar segun la ubicacion del servidor donde se aloje la pagina, debe ser igual al base_url() de CI   
 	var base_url = 'http://localhost/delphos/';
-// 	var base_url = 'http://146.83.74.15/delphos/';
-
-
+	// 	var base_url = 'http://146.83.74.15/delphos/';
+	//variables para completar urls del sitio, se suman al base_url para formar las rutas de acceso a los controladores y sus metodos
 	var panel_inferior = 'panel_inferior/editar';
 	var panel_lateral = 'panel_lateral/editar';
 	var base_principal = 'panel_principal/editar';
-	$("a.editar_princ").tooltip('Haga click para editar este articulo del panel principal ', {
+	// variables para controlar el maximo de caratectes permitido en cada aviso, noticia y articulo en los paneles lateral, inferior y proncipal
+	var MAX_CHAR_LAT = 150;
+	var MAX_CHAR_PI = 75;
+	var MAX_CHAR_PRINC = 300;
+/* Fin seccion de configuracion
+ -----------------------------------------------------------------------------------------------------------------------------------*/
+/*------------------------------------------------------------------------------------------------------------------------------------
+  Seccion de tooltips, mensajes informativos que se muestran para las distintas funciones definidas en las tablas de avisos, noticias
+   videos y articulos del sistema */
+	$("a.editar_princ").tooltip('Haga click para editar el texto de  este articulo del panel principal ', {
 		mode: 'tr',
 		width: 200
 	});
 	$("a.eliminar_princ").tooltip('Haga click para eliminar de forma permanente este articulo del panel principal.', {
+		mode: 'tr',
+		width: 200
+	});
+	$("a.borrar_imagen").tooltip('Haga click para borrar la imagen adjuntada a este articulo', {
+		mode: 'tr',
+		width: 200
+	});
+	$("a.subir_imagen").tooltip('Click para adjuntar una imagen a este articulo del panel principal', {
 		mode: 'tr',
 		width: 200
 	});
@@ -30,25 +50,34 @@ $(document).ready(function() {
 		mode: 'tr',
 		width: 200
 	});
-/*----------------------------------------------------------------------------------------------------------------------
-  TABLA DE EDICION DE AVISOS DEL PANEL INFERIOR, CONTROLA LAS ACCIONES, AGREGAR, EDTIAR Y ELIMINAR AVISOS DE LA CINTA DE
-  MENSAJES INFERIOR  
- -------------------------------------------------------------------------------------------------------------------------*/
-	/***************************************************************************************************************************
-	 Seccion para crear un aviso nuevo en la cinta dae mensajes, se captura el evento click adael enlace Nuevo Aviso, se consultan los
-	 se abre un cuadro de dialogo con un formulario para crear el aviso, se valida y se muestra un mensaje de confirmacion.
-	 ******************************************************************************************************************************/
+/*fin seccion tooltips
+
+	/*----------------------------------------------------------------------------------------------------------------------
+	 TABLA DE EDICION DE AVISOS DEL PANEL INFERIOR, CONTROLA LAS ACCIONES, AGREGAR, EDITAR Y ELIMINAR AVISOS DE LA CINTA DE
+	 MENSAJES INFERIOR
+	 
+	 /*----------------------------------------------------------------------------------------------------------------------------
+	  Seccion para CREAR un aviso nuevo en la cinta dae mensajes, se captura el evento click adael enlace Nuevo Aviso, se consultan los
+	  se abre un cuadro de dialogo con un formulario para crear el aviso, se valida y se muestra un mensaje de confirmacion.
+	  */
 	$('#edicion_panel ').delegate('a.crear_aviso_pi', 'click', function(event) {
 		event.preventDefault();
 		$('#form-crear-pi #contenido').empty();
 		$('#crearDialog-pi').dialog('open');
-        
 	})
+	var opciones_inferior = {
+		'maxCharacterSize': MAX_CHAR_PI,
+		'originalStyle': 'originalDisplayInfo',
+		'warningStyle': 'warningDisplayInfo',
+		'warningNumber': 40,
+		'displayFormat': '#input Caracteres | #left Restantes | #words Palabras'
+	};
+	$('#crearDialog-pi #contenido').textareaCount(opciones_inferior);
+	//configuracion del cuadro de dialogo para actualizar    
 	$('#crearDialog-pi').dialog({
-	   
 		autoOpen: false,
 		width: '450px',
-		height: '350',
+		height: '400',
 		modal: true,
 		buttons: {
 			'Crear': function() {
@@ -75,10 +104,10 @@ $(document).ready(function() {
 				//location = base_url+'/manager/panel_inferior';     
 			}
 		}
-	}); //fin del cuadro de dialogo ""crearDialog"         
-/*
-  Seccion para editar un aviso daae la cinta dae mensajes, se captura el evento click adael enlace editar, se consultan los
-  datos del aviso, se carga un cuadro de dialogo para actualizar y se muestra un aviso daae confirmacion,
+	}); //fin del cuadro de dialogo ""crearDialog" 
+/*--------------------------------------------------------------------------------------------------------------------------------
+  Seccion para EDITAR un aviso de la cinta dae mensajes, se captura el evento click adael enlace editar, se consultan los
+  datos del aviso, se carga un cuadro de dialogo para actualizar y se muestra un aviso de confirmacion,
  */
 	$('#tabla_avisos').delegate('a.editar_pi', 'click', function(event) {
 		event.preventDefault();
@@ -98,6 +127,7 @@ $(document).ready(function() {
 		});
 		return false;
 	})
+	$('#editarDialog-pi #contenido').textareaCount(opciones_inferior);
 	//configuracion del cuadro de dialogo para actualizar    
 	$('#editarDialog-pi').dialog({
 		autoOpen: false,
@@ -145,11 +175,11 @@ $(document).ready(function() {
 			}
 		},
 		modal: true
-	});
-	/*******************************************************************************************************************************
-	 Seccion para eliminar un aviso daae la cinta dae mensajes, se captura el evento click adael enlace eliminar, se consultan los
+	}); //fin del cuadro de dialogo ""msDialog_pi"  
+/*------------------------------------------------------------------------------------------------------------------------------
+	 Seccion para ELIMINAR un aviso de la cinta dae mensajes, se captura el evento click adael enlace eliminar, se consultan los
 	 datos del aviso, se carga un cuadro de dialogo para confirmar la eliminacion y se muestra un aviso de confirmacion,
-	 ********************************************************************************************************************************/
+	 */
 	$('#tabla_avisos').delegate('a.eliminar_pi', 'click', function(event) {
 		event.preventDefault();
 		var id = $(this).attr('href');
@@ -197,36 +227,32 @@ $(document).ready(function() {
 			}
 		}
 	}); //fin del cuadro de dialogo ""eliminarDialog"  
-	/* FIN TABLA DE EDICION DE AVISOS DEL PANEL INFERIOR O CINTA DE MENSAJES
-	 /************************************************************************************************************************
-	 
-	 
-	 /*----------------------------------------------------------------------------------------------------------------------
-	 TABLA DE EDICION DE NOTICIAS DEL PANEL LATERAL, CONTROLA LAS ACCIONES, AGREGAR, EDTIAR Y ELIMINAR NOTICIAS  DEL PANEL DE
-	 NOTICIAS LATERAL
-	 -------------------------------------------------------------------------------------------------------------------------*/
-	/*
-	 /***************************************************************************************************************************
-	 Seccion para crear una noticia nueva en el panel laterla de noticias, se captura el evento click adael enlace Nueva Noticia,
+/* FIN TABLA DE EDICION DE AVISOS DEL PANEL INFERIOR O CINTA DE MENSAJES
+ /*-----------------------------------------------------------------------------------------------------------------------------
+	 	 
+/*----------------------------------------------------------------------------------------------------------------------
+ TABLA DE EDICION DE NOTICIAS DEL PANEL LATERAL, CONTROLA LAS ACCIONES, AGREGAR, EDTIAR Y ELIMINAR NOTICIAS  DEL PANEL DE
+ NOTICIAS LATERAL
+ 
+    /*-----------------------------------------------------------------------------------------------------------------------------  
+	 Seccion para CREAR una noticia nueva en el panel laterla de noticias, se captura el evento click adael enlace Nueva Noticia,
 	 se consultan los datos de la noticia   se abre un cuadro de dialogo con un formulario para crear la noticia, se valida y se muestra un mensaje de confirmacion.
-	 ******************************************************************************************************************************/
-     
+   */
 	$('#edicion_panel').delegate('a.crear_noticia_lat', 'click', function(event) {
 		event.preventDefault();
 		$('#form-crear-lat #contenido').empty();
-        $('#crearDialog_lat > p').empty();
-		$('#crearDialog_lat').dialog('open');       
+		$('#crearDialog_lat > p').empty();
+		$('#crearDialog_lat').dialog('open');
 	})
-    
-     var options2 = {
-				'maxCharacterSize': 200,
-				'originalStyle': 'originalDisplayInfo',
-				'warningStyle': 'warningDisplayInfo',
-				'warningNumber': 40,
-				'displayFormat': '#input Caracteres | #left Restantes | #words Palabras'
-			};
-			$('#crearDialog_lat  #contenido').textareaCount(options2);
-    
+	//opciones del plugin para controlar la cantidad de caracteres permitido al CREAR en una noticia del panel principal
+	var opciones_lateral = {
+		'maxCharacterSize': MAX_CHAR_LAT,
+		'originalStyle': 'originalDisplayInfo',
+		'warningStyle': 'warningDisplayInfo',
+		'warningNumber': 40,
+		'displayFormat': '#input Caracteres | #left Restantes | #words Palabras'
+	};
+	$('#crearDialog_lat  #contenido').textareaCount(opciones_lateral);
 	$('#crearDialog_lat').dialog({
 		autoOpen: false,
 		width: '460px',
@@ -257,10 +283,10 @@ $(document).ready(function() {
 			}
 		}
 	}); //fin del cuadro de dialogo ""crearDialog"         
-/*
-  Seccion para editar un aviso daae la cinta dae mensajes, se captura el evento click adael enlace editar, se consultan los
-  datos del aviso, se carga un cuadro de dialogo para actualizar y se muestra un aviso daae confirmacion,
- */
+/*---------------------------------------------------------------------------------------------------------------------------
+      Seccion para editar un aviso daae la cinta dae mensajes, se captura el evento click del enlace editar, se consultan los
+      datos del aviso, se carga un cuadro de dialogo para actualizar y se muestra un aviso daae confirmacion,
+    */
 	$('#tabla_avisos').delegate('a.editar_lat', 'click', function(event) {
 		event.preventDefault();
 		var id = $(this).attr('href');
@@ -279,11 +305,13 @@ $(document).ready(function() {
 		});
 		return false;
 	})
+	//opciones del plugin para controlar la cantidad de caracteres permitido al EDITARs en una noticia del panel principal
+	$('#editarDialog_lat #contenido').textareaCount(opciones_lateral);
 	//configuracion del cuadro de dialogo para actualizar    
 	$('#editarDialog_lat').dialog({
 		autoOpen: false,
-		width: '450px',
-		height: '350',
+		width: '460px',
+		height: '400',
 		modal: true,
 		buttons: {
 			'Editar': function() {
@@ -326,11 +354,11 @@ $(document).ready(function() {
 			}
 		},
 		modal: true
-	});
-	/*******************************************************************************************************************************
+	}); //fin del cuadro de dialogo "msgDialog_lat" 
+/*--------------------------------------------------------------------------------------------------------------------------------
 	 Seccion para eliminar un aviso daae la cinta dae mensajes, se captura el evento click adael enlace eliminar, se consultan los
 	 datos del aviso, se carga un cuadro de dialogo para confirmar la eliminacion y se muestra un aviso de confirmacion,
-	 ********************************************************************************************************************************/
+	*/
 	$('#tabla_avisos').delegate('a.eliminar_lat', 'click', function(event) {
 		event.preventDefault();
 		var id = $(this).attr('href');
@@ -381,18 +409,87 @@ $(document).ready(function() {
 			}
 		}
 	}); //fin del cuadro de dialogo ""eliminarDialog"  
-	/***********************************************************************************************************
-	 FIN TABLA DE EDICION DE NOTICIAS DEL PANEL LATERAL
-	 ************************************************************************************************************/
+/* FIN TABLA DE EDICION DE NOTICIAS DEL PANEL LATERAL
+--------------------------------------------------------------------------------------------------------------------------
+
 /*----------------------------------------------------------------------------------------------------------------------
   TABLA DE EDICION DE ARTICULOS Y TEXTO DEL PANEL PRINCIPAL, CONTROLA LAS ACCIONES, AGREGAR, EDTIAR Y ELIMINAR TEXTO  DEL PANEL
   PRINCPAL
- -------------------------------------------------------------------------------------------------------------------------*/
-/*
- /*
-  Seccion para editar un aviso daae la cinta dae mensajes, se captura el evento click adael enlace editar, se consultan los
-  datos del aviso, se carga un cuadro de dialogo para actualizar y se muestra un aviso daae confirmacion,
+  */
+/*----------------------------------------------------------------------------------------------------------------------------
+ seccion para crear un nuevo articulo en el panel principal, se captura el enlace nuevo_articulo y se muestra un dialog con el form
+ para crear un nuevo articulo mas su imagen adjuntada
  */
+ $('#edicion_panel ').delegate('a.nuevo_articulo', 'click', function(event) {
+		event.preventDefault();
+		$('#form_nuevo_articulo #contenido').empty();
+        $('#form_nuevo_articulo #titulo').empty();
+        $('#form_nuevo_articulo #desc').empty();
+		$('#nuevo_articulo_dialog').dialog('open');
+	})
+    
+    var opciones_principal = {
+		'maxCharacterSize': MAX_CHAR_PRINC,
+		'originalStyle': 'originalDisplayInfo',
+		'warningStyle': 'warningDisplayInfo',
+		'warningNumber': 40,
+		'displayFormat': '#input Caracteres | #left Restantes | #words Palabras'
+	};
+	$('#nuevo_articulo_dialog #contenido').textareaCount(opciones_principal);
+	//configuracion del cuadro de dialogo para actualizar    
+	$('#nuevo_articulo_dialog').dialog({
+		autoOpen: false,
+		width: '550px',
+		height: '450',
+		modal: true,
+		buttons: {
+			'Crear': function() {
+				$.ajaxFileUpload({
+					url: base_url + 'panel_principal/crear_nuevo_articulo',
+					secureuri: false,
+					fileElementId: 'articulo_img',
+					dataType: 'json',
+					//este plugin NO soporta serialize() para capturar los datos del form
+					data: {
+						'titulo': $('#form_nuevo_articulo #titulo').val(),
+                        'desc': $('#form_nuevo_articulo #desc').val(),
+                        'contenido': $('#form_nuevo_articulo #contenido').val()
+					},
+					success: function(data, status) {
+						if (data.status != 'error') {                          
+							$('#nuevo_articulo_dialog').dialog('close');
+							$('#articulo_ok_dialog > h4').html(data.msg);
+							$('#articulo_ok_dialog').dialog('option', 'title', 'Crear Nuevo Articulo').dialog('open');
+						} else {
+						    $('#nuevo_articulo_dialog').dialog('close');
+							$('#articulo_ok_dialog > h4').html(data.msg);
+							$('#articulo_ok_dialog').dialog('option', 'title', 'Crear Nuevo Articulo').dialog('open');
+						}
+					}
+				});
+			
+			},
+			//boton que cierra el cuadro de dialogo
+			'Cancelar': function() {
+				$(this).dialog('close');
+				//location = base_url+'/manager/panel_inferior';     
+			}
+		}
+	}); //fin del cuadro de dialogo ""crearDialog"
+    $('#articulo_ok_dialog').dialog({
+		autoOpen: false,
+		buttons: {
+			'Ok': function() {
+				document.location = base_url + 'panel_principal/editar';
+				$(this).dialog('close');
+			}
+		},
+		modal: true
+	});   
+  /*------------------------------------------------------------------------------------------------------------------------------
+   Seccion para editar un aviso daae la cinta dae mensajes, se captura el evento click adael enlace editar, se consultan los
+   datos del aviso, se carga un cuadro de dialogo para actualizar y se muestra un aviso daae confirmacion,
+  */
 	$('#tabla_avisos').delegate('a.editar_princ', 'click', function(event) {
 		event.preventDefault();
 		var id = $(this).attr('href');
@@ -413,11 +510,19 @@ $(document).ready(function() {
 		});
 		return false;
 	})
+	var opciones_principal = {
+		'maxCharacterSize': MAX_CHAR_PRINC,
+		'originalStyle': 'originalDisplayInfo',
+		'warningStyle': 'warningDisplayInfo',
+		'warningNumber': 40,
+		'displayFormat': '#input Caracteres | #left Restantes | #words Palabras'
+	};
+	$('#editarPrincipal  #contenido').textareaCount(opciones_principal);
 	//configuracion del cuadro de dialogo para actualizar    
 	$('#editarPrincipal').dialog({
 		autoOpen: false,
-		width: '800px',
-		height: '550',
+		width: '550px',
+		height: '450',
 		modal: true,
 		buttons: {
 			'Editar': function() {
@@ -464,12 +569,10 @@ $(document).ready(function() {
 		},
 		modal: true
 	});
-    
 /*------------------------------------------------------------------------------------------------------------------------------
  seccion para eliminar un articulo del panel principal, se elimina el contenido el titulo la descripcion y la imagen asociada
  al articulo animado que se muestra*/
- 
- 	$('#tabla_avisos').delegate('a.eliminar_princ', 'click', function(event) {
+	$('#tabla_avisos').delegate('a.eliminar_princ', 'click', function(event) {
 		event.preventDefault();
 		var id = $(this).attr('href');
 		//alert('Eliminar aviso con id :'+id);
@@ -481,7 +584,7 @@ $(document).ready(function() {
 				// se cargan en el cuadro de confirmacion  los datos del aviso a eliminar 
 				// se cargan en el form de actualizacion los datos del aviso a editar 
 				$('#form-eliminar-princ #id').val(id);
-              	$('#form-eliminar-princ #contenido').val(respuesta.contenido);
+				$('#form-eliminar-princ #contenido').val(respuesta.contenido);
 				//abrimos el cuadro de dialogo que contendra el form de actualizacion             
 				$('#eliminar_dialog_princ').dialog('open');
 			}
@@ -520,7 +623,7 @@ $(document).ready(function() {
 			}
 		}
 	}); //fin del cuadro de dialogo ""eliminarDialog" 
-   $('#eliminar_dialog').dialog({
+	$('#eliminar_dialog').dialog({
 		autoOpen: false,
 		buttons: {
 			'Ok': function() {
@@ -529,8 +632,11 @@ $(document).ready(function() {
 			}
 		},
 		modal: true
-	}); 
-/*----------------------------------------------------------------------------------------------------------------------------*/    
+	});
+/*----------------------------------------------------------------------------------------------------------------------------
+    Seccion para controlar el tipo de contenido visible en el panel principal, que puede ser Articulos con texto o imagenes animados
+    o una lista de reproduccion de videos
+  */
 	$('#visualizar').submit(function() {
 		$.ajax({
 			type: 'POST',
@@ -544,6 +650,9 @@ $(document).ready(function() {
 		});
 		return false;
 	});
+/*-----------------------------------------------------------------------------------------------------------------------------
+     Seccion apra subir un archivo de video al servidor, usando el plugin AjaxFileUpload y luego la libreria Upload de CI 
+     */
 	$('#upload_file').submit(function(event) {
 		event.preventDefault();
 		var desc = $('#desc').val();
@@ -563,6 +672,9 @@ $(document).ready(function() {
 		});
 		return false;
 	});
+/*--------------------------------------------------------------------------------------------------------------------
+    Seccion para capturar el enlace del video externo de youtube y guardarlo en la base de datos
+     */
 	$('#video-online').submit(function() {
 		$.ajax({
 			type: 'POST',
@@ -586,6 +698,9 @@ $(document).ready(function() {
 		},
 		modal: true
 	});
+/*------------------------------------------------------------------------------------------------------------------------------
+    seccion para eliminar un video de la tabla, se elimina el registro en la BD y el archivo de video correspondiente en el servidor
+     */
 	$('#tabla_avisos').delegate('a.eliminar_video', 'click', function(event) {
 		event.preventDefault();
 		var id = $(this).attr('href');
@@ -632,10 +747,10 @@ $(document).ready(function() {
 			}
 		}
 	});
-    
-   
-		
-    
+/*----------------------------------------------------------------------------------------------------------------------------
+  Seccion para controlar la subida de videos del panel principal, desplegar div para insertar un archivo desde el pc o mostrar el div
+  para pegar un enlace de video externo de youtube,
+   */
 	$("a.subir-video").click(function(event) {
 		event.preventDefault();
 		$('div.video-online').slideUp('slow');
@@ -645,5 +760,115 @@ $(document).ready(function() {
 		event.preventDefault();
 		$('div.subir-video').slideUp('slow');
 		$('div.video-online').slideDown('slow');
+	});
+/*----------------------------------------------------------------------------------------------------------------------------
+    Seccion para actualizar la imagen que se ha adjuntado previamente, captura el archivo de imagen y lo actualiza en en el servidor
+    y en la BD
+    */
+	$('#tabla_avisos').delegate('a.subir_imagen', 'click', function(event) {
+		event.preventDefault();
+		var id = $(this).attr('href');
+		$('#form_subir_img #id').val(id);
+		$('#subir_img_dialog').dialog('open');
+	});
+	//Cuadro de dialogo que permite subir un tipo de documento categoria otro y su nombre asociado
+	$('#subir_img_dialog').dialog({
+		autoOpen: false,
+		buttons: {
+			'Cancelar': function() {
+				$(this).dialog('close');
+			},
+			'Aceptar': function() {
+				var id = $('#id').val();
+				$.ajaxFileUpload({
+					url: base_url + 'panel_principal/actualizar_imagen',
+					secureuri: false,
+					fileElementId: 'userfile',
+					dataType: 'json',
+					//este plugin NO soporta serialize() para capturar los datos del form
+					data: {
+						'id': $('#form_subir_img #id').val()
+					},
+					success: function(data, status) {
+						if (data.status != 'error') {
+/*$('#adjuntar_otros_dialog').dialog('close');
+								$('#fila' + id + ' > td#f6' + id).html(data.nombre_archivo);
+								$('#fila' + id + ' > td#f7' + id).html('<a class="ver_arch" href="' + base_url_upload + data.ruta_ver + '" > <img src="' + base_url + 'recursos/images/new.png"  /></a> <a class="remover_otros" href="' + data.ruta_elim + '" ><img src="' + base_url + 'recursos/images/delete_file.png"  /></a> ');
+								$('#fila' + id + ' > td#f8' + id).html('<input class="enviar_documento" type="checkbox" name="" value="' + id + '" />');
+								alert(data.msg);
+                                */
+							$('#subir_img_dialog').dialog('close');
+							$('#imagen_ok_dialog > h4').html(data.msg);
+							$('#imagen_ok_dialog').dialog('option', 'title', 'Actualizar Imagen').dialog('open');
+						} else {
+							$('#subir_img_dialog').dialog('close');
+							$('#imagen_ok_dialog > h4').html(data.msg);
+							$('#imagen_ok_dialog').dialog('option', 'title', 'Actualizar Imagen').dialog('open');
+						}
+					}
+				});
+			}
+		},
+		width: '350px',
+		height: '250',
+		modal: true
+	});
+/*------------------------------------------------------------------------------------------------------------------------------
+    seccion para eliminar un video de la tabla, se elimina el registro en la BD y el archivo de video correspondiente en el servidor
+     */
+	$('#tabla_avisos').delegate('a.borrar_imagen', 'click', function(event) {
+		event.preventDefault();
+		var id = $(this).attr('href');
+		$.ajax({
+			type: 'POST',
+			url: base_url + 'panel_principal/consultar_imagen/' + id,
+			dataType: 'json',
+			success: function(data) {
+				$('#form_borrar_imagen #nombre_imagen').val(data.nombre);
+				$('#form_borrar_imagen #id').val(id);
+				$('#form_borrar_imagen > h4').html(data.nombre);
+				//abrimos el cuadro de dialogo que contendra el mensaje de confirmacion             
+				$('#borrar_img_dialog').dialog('open');
+			}
+		});
+		return false;
+	});
+	$('#borrar_img_dialog').dialog({
+		autoOpen: false,
+		width: '350px',
+		height: '300',
+		modal: true,
+		buttons: {
+			'Eliminar': function() {
+				$.ajax({
+					url: base_url + 'panel_principal/borrar_imagen',
+					type: 'POST',
+					dataType: 'json',
+					data: $('#form_borrar_imagen').serialize(),
+					// respuesta en formato JSON desde el metodo editar_aviso_pi()					
+					success: function(data) {
+						// si la eliminacion del aviso ha sido exitosa se carga el mensaje de confirmacion en otro cuadro de dialogo
+						$('#borrar_img_dialog').dialog('close');
+						$('#imagen_ok_dialog > h4').html(data.msg);
+						$('#imagen_ok_dialog').dialog('option', 'title', 'Eliminar Imagen').dialog('open');
+					} //fin success                   
+				}); //fin llamada ajax()
+				return false;
+			},
+			//boton que cierra el cuadro de dialogo
+			'Cancelar': function() {
+				$(this).dialog('close');
+			}
+		}
+	});
+	$('#imagen_ok_dialog').dialog({
+		autoOpen: false,
+		buttons: {
+			'Ok': function() {
+				document.location = base_url + 'panel_principal/editar';
+				$(this).dialog('close');
+			}
+		},
+		modal: true
 	});
 });

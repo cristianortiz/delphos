@@ -25,7 +25,7 @@ class Home_model extends CI_Model {
     
      function get_panel_principal()
     {
-        $this->db->select('id, titulo, descripcion,contenido');                    
+        $this->db->select('id, titulo, descripcion,contenido,imagen,fecha');                    
         $consulta = $this->db->get('principal');
         return $consulta->result_array();
         

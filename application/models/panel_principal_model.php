@@ -42,16 +42,19 @@ class Panel_principal_model extends CI_Model
     {
         $this->db->where('id', $id);
         $this->db->delete('principal');
-        
+
     }
 
-    function crear_texto($contenido)
+    function crear_nuevo_articulo($imagen,$descripcion,$titulo,$contenido)
     {
         $data = array(
+            'titulo' => $titulo,
+            'descripcion' => $descripcion,
             'contenido' => $contenido,
-            'fecha' => mdate('%Y-%m-%d'),
-            );
-        $this->db->insert('lateral', $data);
+            'imagen' => $imagen,
+            'fecha' => mdate('%Y-%m-%d'));
+        $this->db->insert('principal', $data);
+        return $this->db->insert_id();
     }
     function get_videos()
     {
@@ -74,15 +77,39 @@ class Panel_principal_model extends CI_Model
             'descripcion' => $desc,
             'url' => $ruta,
             'tipo' => $tipo,
-            'fecha' =>  mdate('%Y-%m-%d'));
+            'fecha' => mdate('%Y-%m-%d'));
         $this->db->insert('video', $data);
         return $this->db->insert_id();
+    }
+    
+     function get_imagen($id)
+    {
+        $this->db->select('imagen');
+        $this->db->where('id', $id);
+        $consulta = $this->db->get('principal');
+        return $consulta->row_array();
+    }
+
+    public function actualizar_imagen($imagen, $id)
+    {
+        $data = array('imagen' => $imagen);
+        $this->db->where('id', $id);
+        $this->db->update('principal', $data);
+       return $id; 
+    }
+    public function borrar_imagen($id)
+    {
+        $data = array('imagen' => '');
+        $this->db->where('id', $id);
+        $this->db->update('principal', $data);
+       return $id; 
     }
 
 }
 
 
 //location: application/models/login_model.php
+
 
 
 ?>

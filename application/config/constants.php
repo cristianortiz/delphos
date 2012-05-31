@@ -45,7 +45,7 @@ define('FOPEN_READ_WRITE_CREATE_STRICT',		'x+b');
 | Cantidad de caracteres permitido para desplegar en la cinta de
 | de avisos del panel inferior, resultados por tabla en la paginacion 
 */
-define('MAX_CHAR_PI', 100);
+define('MAX_CHAR_PI', 75);
 define('MAX_CHAR_LAT', 150);
 define('ROWS_FOR_PAGES',5);
 

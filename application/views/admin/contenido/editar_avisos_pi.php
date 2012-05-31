@@ -31,19 +31,19 @@
      
      <!-- seccion de cuadros de dialogos, ocultos, desplegados por JQuery, para crear, editar y elminar un aviso
           desde la cinta de mensajes -->
-      <div id="crearDialog-pi" title="Crear Nuevo Aviso">
+      <div id="crearDialog-pi"  style="width: 400px;" title="Crear Nuevo Aviso">
         <form id="form-crear-pi">
             <h3>Contenido del aviso</h3><br />      
-            <textarea  name="contenido" id="contenido"></textarea>     
+            <textarea class="area-texto" rows="4"  name="contenido" id="contenido"></textarea>     
          </form>
          <p></p>
       </div> 
      
-     <div id="editarDialog-pi" title="Editar Aviso">
+     <div id="editarDialog-pi" style="width: 400px;" title="Editar Aviso">
        <form id="form-edicion-pi">
        <h3>Contenido del aviso</h3><br />
        
-       <textarea  name="contenido" id="contenido"></textarea>
+       <textarea  class="area-texto" rows="4"  name="contenido" id="contenido"></textarea>
        <input type="hidden" id="id" name="id" />
        <p></p>
        </form>
@@ -53,7 +53,7 @@
        <form id="form-eliminar-pi">
        <h3>¿Seguro desea eliminar el sgte. mensaje?</h3><br />
        
-       <textarea readonly="readonly" name="contenido" id="contenido"></textarea>
+       <textarea  readonly="readonly" name="contenido" id="contenido"></textarea>
        <input type="hidden" id="id" name="id" />
        <p></p>
        </form>

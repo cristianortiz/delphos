@@ -53,25 +53,47 @@ class Panel_principal extends CI_Controller
     
    
 
-    public function crear_texto_principal()
+    public function crear_nuevo_articulo()
     {
         $contenido = $this->input->post('contenido');
+        $titulo = $this->input->post('titulo');
+        $desc = $this->input->post('desc'); 
 
-        if (!empty($contenido)) {
-            $respuesta = $this->Panel_principal_model->crear_texto($contenido);
-            $respuesta['aux'] = 1;
-            $respuesta['text'] = "<b>Noticia creada exitosamente</b>";
-            echo json_encode($respuesta);
-            //Devolvemos mediante notacion JSON los datos del aviso nuevo creado
-            //   echo  '{"contenido":"'.$contenido.'","text":"<b>Noticia creada exitosamente</b>","aux":"'.$aux.'"}';
-
-        } else {
-            // Si el textarea del form de creacion es enviado sin datos es rechazado
-            $respuesta['text'] = "<b>Debe incluir el texto de la noticia por favor<b>";
-            $respuesta['aux'] = 2;
-            echo json_encode($respuesta);
-            //echo '{"text":"'.$text.'","aux":"'.$aux.'"}';
+        $status = "";
+        $msg = "";
+        $file_element_name = 'articulo_img';
+        $ruta = './recursos/images';
+        if (!file_exists($ruta)) {
+            //creamos el directorio para la empresa nueva agregada y le asignamos permisos de lec/esct
+           mkdir($ruta, 0777);
         }
+        if ($status != "error") {
+            $config['upload_path'] = $ruta;
+            $config['allowed_types'] = 'jpeg|jpg|png';
+            $config['max_size'] = 1024 * 8;
+            $config['encrypt_name'] = false;
+
+            $this->load->library('upload', $config);
+
+            if (!$this->upload->do_upload($file_element_name)) {
+                $status = 'error';
+                $msg = $this->upload->display_errors('', '');
+            } else {
+                $data = $this->upload->data();
+                $url = base_url('recursos/images').'/'.$data['file_name'];
+                $file_id = $this->Panel_principal_model->crear_nuevo_articulo($data['file_name'], $desc,$titulo,$contenido);
+                if ($file_id) {
+                    $status = "success";
+                    $msg = "Articulo Creado  Correctamente";
+                } else {
+                    unlink($data['full_path']);
+                    $status = "error";
+                    $msg = "No hemos podido crear el articulo, intente de nuevo por favor";
+                }
+            }
+            @unlink($_FILES[$file_element_name]);
+        }
+        echo json_encode(array('status' => $status, 'msg' => $msg));
     }
 
     /* metodo que recibe los datos del form de edicion de mensajes del panel inferior y realiza la actualizacion a traves del metodo
@@ -272,6 +294,82 @@ class Panel_principal extends CI_Controller
         }
         echo json_encode(array('status' => $status, 'msg' => $msg));
     }
+    
+    
+     public function actualizar_imagen()
+    {
+        $status = "";
+        $msg = "";
+        $file_element_name = 'userfile';
+
+        $id = $this->input->post('id');
+        $ruta = './recursos/images';
+        if (!file_exists($ruta)) {
+            //creamos el directorio para la empresa nueva agregada y le asignamos permisos de lec/esct
+           mkdir($ruta, 0777);
+        }
+        if ($status != "error") {
+            $config['upload_path'] = $ruta;
+            $config['allowed_types'] = 'jpeg|jpg|png';
+            $config['max_size'] = 1024 * 8;
+            $config['encrypt_name'] = false;
+
+            $this->load->library('upload', $config);
+
+            if (!$this->upload->do_upload($file_element_name)) {
+                $status = 'error';
+                $msg = $this->upload->display_errors('', '');
+            } else {
+                $data = $this->upload->data();
+                $url = base_url('recursos/images').'/'.$data['file_name'];
+                $file_id = $this->Panel_principal_model->actualizar_imagen($data['file_name'],$id);
+                if ($file_id) {
+                    $status = "success";
+                    $msg = "Imagen Subida Correctamente";
+                } else {
+                    unlink($data['full_path']);
+                    $status = "error";
+                    $msg = "No hemos podido subir el archivo, intente de nuevo por favor";
+                }
+            }
+            @unlink($_FILES[$file_element_name]);
+        }
+        echo json_encode(array('status' => $status, 'msg' => $msg));
+    }
+    
+     public function consultar_imagen($id)
+    {
+        $respuesta = $this->Panel_principal_model->get_imagen($id);
+        echo json_encode(array(
+            'nombre' => $respuesta['imagen'],
+            'id' => $id
+            ));
+    }
+    public function borrar_imagen()
+    {
+        //parametros para la respuesta a la llamada de Ajax
+        $status = "";
+        $msg = "";
+
+        $id = $this->input->post('id');
+        $nombre_video = $this->input->post('nombre_imagen');
+       
+        try {
+
+            $file_id = $this->Panel_principal_model->borrar_imagen($id);                    
+            unlink('./recursos/images/'.$nombre_video);           
+            $status = "success";
+            $msg = "Imagen borrada exitosamente!";
+        }
+        catch (exception $e) {
+            $status = "error";
+            $msg = $e->getMessage();
+        }
+        echo json_encode(array('status' => $status, 'msg' => $msg));
+    }
+    
+     
+
 } // fin clase panel_lateral
 
 /* End of file welcome.php */

@@ -22,9 +22,7 @@
 				Titulo
 			</label>
 			<input type="text" name="desc" id="desc" value="" />
-			<label for="userfile">
-				Video
-			</label>
+			<label for="userfile">Video	</label>
 			<input type="file" name="userfile" id="userfile" size="20" />
 			<input type="submit" name="submit" id="submit" value="Subir Video"/>
           

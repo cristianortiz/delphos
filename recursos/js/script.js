@@ -1,148 +1,227 @@
 $(document).ready(function() {
-var base_url = 'http://localhost/delphos/';
-//var base_url = 'http://146.83.74.15/delphos/';
-$("#avisos").carouFredSel({
-	
-	items: {
-		visible: 1,
-		minimum: 1
-	},
-	scroll: {
-		fx: "cross",
-        easing:"linear",
-		duration: 9000,
-		items: 1
-		
-	},
-	auto: {
-		pauseDuration: 7500,
-		delay: 6000
-	}
-});
-
-$("#lateral").carouFredSel({
-	
-    direction: 'down',
-	items: {	   
-		visible: 2,
-		minimum: 1
-	},
-	scroll: {	   
-		fx: "cross",
-        easing:"linear",
-		duration: 6000,
-		items: 1
-		
-	},
-	auto: {
-		pauseDuration: 6000,
-		delay: 5000
-	}
-});
-
+	var base_url = 'http://localhost/delphos/';
+	//var base_url = 'http://146.83.74.15/delphos/';
+	$("#avisos").carouFredSel({
+	   	direction: 'left',
+		items: {
+			visible: 1,			
+		},
+		scroll: {
+			fx: "cross",
+			easing: "linear",
+			duration: 11000,
+			items: 1
+		},
+		auto: {
+			pauseDuration: 15000,
+			delay: 1000
+		}
+	});
+	$("#lateral").carouFredSel({
+		direction: 'down',
+		items: {
+			visible: 2,
+			minimum: 1
+		},
+		scroll: {
+			fx: "cross",
+			easing: "linear",
+			duration: 8000,
+			items: 1
+		},
+		auto: {
+			pauseDuration: 6000,
+			delay: 5000
+		}
+	});
 /*--------------------------------------------------------------------------------------------------------------------------
   Esta seccion controla las animaciones del panel principal, es un content rotator que sincroniza las imagenes y los textos 
    En el panel principal
 */
+	$(function() {
+		var current = 1;
+		var iterate = function() {
+			var i = parseInt(current + 1);
+			var lis = $('#rotmenu').children('li').size();
+			if (i > lis) i = 1;
+			display($('#rotmenu li:nth-child(' + i + ')'));
+		}
+		display($('#rotmenu li:first'));
+		var slidetime = setInterval(iterate, 8000);
+		$('#rotmenu li').bind('click', function(e) {
+			clearTimeout(slidetime);
+			display($(this));
+			e.preventDefault();
+		});
 
-  $(function() {
-                var current = 1;
-                
-                var iterate		= function(){
-                    var i = parseInt(current+1);
-                    var lis = $('#rotmenu').children('li').size();
-                    if(i>lis) i = 1;
-                    display($('#rotmenu li:nth-child('+i+')'));
-                }
-                display($('#rotmenu li:first'));
-                var slidetime = setInterval(iterate,8000);
-				
-                $('#rotmenu li').bind('click',function(e){
-                    clearTimeout(slidetime);
-                    display($(this));
-                    e.preventDefault();
-                });
-				
-                function display(elem){
-                    var $this 	= elem;
-                    var repeat 	= false;
-                    if(current == parseInt($this.index() + 1))
-                        repeat = true;
-					
-                    if(!repeat)
-                        $this.parent().find('li:nth-child('+current+') a').stop(true,true).animate({'marginRight':'-20px'},300,function(){
-                            $(this).animate({'opacity':'0.7'},700);
-                        });
-					
-                    current = parseInt($this.index() + 1);
-					
-                    var elem = $('a',$this);
-                    
-                        elem.stop(true,true).animate({'marginRight':'0px','opacity':'1.0'},300);
-					
-                    var info_elem = elem.next();
-                    $('#rot1 .heading').animate({'left':'-420px'}, 500,'easeOutCirc',function(){
-
-                        $('h1',$(this)).html(info_elem.find('.info_heading').html());
-                        $(this).animate({'left':'0px'},400,'easeInOutQuad');
-                    });
-					
-                    $('#rot1 .description').animate({'bottom':'-270px'},500,'easeOutCirc',function(){
-                        $('p',$(this)).html(info_elem.find('.info_description').html());
-                        $(this).animate({'bottom':'0px'},400,'easeInOutQuad');
-                    })
-                    $('#rot1').prepend(
-                    $('<img/>',{
-                        style	:	'opacity:0',
-                        className : 'bg'
-                    }).load(
-                    function(){
-                        $(this).animate({'opacity':'1'},600);
-                        $('#rot1 img:first').next().animate({'opacity':'0'},700,function(){
-                            $(this).remove();
-                        });
-                    }
-                ).attr('src','/delphos/recursos/images/'+info_elem.find('.info_image').html()).attr('width','1000').attr('height','600')
-                );
-                }
-            });
+		function display(elem) {
+			var $this = elem;
+			var repeat = false;
+			if (current == parseInt($this.index() + 1)) repeat = true;
+			if (!repeat) $this.parent().find('li:nth-child(' + current + ') a').stop(true, true).animate({
+				'marginRight': '-20px'
+			}, 300, function() {
+				$(this).animate({
+					'opacity': '0.7'
+				}, 700);
+			});
+			current = parseInt($this.index() + 1);
+			var elem = $('a', $this);
+			elem.stop(true, true).animate({
+				'marginRight': '0px',
+				'opacity': '1'
+			}, 300);
+			var info_elem = elem.next();
+             $('#rot1 .title').animate({
+				'left': '-420px',
+                'opacity': '0.9'
+			}, 300, 'easeOutCirc', function() {
+				$('h3', $(this)).html(info_elem.find('.info_title').html());
+				$(this).animate({
+					'left': '0px'
+				}, 900, 'easeInOutQuad');
+			});
+			$('#rot1 .heading').animate({
+				'left': '800px',
+               	'top': '42px'                                
+			}, 700, 'easeOutCirc', function() {
+				$('h1', $(this)).html(info_elem.find('.info_heading').html());
+				$(this).animate({
+					'left': '0px'
+				}, 500, 'easeInOutQuad');
+			});
            
-         /*fin content-rotator panel principal
-        ---------------------------------------------------------------------------------------------------------------------*/
-  /*-------------------------------------------------------------------------------------------------------------
+			$('#rot1 .description').animate({
+				'bottom': '-270px'
+			}, 500, 'easeOutCirc', function() {
+				$('p', $(this)).html(info_elem.find('.info_description').html());
+				$(this).animate({
+					'bottom': '0px'
+				}, 400, 'easeInOutQuad');
+			})
+			$('#rot1').prepend(
+			$('<img/>', {
+				style: 'opacity:0',
+				className: 'bg'
+			}).load(
+
+			function() {
+				$(this).animate({
+					'opacity': '1'
+				}, 600);
+				$('#rot1 img:first').next().animate({
+					'opacity': '0'
+				}, 700, function() {
+					$(this).remove();
+				});
+			}).attr('src', '/delphos/recursos/images/' + info_elem.find('.info_image').html()).attr('width', '1000').attr('height', '600'));
+		}
+	});
+/*fin content-rotator panel principal
+  $(function() {
+		var current = 1;
+		var iterate = function() {
+			var i = parseInt(current + 1);
+			var lis = $('#rotmenu').children('li').size();
+			if (i > lis) i = 1;
+			display($('#rotmenu li:nth-child(' + i + ')'));
+		}
+		display($('#rotmenu li:first'));
+		var slidetime = setInterval(iterate, 8000);
+		$('#rotmenu li').bind('click', function(e) {
+			clearTimeout(slidetime);
+			display($(this));
+			e.preventDefault();
+		});
+
+		function display(elem) {
+			var $this = elem;
+			var repeat = false;
+			if (current == parseInt($this.index() + 1)) repeat = true;
+			if (!repeat) $this.parent().find('li:nth-child(' + current + ') a').stop(true, true).animate({
+				'marginRight': '-20px'
+			}, 300, function() {
+				$(this).animate({
+					'opacity': '0.7'
+				}, 700);
+			});
+			current = parseInt($this.index() + 1);
+			var elem = $('a', $this);
+			elem.stop(true, true).animate({
+				'marginRight': '0px',
+				'opacity': '1.0'
+			}, 300);
+			var info_elem = elem.next();
+			$('#rot1 .heading').animate({
+				'left': '-420px'
+			}, 500, 'easeOutCirc', function() {
+				$('h1', $(this)).html(info_elem.find('.info_heading').html());
+				$(this).animate({
+					'left': '0px'
+				}, 400, 'easeInOutQuad');
+			});
+			$('#rot1 .description').animate({
+				'bottom': '-270px'
+			}, 500, 'easeOutCirc', function() {
+				$('p', $(this)).html(info_elem.find('.info_description').html());
+				$(this).animate({
+					'bottom': '0px'
+				}, 400, 'easeInOutQuad');
+			})
+			$('#rot1').prepend(
+			$('<img/>', {
+				style: 'opacity:0',
+				className: 'bg'
+			}).load(
+
+			function() {
+				$(this).animate({
+					'opacity': '1'
+				}, 600);
+				$('#rot1 img:first').next().animate({
+					'opacity': '0'
+				}, 700, function() {
+					$(this).remove();
+				});
+			}).attr('src', '/delphos/recursos/images/' + info_elem.find('.info_image').html()).attr('width', '1000').attr('height', '600'));
+		}
+	});     
+/*-------------------------------------------------------------------------------------------------------------
     Bloque JS para el plugin projekktor, llama al metodo carga_playlist delcontrolador home que carga la lista de
     reproduccion desde la BD en formato JSON para el reproductor
-  ----------------------------------------------------------------------------------------------------------------*/ 
-   projekktor('#player_a', {
-	debug: true,
-      // poster: 'intro.png',
-      useYTIframeAPI: false, 
-	width: 970,
-	height: 500,
-    playerFlashMP4: base_url+'recursos/js/jarisplayer.swf',
-	controls: true,
-	playlist: [{0:{src:base_url+'home/carga_playlist', type:"text/json"}}]     
-    },
-        function(player) {
-          player.addListener('done', function () {
-              var mostrar ='texto';
-            	$.ajax({
-		          	url: base_url + 'panel_principal/actualizar_opcion/',
-		          	type: 'POST',
-                    data:{'id':'1','opcion':'texto'},
-		          	dataType: 'json',
-		          	success: function(respuesta) {
-		          	   if(respuesta.status =='succes'){
-			         	document.location = base_url;  
-			         }
-                   }
-	           	});
-	           	return false;
-            });
-          
-        }
-     );
-    
-  
-  
+  ----------------------------------------------------------------------------------------------------------------*/
+	projekktor('#player_a', {
+		debug: true,
+		// poster: 'intro.png',
+		useYTIframeAPI: false,
+		width: 970,
+		height: 500,
+		playerFlashMP4: base_url + 'recursos/js/jarisplayer.swf',
+		controls: true,
+		playlist: [{
+			0: {
+				src: base_url + 'home/carga_playlist',
+				type: "text/json"
+			}
+		}]
+	}, function(player) {
+		player.addListener('done', function() {
+			var mostrar = 'texto';
+			$.ajax({
+				url: base_url + 'panel_principal/actualizar_opcion/',
+				type: 'POST',
+				data: {
+					'id': '1',
+					'opcion': 'texto'
+				},
+				dataType: 'json',
+				success: function(respuesta) {
+					if (respuesta.status == 'succes') {
+						document.location = base_url;
+					}
+				}
+			});
+			return false;
+		});
+	});
 });

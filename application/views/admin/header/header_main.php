@@ -4,5 +4,5 @@
                 <h1>Panel Informativo DIICC</h1>
                  <h2>Depto. Ingenieria Informatica y Ciencias de la Computacion</h2>
             </div>           
-            <div id="logo-uda"><img src="<? echo base_url('recursos/images/insignia-uda-trans.png');?>" width="96" height="85"  /></div>          
+            <div id="logo-uda"><img src="<? echo base_url('recursos/images/uda.png');?>"  /></div>          
           </header>
