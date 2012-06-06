@@ -11,7 +11,7 @@ $(document).ready(function() {
 	var base_principal = 'panel_principal/editar';
 	// variables para controlar el maximo de caratectes permitido en cada aviso, noticia y articulo en los paneles lateral, inferior y proncipal
 	var MAX_CHAR_LAT = 150;
-	var MAX_CHAR_PI = 75;
+	var MAX_CHAR_PI = 85;
 	var MAX_CHAR_PRINC = 300;
 /* Fin seccion de configuracion
  -----------------------------------------------------------------------------------------------------------------------------------*/

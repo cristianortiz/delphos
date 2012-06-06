@@ -90,18 +90,14 @@ class Panel_inferior extends CI_Controller
         $datos = array('contenido' => $contenido, );
 
         if (!empty($contenido)) {
-            if (strlen($contenido) < MAX_CHAR_PI) {
+            
                 $respuesta = $this->Panel_inferior_model->editar_aviso($id, $datos);
                 $respuesta['aux'] = 1;
                 $respuesta['contenido'] = $contenido;
-                $respuesta['text'] = "<b>Aviso Editado Correctamente</b>";
+                $respuesta['text'] = "<h3>Aviso Editado Correctamente</h3>";
                 echo json_encode($respuesta);
-            } else {
-                // Si el textarea del form de creacion supera el maximo de caracteres permitido
-                $respuesta['text'] = "<b>El texto supera el maximo de carateres permitido<b>";
-                $respuesta['aux'] = 2;
-                echo json_encode($respuesta);
-            }
+           
+            
         } else {
             // Si el textarea del form de creacion es enviado sin datos es rechazado
             $respuesta['text'] = "<b>Debe incluir el texto del aviso por favor<b>";

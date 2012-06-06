@@ -50,14 +50,13 @@ class Panel_principal extends CI_Controller
         $response['descripcion'] = $respuesta['descripcion'];
         echo json_encode($response);
     }
-    
-   
+
 
     public function crear_nuevo_articulo()
     {
         $contenido = $this->input->post('contenido');
         $titulo = $this->input->post('titulo');
-        $desc = $this->input->post('desc'); 
+        $desc = $this->input->post('desc');
 
         $status = "";
         $msg = "";
@@ -65,7 +64,7 @@ class Panel_principal extends CI_Controller
         $ruta = './recursos/images';
         if (!file_exists($ruta)) {
             //creamos el directorio para la empresa nueva agregada y le asignamos permisos de lec/esct
-           mkdir($ruta, 0777);
+            mkdir($ruta, 0777);
         }
         if ($status != "error") {
             $config['upload_path'] = $ruta;
@@ -80,8 +79,9 @@ class Panel_principal extends CI_Controller
                 $msg = $this->upload->display_errors('', '');
             } else {
                 $data = $this->upload->data();
-                $url = base_url('recursos/images').'/'.$data['file_name'];
-                $file_id = $this->Panel_principal_model->crear_nuevo_articulo($data['file_name'], $desc,$titulo,$contenido);
+                $url = base_url('recursos/images') . '/' . $data['file_name'];
+                $file_id = $this->Panel_principal_model->crear_nuevo_articulo($data['file_name'],
+                    $desc, $titulo, $contenido);
                 if ($file_id) {
                     $status = "success";
                     $msg = "Articulo Creado  Correctamente";
@@ -184,7 +184,7 @@ class Panel_principal extends CI_Controller
         $ruta = './recursos/videos';
         if (!file_exists($ruta)) {
             //creamos el directorio para la empresa nueva agregada y le asignamos permisos de lec/esct
-           mkdir($ruta, 0777);
+            mkdir($ruta, 0777);
         }
         if ($status != "error") {
             $config['upload_path'] = $ruta;
@@ -199,9 +199,9 @@ class Panel_principal extends CI_Controller
                 $msg = $this->upload->display_errors('', '');
             } else {
                 $data = $this->upload->data();
-                $url = base_url('recursos/videos').'/'.$data['file_name'];
+                $url = base_url('recursos/videos') . '/' . $data['file_name'];
                 $file_id = $this->Panel_principal_model->insert_file($data['file_name'], $descripcion,
-                    $url, 'video/'.str_replace(".","",$data['file_ext']));
+                    $url, 'video/' . str_replace(".", "", $data['file_ext']));
                 if ($file_id) {
                     $status = "success";
                     $msg = "Video Subido Correctamente";
@@ -254,10 +254,29 @@ class Panel_principal extends CI_Controller
         $opcion = $this->input->post('opcion');
         $datos = array('desplegar' => $opcion, );
         $respuesta = $this->Panel_principal_model->actualizar_opcion($id, $datos);
-        $respuesta['text'] = "<h3>Opcion '" . $opcion . "' Configurada Correctamente</h3>";
+        $respuesta['text'] = "<h3>Opcion '" . $opcion .
+            "' Configurada Correctamente</h3>";
         $respuesta['id'] = $id;
         $respuesta['status'] = 'succes';
         echo json_encode($respuesta);
+    }
+
+    public function cambiar_a_video()
+    {
+        $id = $this->input->post('id');
+        $opcion = $this->input->post('opcion');
+        $visualizar = $this->Home_model->get_visualizacion();
+        if ($visualizar['desplegar'] == TEXT_MODE) {
+
+            $datos = array('desplegar' => $opcion, );
+            $respuesta = $this->Panel_principal_model->actualizar_opcion($id, $datos);
+            $respuesta['status'] = 'succes';
+            echo json_encode($respuesta);
+        } else {
+            $respuesta['status'] = 'error';
+            echo json_encode($respuesta);
+        }
+
     }
 
     public function consultar_video($id)
@@ -281,9 +300,9 @@ class Panel_principal extends CI_Controller
         try {
 
             $file_id = $this->Panel_principal_model->borrar_video($id);
-            
+
             if ($tipo_video != 'video/youtube') {
-                unlink('./recursos/videos/'.$nombre_video);
+                unlink('./recursos/videos/' . $nombre_video);
             }
             $status = "success";
             $msg = "Video borrado exitosamente!";
@@ -294,9 +313,9 @@ class Panel_principal extends CI_Controller
         }
         echo json_encode(array('status' => $status, 'msg' => $msg));
     }
-    
-    
-     public function actualizar_imagen()
+
+
+    public function actualizar_imagen()
     {
         $status = "";
         $msg = "";
@@ -306,7 +325,7 @@ class Panel_principal extends CI_Controller
         $ruta = './recursos/images';
         if (!file_exists($ruta)) {
             //creamos el directorio para la empresa nueva agregada y le asignamos permisos de lec/esct
-           mkdir($ruta, 0777);
+            mkdir($ruta, 0777);
         }
         if ($status != "error") {
             $config['upload_path'] = $ruta;
@@ -321,8 +340,8 @@ class Panel_principal extends CI_Controller
                 $msg = $this->upload->display_errors('', '');
             } else {
                 $data = $this->upload->data();
-                $url = base_url('recursos/images').'/'.$data['file_name'];
-                $file_id = $this->Panel_principal_model->actualizar_imagen($data['file_name'],$id);
+                $url = base_url('recursos/images') . '/' . $data['file_name'];
+                $file_id = $this->Panel_principal_model->actualizar_imagen($data['file_name'], $id);
                 if ($file_id) {
                     $status = "success";
                     $msg = "Imagen Subida Correctamente";
@@ -336,14 +355,11 @@ class Panel_principal extends CI_Controller
         }
         echo json_encode(array('status' => $status, 'msg' => $msg));
     }
-    
-     public function consultar_imagen($id)
+
+    public function consultar_imagen($id)
     {
         $respuesta = $this->Panel_principal_model->get_imagen($id);
-        echo json_encode(array(
-            'nombre' => $respuesta['imagen'],
-            'id' => $id
-            ));
+        echo json_encode(array('nombre' => $respuesta['imagen'], 'id' => $id));
     }
     public function borrar_imagen()
     {
@@ -353,11 +369,11 @@ class Panel_principal extends CI_Controller
 
         $id = $this->input->post('id');
         $nombre_video = $this->input->post('nombre_imagen');
-       
+
         try {
 
-            $file_id = $this->Panel_principal_model->borrar_imagen($id);                    
-            unlink('./recursos/images/'.$nombre_video);           
+            $file_id = $this->Panel_principal_model->borrar_imagen($id);
+            unlink('./recursos/images/' . $nombre_video);
             $status = "success";
             $msg = "Imagen borrada exitosamente!";
         }
@@ -367,8 +383,7 @@ class Panel_principal extends CI_Controller
         }
         echo json_encode(array('status' => $status, 'msg' => $msg));
     }
-    
-     
+
 
 } // fin clase panel_lateral
 

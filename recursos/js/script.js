@@ -1,20 +1,21 @@
 $(document).ready(function() {
 	var base_url = 'http://localhost/delphos/';
 	//var base_url = 'http://146.83.74.15/delphos/';
+    var intervalo = 
 	$("#avisos").carouFredSel({
-	   	direction: 'left',
+		direction: 'left',
 		items: {
-			visible: 1,			
+			visible: 1,
 		},
 		scroll: {
 			fx: "cross",
 			easing: "linear",
-			duration: 11000,
+			duration: 15000,
 			items: 1
 		},
 		auto: {
-			pauseDuration: 15000,
-			delay: 1000
+			pauseDuration: 10000,
+			delay: 0
 		}
 	});
 	$("#lateral").carouFredSel({
@@ -72,9 +73,9 @@ $(document).ready(function() {
 				'opacity': '1'
 			}, 300);
 			var info_elem = elem.next();
-             $('#rot1 .title').animate({
+			$('#rot1 .title').animate({
 				'left': '-420px',
-                'opacity': '0.9'
+				'opacity': '0.9'
 			}, 300, 'easeOutCirc', function() {
 				$('h3', $(this)).html(info_elem.find('.info_title').html());
 				$(this).animate({
@@ -83,14 +84,13 @@ $(document).ready(function() {
 			});
 			$('#rot1 .heading').animate({
 				'left': '800px',
-               	'top': '42px'                                
+				'top': '42px'
 			}, 700, 'easeOutCirc', function() {
 				$('h1', $(this)).html(info_elem.find('.info_heading').html());
 				$(this).animate({
 					'left': '0px'
 				}, 500, 'easeInOutQuad');
 			});
-           
 			$('#rot1 .description').animate({
 				'bottom': '-270px'
 			}, 500, 'easeOutCirc', function() {
@@ -224,4 +224,22 @@ $(document).ready(function() {
 			return false;
 		});
 	});
+	$.timer(20000, function() {
+			var opcion = 'video';
+			$.ajax({
+				url: base_url + 'panel_principal/cambiar_a_video/',
+				type: 'POST',
+				data: {
+					'id': '1',
+					'opcion': opcion
+				},
+				dataType: 'json',
+				success: function(respuesta) {
+					if (respuesta.status == 'succes') {
+						document.location = base_url;
+					}
+				}
+			});
+			return false;
+	})
 });

@@ -18,6 +18,14 @@ src: url('fuentes/Opificio_Bold.ttf') format('truetype');
 font-family: Decker;
 src: url('fuentes/DeckerB.ttf') format('truetype');    
 }
+@font-face{
+font-family: DosisLight;
+src: url('fuentes/Dosis-Light.ttf') format('truetype');    
+}
+@font-face{
+font-family: DosisMedium;
+src: url('fuentes/Dosis-Medium.ttf') format('truetype');    
+}
 /*Estilos basicos*/
 
 h1,h2,h3,h4{
@@ -118,22 +126,21 @@ footer{
     display:table;
     margin: 0px;    
     position:relative;
-    text-align: left;
+    text-align: center;
     width: 100%;
     height: auto;
-    background: rgba(0,0,0,0.90); 
+    background: rgba(0,0,0,1); 
     
     }
     
 #contenido-footer{
-    clear: both;
-    
-    padding:10px;
+    clear: both;    
+    padding:5px;
     width: 98%;
     height: 100px;
     margin:0px;
     color:white; 
-     text-align:center;         
+    text-align:center;         
 } 
 
 #contenido{
@@ -141,10 +148,11 @@ footer{
     height: 100%;     
 }
 
-#avisos p{    
-    font-size:32px;
-    color: rgba(255,255,255,0.9);
-    padding: 20px;
+#avisos p{
+    font-family: DosisLight;
+    font-size:40px;
+    color: rgba(255,255,255,1);
+    padding: 20px 5px 0px 5px;
     text-shadow:3px 3px 5px rgba(255,255,255,0.3);   
        
 } 
@@ -171,13 +179,11 @@ aside{
     background: rgba(0,0,0,0.8);
     border:2px solid lightgrey;
     border-radius:15px;
-    color: white;
-    
+    color: white;    
     box-shadow:0px 0px 15px black;
     -moz-box-shadow:0px 0px 15px black;
     -webkit-box-shadow:0px 0px 15px black;
-    -o-box-shadow:0px 0px 15px black;
-    
+    -o-box-shadow:0px 0px 15px black;   
     text-shadow:2px 2px 5px rgba(0,0,0,0.8);
 }
 
@@ -188,6 +194,7 @@ aside{
     font-size:30px;
     padding-bottom: 5px;
     border-bottom: 1px solid lightgray;
+    text-align: justify;
 }
 
 

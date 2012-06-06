@@ -9,8 +9,8 @@ src: url('fuentes/Opificio_Bold.ttf') format('truetype');
 }
 
 @font-face{
-font-family: Waukegan;
-src: url('fuentes/Waukegan LDO Extended Bold.ttf') format('truetype');    
+font-family: DosisLight;
+src: url('fuentes/Dosis-Light.ttf') format('truetype');    
 }
 .rotator{
     background-color:#222;
@@ -22,8 +22,7 @@ src: url('fuentes/Waukegan LDO Extended Bold.ttf') format('truetype');
     color:#fff;
     text-transform:uppercase;
     letter-spacing:-1px;
-    overflow:hidden;
-	
+    overflow:hidden;	
     -moz-box-shadow:0px 0px 15px black;
     -webkit-box-shadow:0px 0px 15px black;
     box-shadow:0px 0px 15px black;
@@ -64,7 +63,6 @@ img.bg{
 }
 .rotator .title h3{
     font-family: Opificio;
-    text-shadow:-1px 1px 1px #555;   
     text-transform:none;
     font-size:30px;
     letter-spacing: normal;
@@ -76,10 +74,10 @@ img.bg{
     background-color:#222;               
 }
 .rotator .heading h1{
-    font-family: Decker ;
+    font-family: DosisLight ;
     text-shadow:-1px 1px 1px #555;   
     text-transform:none;
-    font-size:40px;
+    font-size:42px;
     letter-spacing: normal;
     padding:10px 0px 5px 10px;
       
@@ -97,16 +95,18 @@ img.bg{
     -moz-border-radius:  0px 10px 10px 0px;
     -webkit-border-radius:0px 10px 10px 0px;
     opacity:0.8;
-    border-top:2px solid #000;
-    border-right:2px solid #000;
+    border-top:1px solid #000;
+    border-right:1px solid #000;
 }
 .rotator .description p{
-    -webkit-text-shadow:0px 0px 5px black;
-    -moz-text-shadow:0px 0px 5px black;    
-    font-size:18px;
+  
+    text-shadow:2px 2px 5px black;    
+    font-size:28px;
     text-transform:none;
     letter-spacing:normal;
-    line-height:20px;
+    line-height:30px;
+    
+    width: 98%;
 }
 a.more{
     color:orange;
