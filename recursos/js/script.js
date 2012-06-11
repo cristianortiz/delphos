@@ -1,7 +1,7 @@
 $(document).ready(function() {
 	var base_url = 'http://localhost/delphos/';
 	//var base_url = 'http://146.83.74.15/delphos/';
-    var intervalo = 
+   
 	$("#avisos").carouFredSel({
 		direction: 'left',
 		items: {
@@ -224,7 +224,25 @@ $(document).ready(function() {
 			return false;
 		});
 	});
-	$.timer(20000, function() {
+    
+    function recupera_tiempo(){     
+        	$.ajax({
+				url: base_url + 'panel_principal/recupera_tiempo/',
+				type: 'POST',
+				data: {
+					'id': '1'					
+				},
+				dataType: 'json',
+				success: function(respuesta) {
+					if (respuesta.status == 'succes') {
+						var tiempo = respuesta.tiempo;
+					}
+				}
+			});
+            return tiempo;       
+        
+    }
+	$.timer(recupera_tiempo(), function() {
 			var opcion = 'video';
 			$.ajax({
 				url: base_url + 'panel_principal/cambiar_a_video/',

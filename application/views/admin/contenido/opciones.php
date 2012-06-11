@@ -9,42 +9,37 @@
 <h4>Bienvenido <?php echo strtoupper($this->session->userdata('username')); ?> <a id="session_panel" href="<? echo
 base_url('login/cerrar_sesion'); ?>">Cerrar Sesion</a></h4>  
 <h2>Panel Principal: Opciones</h2>
-<h3>Configurar  para reproducir lista de videos o articulos texto animado</h3>
+
  
- <form id="visualizar">
+ <form id="visualizar" class="visualizar">
+ <fieldset>
+ <legend>Configurar manualmente el tipo de visualizacion</legend>
  <label for="opcion">Elegir Visualizacion</label>
     <select  name="opcion" id="opcion">
 	<option value="video">Mostrar Videos</option>
-	<option value="texto">Mostrar Articulos</option>   
+	<option value="texto" selected="">Mostrar Articulos</option>   
 </select>
+</fieldset>
+<br />
+ <fieldset>
+ <legend>Tiempo de reproduccion Articulos</legend>
+ <label for="opcion">Duracion Articulos</label>
+    <select  name="tiempo" id="tiempo">
+	<option value="50000"> 5 minutos</option>
+	<option value="100000"> 10 minutos</option>
+    <option value="150000" selected="" > 15 minutos</option>
+    <option value="200000"> 20 minutos</option>
+    <option value="300000"> 30 minutos</option>
+    <option value="4500000"> 45 minutos</option>                   
+</select>
+</fieldset>
+<br />
 <input type="hidden" id="id" name="id" value="<? echo $opcion['id'] ?>" />
 <input type="submit" value="Configurar" />
 
 <p></p>
 </form>
-     <!-- seccion de cuadros de dialogos, ocultos, desplegados por JQuery, para crear, editar y elminar un aviso
-          desde la cinta de mensajes 
-      <div id="crearDialog_princ" title="Crear Nuevo Articulo">
-        <form id="form-crear-princ">
-            <h3>Crear el Articulo</h3><br /> 
-                 
-            <textarea  name="contenido" id="contenido"></textarea>     
-            <p></p>
-         </form>
-      </div> 
-     
-     
-   
-     <div id="eliminarDialog_princ" title="Eliminar Articulo">
-       <form id="form-eliminar-princ">
-       <h3>¿Seguro desea eliminar este articulo?</h3><br />
-       
-       <textarea readonly="readonly" name="contenido" id="contenido"></textarea>
-       <input type="hidden" id="id" name="id" />
-       <p></p>
-       </form>
-     </div> 
-     -->
+    
      <div id="msgDialog">
          <p></p><br/> 
 </div>                                                        

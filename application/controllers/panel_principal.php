@@ -239,7 +239,6 @@ class Panel_principal extends CI_Controller
     {
         $visualizar['opcion'] = $this->Home_model->get_visualizacion();
         $this->load->view('admin/contenido/opciones', $visualizar, true); // CARGAMOS el template del sitio, con el contenido principal
-
         $data['header'] = 'admin/header/header_main';
         $data['aside'] = 'admin/sidebar/menu_lateral';
         $data['contenido'] = 'admin/contenido/opciones';
@@ -252,11 +251,22 @@ class Panel_principal extends CI_Controller
     {
         $id = $this->input->post('id');
         $opcion = $this->input->post('opcion');
-        $datos = array('desplegar' => $opcion, );
+        $tiempo = $this->input->post('tiempo');
+        if (empty($tiempo)) {
+            $tiempo = 100000;
+        }
+        $datos = array('desplegar' => $opcion, 'tiempo' => $tiempo);
         $respuesta = $this->Panel_principal_model->actualizar_opcion($id, $datos);
-        $respuesta['text'] = "<h3>Opcion '" . $opcion .
-            "' Configurada Correctamente</h3>";
+        $respuesta['text'] = "<h3>Opcion '" . $opcion ."' Configurada Correctamente</h3>";
         $respuesta['id'] = $id;
+        $respuesta['status'] = 'succes';
+        echo json_encode($respuesta);
+    }
+
+    public function recupera_tiempo()
+    {
+        $id = $this->input->post('id');
+        $respuesta = $this->Panel_principal_model->recupera_tiempo();
         $respuesta['status'] = 'succes';
         echo json_encode($respuesta);
     }
@@ -265,6 +275,7 @@ class Panel_principal extends CI_Controller
     {
         $id = $this->input->post('id');
         $opcion = $this->input->post('opcion');
+
         $visualizar = $this->Home_model->get_visualizacion();
         if ($visualizar['desplegar'] == TEXT_MODE) {
 

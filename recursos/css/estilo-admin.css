@@ -785,13 +785,19 @@ a.subir-video:hover ,a.video-online:hover{
     margin: 5px;
     width: 30%;
 }
-#visualizar{
-    
-    border: 1px solid white;
-    border-radius: 10px 10px 10px 10px;
+.visualizar{ 
     margin: 20px;
     padding: 15px;
+    width: 90%;
+}
+
+.visualizar fieldset{
+    padding: 10px;
+    font-family: sans-serif;
+    font-size: 16px;
+    border-radius: 10px;
     width: 60%;
+    
 }
 select{
     font-family: sans-serif;

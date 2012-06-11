@@ -16,6 +16,16 @@ class Panel_principal_model extends CI_Model
         $consulta = $this->db->get('principal');
         return $consulta->row_array();
     }
+    
+     function recupera_tiempo()
+    {
+        $this->db->select('id,desplegar,tiempo');                    
+        $consulta = $this->db->get('visualizar');
+        return $consulta->row_array();
+        
+        
+    }
+    
 
     function get_video($id)
     {
