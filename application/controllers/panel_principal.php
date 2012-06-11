@@ -252,12 +252,21 @@ class Panel_principal extends CI_Controller
         $id = $this->input->post('id');
         $opcion = $this->input->post('opcion');
         $tiempo = $this->input->post('tiempo');
-        if (empty($tiempo)) {
-            $tiempo = 100000;
-        }
-        $datos = array('desplegar' => $opcion, 'tiempo' => $tiempo);
+        $tiempo_mls = $tiempo*60*1000;
+        $datos = array('desplegar' => $opcion, 'tiempo' => $tiempo_mls);
         $respuesta = $this->Panel_principal_model->actualizar_opcion($id, $datos);
         $respuesta['text'] = "<h3>Opcion '" . $opcion ."' Configurada Correctamente</h3>";
+        $respuesta['id'] = $id;
+        $respuesta['status'] = 'succes';
+        echo json_encode($respuesta);
+    }
+    
+     public function cambiar_a_texto()
+    {
+        $id = $this->input->post('id');
+        $opcion = $this->input->post('opcion');
+        $datos = array('desplegar' => $opcion);
+        $respuesta = $this->Panel_principal_model->actualizar_opcion($id, $datos);      
         $respuesta['id'] = $id;
         $respuesta['status'] = 'succes';
         echo json_encode($respuesta);

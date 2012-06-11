@@ -25,12 +25,12 @@ base_url('login/cerrar_sesion'); ?>">Cerrar Sesion</a></h4>
  <legend>Tiempo de reproduccion Articulos</legend>
  <label for="opcion">Duracion Articulos</label>
     <select  name="tiempo" id="tiempo">
-	<option value="50000"> 5 minutos</option>
-	<option value="100000"> 10 minutos</option>
-    <option value="150000" selected="" > 15 minutos</option>
-    <option value="200000"> 20 minutos</option>
-    <option value="300000"> 30 minutos</option>
-    <option value="4500000"> 45 minutos</option>                   
+	<option value="5"> 5 minutos</option>
+	<option value="10"> 10 minutos</option>
+    <option value="15" selected="" > 15 minutos</option>
+    <option value="20"> 20 minutos</option>
+    <option value="30"> 30 minutos</option>
+    <option value="45"> 45 minutos</option>                   
 </select>
 </fieldset>
 <br />

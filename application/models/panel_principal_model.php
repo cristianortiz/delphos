@@ -78,6 +78,7 @@ class Panel_principal_model extends CI_Model
         $this->db->where('id', $id);
         $this->db->update('visualizar', $datos);
     }
+    
 
 
     public function insert_file($filename, $desc, $ruta, $tipo)
