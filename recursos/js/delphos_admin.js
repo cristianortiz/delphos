@@ -645,7 +645,7 @@ $(document).ready(function() {
 			data: $('#visualizar').serialize(),
 			success: function(respuesta) {
 				$('#visualizar > p').html(respuesta.text);
-				//$( '#form-eliminar-lat #id' ).val(id );
+				
 			}
 		});
 		return false;
