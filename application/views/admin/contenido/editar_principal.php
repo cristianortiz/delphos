@@ -44,7 +44,8 @@
                 </tr> ';           
         }?>
        </tbody>
-     </table> 
+     </table>
+   	<div class="page_numbers"><p><?php echo $links; ?></p></div>
      
      <!-- seccion de cuadros de dialogos, ocultos, desplegados por JQuery, para crear, editar y elminar un aviso
           desde la cinta de mensajes 

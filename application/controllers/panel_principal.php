@@ -23,7 +23,17 @@ class Panel_principal extends CI_Controller
         if ($this->session->userdata('logged_in') != true) {
             redirect('login');
         }
-        $principal['texto'] = $this->Home_model->get_panel_principal();
+        $config = array();
+        $config["base_url"] = base_url() . "panel_principal/editar";
+        $config["total_rows"] = $this->Home_model->record_count('principal');
+        $config["per_page"] = ROWS_FOR_PAGES;
+        $config["uri_segment"] = 3;
+
+        $this->pagination->initialize($config);
+
+        $page = ($this->uri->segment(3)) ? $this->uri->segment(3) : 0;
+        $principal['texto'] = $this->Home_model->filas_paginadas('principal', $config["per_page"],$page);
+        $principal['links'] = $this->pagination->create_links();
         $this->load->view('admin/contenido/editar_principal', $principal, true); // CARGAMOS el template del sitio, con el contenido principal
 
         $data['header'] = 'admin/header/header_main';
@@ -158,8 +168,7 @@ class Panel_principal extends CI_Controller
         $this->pagination->initialize($config);
 
         $page = ($this->uri->segment(3)) ? $this->uri->segment(3) : 0;
-        $principal['videos'] = $this->Home_model->filas_paginadas('video', $config["per_page"],
-            $page);
+        $principal['videos'] = $this->Home_model->filas_paginadas('video', $config["per_page"],$page);
         $principal['links'] = $this->pagination->create_links();
 
 
