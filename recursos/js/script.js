@@ -141,7 +141,7 @@ $(document).ready(function() {
 		player.addListener('done', function() {
 			var mostrar = 'texto';
 			$.ajax({
-				url: base_url + 'panel_principal/cambiar_a_video/',
+				url: base_url + 'panel_principal/cambiar_a_texto/',
 				type: 'POST',
 				data: {
 					'id': '1',
