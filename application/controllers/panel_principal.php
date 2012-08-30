@@ -34,11 +34,29 @@ class Panel_principal extends CI_Controller
         $page = ($this->uri->segment(3)) ? $this->uri->segment(3) : 0;
         $principal['texto'] = $this->Home_model->filas_paginadas('principal', $config["per_page"],$page);
         $principal['links'] = $this->pagination->create_links();
-        $this->load->view('admin/contenido/editar_principal', $principal, true); // CARGAMOS el template del sitio, con el contenido principal
+        
+        $cabecera['links_cabecera'] = array( array( 'enlace' => "panel_principal/editar", 
+                                        'enlace_label' => "Articulos"                                   
+                                    ),
+                               array( 'enlace' => "panel_principal/videos", 
+                                        'enlace_label' => "Videos"       
+                                    ),
+                               array( 'enlace' => "panel_principal/opciones", 
+                                        'enlace_label' => "Opciones"        
+                                    )
+                              
+                             );
+          $cabecera['datos_panel'] = array( 'titulo_panel' => " Panel Principal: Articulos",
+                                             'nuevo' => 'Nuevo Articulo'
+                                                
+                                    );     
+                                              
+        $this->load->view('admin/contenido/cabecera_panel_edicion',$cabecera,true);
+        $this->load->view('admin/contenido/editar_principal_test', $principal, true); // CARGAMOS el template del sitio, con el contenido principal
 
         $data['header'] = 'admin/header/header_main';
         $data['aside'] = 'admin/sidebar/menu_lateral';
-        $data['contenido'] = 'admin/contenido/editar_principal';
+        $data['contenido'] = 'admin/contenido/editar_principal_test';
         $data['footer'] = 'admin/footer/footer_admin';
 
         $this->load->view('admin/template_manager', $data); // CARGAMOS

@@ -2,7 +2,9 @@ $(document).ready(function() {
 	var base_url = 'http://localhost/delphos/';
 	//var base_url = 'http://146.83.74.15/delphos/';
    
-   
+ /*----------------------------------------------------------------------------- 
+   Script que controla la cinta inferior de mensajes
+   */
 	$("#avisos").carouFredSel({
 		direction: 'left',
 		items: {
@@ -19,6 +21,10 @@ $(document).ready(function() {
 			delay: 0
 		}
 	});
+    
+   /*------------------------------------------------------------------------
+     script que controla las noticias que se muestran en el panel lateral
+    */
 	$("#lateral").carouFredSel({
 		direction: 'down',
 		items: {
@@ -38,7 +44,7 @@ $(document).ready(function() {
 	});
 /*--------------------------------------------------------------------------------------------------------------------------
   Esta seccion controla las animaciones del panel principal, es un content rotator que sincroniza las imagenes y los textos 
-   En el panel principal
+   En dicho panel.
 */
 	$(function() {
 		var current = 1;

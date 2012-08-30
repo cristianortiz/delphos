@@ -544,6 +544,14 @@ aside h3{
      font-family: Decker;
 }
 
+.nuevo_articulo{
+    margin: 20px 15px 0px 10px;  
+}
+
+.nuevo_articulo #desactivar{
+   float: right;  
+}
+
 #crearDialog_lat h4{
     padding:15px 0px 5px 0px;
     font-family: sans-serif;
@@ -552,7 +560,7 @@ aside h3{
    
 }
 #tabla_avisos{
-    margin: 10px 10px 10px 10px;
+    margin: 3px 10px 10px 10px;
     width: 97%;
     border:1px solid white;
     border-collapse: collapse;

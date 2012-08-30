@@ -132,11 +132,11 @@ CREATE TABLE `video` (
   `tipo` varchar(40) DEFAULT NULL,
   `fecha` date DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=30 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=34 DEFAULT CHARSET=latin1;
 
 /*Data for the table `video` */
 
-insert  into `video`(`id`,`nombre`,`descripcion`,`url`,`tipo`,`fecha`) values (27,'video.mp4','video mp4 de prueba','http://localhost/delphos/recursos/videos/video.mp4','video/mp4','2012-05-03'),(29,'video online','video online','http://www.youtube.com/watch?v=wXE2pn_s818','video/youtube','2012-05-01');
+insert  into `video`(`id`,`nombre`,`descripcion`,`url`,`tipo`,`fecha`) values (27,'video.mp4','video mp4 de prueba','http://localhost/delphos/recursos/videos/video.mp4','video/mp4','2012-05-03'),(29,'video online','video online','http://www.youtube.com/watch?v=wXE2pn_s818','video/youtube','2012-05-01'),(30,'video online','trailer avengers','http://www.youtube.com/watch?v=NPoHPNeU9fc','video/youtube','2012-06-12'),(31,'video online','robot asimo','http://www.youtube.com/watch?v=eU93VmFyZbg&feature=fvst','video/youtube','2012-06-12'),(32,'video online','robotica','http://www.youtube.com/watch?v=ddnWkCJwXaI','video/youtube','2012-06-12'),(33,'video online','assasins creed 3','http://www.youtube.com/watch?v=VSyo45Aiq8Y','video/youtube','2012-06-12');
 
 /*Table structure for table `visualizar` */
 
@@ -151,7 +151,7 @@ CREATE TABLE `visualizar` (
 
 /*Data for the table `visualizar` */
 
-insert  into `visualizar`(`id`,`desplegar`,`tiempo`) values (1,'video',50000);
+insert  into `visualizar`(`id`,`desplegar`,`tiempo`) values (1,'video',300000);
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
 /*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;

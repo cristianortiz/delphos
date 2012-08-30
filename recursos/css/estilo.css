@@ -164,7 +164,7 @@ section{
 article{
     padding:0px;
     width:68%;   
-    height:auto;
+    min-height:580px;
          
 }
 

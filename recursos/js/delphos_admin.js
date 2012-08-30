@@ -50,7 +50,19 @@ $(document).ready(function() {
 		mode: 'tr',
 		width: 200
 	});
-/*fin seccion tooltips
+    
+/* fin seccion tooltips
+
+/*--------------------------------------------------------------------------------------------------------------------
+  funcion para marcar y desmarcar todos los check de envio de documentos de una tabla
+ */   
+     $("input.check_todos").click(function(event){
+     if($(this).is(":checked")) {
+	 	$("input.enviar_documento:checkbox:not(:checked)").attr("checked", "checked");
+	 }else{
+		 $("input.enviar_documento:checkbox:checked").removeAttr("checked");
+	 }
+   });
 
 	/*----------------------------------------------------------------------------------------------------------------------
 	 TABLA DE EDICION DE AVISOS DEL PANEL INFERIOR, CONTROLA LAS ACCIONES, AGREGAR, EDITAR Y ELIMINAR AVISOS DE LA CINTA DE
@@ -420,7 +432,7 @@ $(document).ready(function() {
  seccion para crear un nuevo articulo en el panel principal, se captura el enlace nuevo_articulo y se muestra un dialog con el form
  para crear un nuevo articulo mas su imagen adjuntada
  */
- $('#edicion_panel ').delegate('a.nuevo_articulo', 'click', function(event) {
+ $('#edicion_panel ').delegate('input#nuevo_articulo', 'click', function(event) {
 		event.preventDefault();
 		$('#form_nuevo_articulo #contenido').empty();
         $('#form_nuevo_articulo #titulo').empty();
