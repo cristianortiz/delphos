@@ -19,22 +19,64 @@ class Panel_inferior extends CI_Controller
     la cinta mensajes de la vista principal del panel
     
     */
-    public function editar()
+    public function editar($estado)
     {
+          if ($this->session->userdata('logged_in') != true) {
+            redirect('login');
+        }
         $config = array();
         $config["base_url"] = base_url() . "panel_inferior/editar";
-        $config["total_rows"] = $this->Home_model->record_count('footer');
+        $config["total_rows"] = $this->Home_model->record_count('inferior',$estado);
         $config["per_page"] = ROWS_FOR_PAGES;
         $config["uri_segment"] = 3;
 
         $this->pagination->initialize($config);
 
         $page = ($this->uri->segment(3)) ? $this->uri->segment(3) : 0;
-        $footer["avisos"] = $this->Home_model->filas_paginadas('footer', $config["per_page"],
-            $page);
-        $footer["links"] = $this->pagination->create_links();
-        $this->load->view('admin/contenido/editar_avisos_pi', $footer, true);
-
+        $inferior["avisos"] = $this->Home_model->filas_paginadas('inferior', $config["per_page"],$page,$estado);
+        $inferior["links"] = $this->pagination->create_links();
+        $inferior['estado'] = $estado;
+        $inferior['input_panel'] = 'panel_inferior';
+        $inferior['input_contenido'] = 'aviso'; 
+        
+        $enlace_panel = 'panel_inferior';
+        $btn_nuevo ='nuevo_aviso'; 
+        $label_nuevo ='Nuevo Aviso';
+        
+         if($estado == ACTIVO){
+            $titulo_panel = 'Panel Inferior: Avisos Activos';
+            $btn_estado ='btn_desactivar'; 
+            $label_estado ='Desactivar';
+        }
+        else{
+            $titulo_panel = 'Panel Inferior: Historial Avisos Desactivados';
+            $btn_estado ='btn_activar'; 
+            $label_estado ='Activar';
+            
+        }
+        
+         $cabecera['links_cabecera'] = array( array( 'enlace' => "$enlace_panel/editar/activo", 
+                                        'enlace_label' => "Avisos"                                   
+                                    ),
+                             
+                               array( 'enlace' =>  "$enlace_panel/opciones", 
+                                        'enlace_label' => "Opciones"        
+                                    ),
+                                array( 'enlace' =>  "$enlace_panel/editar/desactivado", 
+                                        'enlace_label' => "Historial"        
+                                    )     
+                              
+                             );
+          $cabecera['datos_panel'] = array( 'titulo_panel' => $titulo_panel,          
+                                             'estado'=> $estado,
+                                             'btn_estado'=>$btn_estado,
+                                             'label_estado'=> $label_estado,
+                                             'btn_nuevo'=>$btn_nuevo,
+                                             'label_nuevo'=> $label_nuevo
+                                                
+                                    ); 
+        $this->load->view('admin/contenido/cabecera_panel_edicion',$cabecera,true);                                
+        $this->load->view('admin/contenido/editar_avisos_pi', $inferior, true);
 
         $data['header'] = 'admin/header/header_main';
         $data['aside'] = 'admin/sidebar/menu_lateral';
@@ -43,6 +85,22 @@ class Panel_inferior extends CI_Controller
 
         $this->load->view('admin/template_manager', $data);
 
+    }
+    
+     public function cambiar_estado_aviso()
+    {
+        $array_id = $this->input->post('array_id');
+        $estado = $this->input->post('estado');
+        $datos = array('estado' => $estado);
+        $respuesta = $this->Panel_inferior_model->cambiar_estado_aviso($array_id,$datos);
+        if($estado == 'desactivado'){
+            $respuesta['text'] = "<h3>Avisos Desactivados Correctamente</h3>";
+        }
+        else{
+            
+            $respuesta['text'] = "<h3> Avisos Reactivados Correctamente</h3>";
+        }
+        echo json_encode($respuesta);
     }
 
     /*******************************************************************************************************************************
@@ -63,10 +121,11 @@ class Panel_inferior extends CI_Controller
     public function crear_aviso_pi()
     {
         $contenido = $this->input->post('contenido');
+        $estado = ACTIVO;
 
         if (!empty($contenido)) {
            
-                $respuesta = $this->Panel_inferior_model->crear_aviso($contenido);
+                $respuesta = $this->Panel_inferior_model->crear_aviso($contenido,$estado);
                 $respuesta['aux'] = 1;
                 $respuesta['contenido'] = $contenido;
                 $respuesta['text'] = "<b>Aviso creado exitosamente</b>";
@@ -108,7 +167,7 @@ class Panel_inferior extends CI_Controller
 
     /*Metodo para la eliminacion de un aviso de la cinta de mensajes en base a su id
     */
-    public function eliminar_aviso_pi()
+    public function eliminar_aviso()
     {
         $id = $this->input->post('id');
         $contenido = $this->input->post('contenido');

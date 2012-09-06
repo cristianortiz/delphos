@@ -8,14 +8,22 @@ $(document).ready(function() {
 	//variables para completar urls del sitio, se suman al base_url para formar las rutas de acceso a los controladores y sus metodos
 	var panel_inferior = 'panel_inferior/editar';
 	var panel_lateral = 'panel_lateral/editar';
-	var base_principal = 'panel_principal/editar';
+	var panel_principal = 'panel_principal/editar';
 	// variables para controlar el maximo de caratectes permitido en cada aviso, noticia y articulo en los paneles lateral, inferior y proncipal
 	var MAX_CHAR_LAT = 150;
 	var MAX_CHAR_PI = 85;
 	var MAX_CHAR_PRINC = 300;
+	//array para mantener los input de seleccion multiple para eliminar y desactivar contenido en cada panel
+	var checkboxes_princ = new Array();
+    //variable para mentener el tipo de panel cuando se ejecuten acciones generales como desactivar y eliminar contenido de algun panel cualquiera
+   	var input_tipo_panel = '';
+    //variable para mentener el tipo de contenido a procesar cuando se ejecuten acciones generales como desactivar y eliminar contenido de algun panel cualquiera, se usa en conjunto con la variable anterior
+   	var input_tipo_contenido = '';
+    //variable para mentener el estado del contenido a procesar cuando se ejecuten acciones generales como desactivar y eliminar contenido de algun panel cualquiera, se usa para determinar que tabla de contenidos mostrar
+   	var input_estado = '';
 /* Fin seccion de configuracion
- -----------------------------------------------------------------------------------------------------------------------------------*/
-/*------------------------------------------------------------------------------------------------------------------------------------
+ 
+/*----------------------------------------------------------------------------------------------------------------------------------
   Seccion de tooltips, mensajes informativos que se muestran para las distintas funciones definidas en las tablas de avisos, noticias
    videos y articulos del sistema */
 	$("a.editar_princ").tooltip('Haga click para editar el texto de  este articulo del panel principal ', {
@@ -50,21 +58,196 @@ $(document).ready(function() {
 		mode: 'tr',
 		width: 200
 	});
-    
 /* fin seccion tooltips
 
 /*--------------------------------------------------------------------------------------------------------------------
   funcion para marcar y desmarcar todos los check de envio de documentos de una tabla
- */   
-     $("input.check_todos").click(function(event){
-     if($(this).is(":checked")) {
-	 	$("input.enviar_documento:checkbox:not(:checked)").attr("checked", "checked");
-	 }else{
-		 $("input.enviar_documento:checkbox:checked").removeAttr("checked");
-	 }
-   });
+ */
+	$("input.check_todos").click(function(event) {
+		if ($(this).is(":checked")) {
+			$("input.enviar_documento:checkbox:not(:checked)").attr("checked", "checked");
+		} else {
+			$("input.enviar_documento:checkbox:checked").removeAttr("checked");
+		}
+	});
+/*-----------------------------------------------------------------------------------------------------------------------
+  Esta funcion permite obtener los checkboxs en estado checked  si se ha marcado algun contenido para se eliminado, 
+  si hay alguno  en ese estado se abre el cuadro para poder eliminar el contenido del panel correspondiente*/
+	$("#btn_eliminar").click(function() {
+		$("input.enviar_documento:checked").each(function() {
+			checkboxes_princ.push($(this).val());
+		})
+		if (checkboxes_princ.length != 0) {
+		    input_tipo_panel = $('#eliminar_dialog_princ > input#input_panel').val();
+            input_tipo_contenido = $('#eliminar_dialog_princ > input#input_contenido').val();
+            input_estado = $('#eliminar_dialog_princ > input#input_estado').val();
+			$('#eliminar_dialog_princ').dialog('open');
+		} else {
+			alert('No hay documentos seleccionados!');
+		}
+	});
+	$('#eliminar_dialog_princ').dialog({
+		autoOpen: false,
+		width: '450px',
+		height: '350',
+		modal: true,
+		buttons: {
+			'Eliminar': function() {
+				$.ajax({
+					url: base_url + input_tipo_panel +'/eliminar_' + input_tipo_contenido,
+					type: 'POST',
+					dataType: 'json',
+					data: {
+						'array_id': checkboxes_princ,
+					},
+					// respuesta en formato JSON desde el metodo eliminar_articulo()					
+					success: function(response) {
+						// si la eliminacion del aviso ha sido exitosa se carga el mensaje de confirmacion en otro cuadro de dialogo
+						$('#eliminar_dialog_princ').dialog('close');
+						$('#eliminar_dialog_ok > p').html(response.text);
+						$('#eliminar_dialog_ok').dialog('option', 'title', 'Eliminacion Exitosa').dialog('open');
+					} //fin success                   
+				}); //fin llamada ajax()*/
+				return false;
+			},
+			//boton que cierra el cuadro de dialogo
+			'Cancelar': function() {
+				$(this).dialog('close');
+			}
+		}
+	}); //fin del cuadro de dialogo ""eliminarDialog" 
+	$('#eliminar_dialog_ok').dialog({
+		autoOpen: false,
+		buttons: {
+			'Ok': function() {
+				$(this).dialog('close');
+				document.location = base_url + input_tipo_panel + '/editar/'+input_estado;
+			}
+		},
+		modal: true
+	});
+    
+/*-----------------------------------------------------------------------------------------------------------------------
+  Esta funcion permite obtener los checkboxs en estado checked  si se ha marcado algun contenido para se DESACTIVADO, 
+  si hay alguno  en ese estado se abre el cuadro para poder DESACTIVAR el contenido del panel correspondiente
+*/
+	$("#btn_desactivar").click(function() {
+		$("input.enviar_documento:checked").each(function() {
+			checkboxes_princ.push($(this).val());
+		})
+		if (checkboxes_princ.length != 0) {
+		    input_tipo_panel = $('#eliminar_dialog_princ > input#input_panel').val();
+            input_tipo_contenido = $('#eliminar_dialog_princ > input#input_contenido').val();
+			$('#desactivar_dialog_princ').dialog('open');
+		} else {
+		  
+			alert('No hay documentos seleccionados!');
+		}
+	});
+	$('#desactivar_dialog_princ').dialog({
+		autoOpen: false,
+		width: '450px',
+		height: '350',
+		modal: true,
+		buttons: {
+			'Desactivar': function() {
+				$.ajax({
+					url: base_url + input_tipo_panel +'/cambiar_estado_' + input_tipo_contenido,
+					type: 'POST',
+					dataType: 'json',
+					data: {
+						'array_id': checkboxes_princ,
+                        'estado'  : 'desactivado' 
+					},
+					// respuesta en formato JSON desde el metodo eliminar_articulo()					
+					success: function(response) {
+						// si la eliminacion del aviso ha sido exitosa se carga el mensaje de confirmacion en otro cuadro de dialogo
+						$('#desactivar_dialog_princ').dialog('close');
+						$('#desactivar_dialog_ok > p').html(response.text);
+						$('#desactivar_dialog_ok').dialog('option', 'title', 'Desactivacion Exitosa').dialog('open');
+					} //fin success                   
+				}); //fin llamada ajax()
+				return false;
+			},
+			//boton que cierra el cuadro de dialogo
+			'Cancelar': function() {
+				$(this).dialog('close');
+			}
+		}
+	}); //fin del cuadro de dialogo "desactivar_Dialog_princ" 
+    
+	$('#desactivar_dialog_ok').dialog({
+		autoOpen: false,
+		buttons: {
+			'Ok': function() {
+				$(this).dialog('close');
+				document.location = base_url + input_tipo_panel+'/editar/activo';
+			}
+		},
+		modal: true
+	});
 
-	/*----------------------------------------------------------------------------------------------------------------------
+/*-----------------------------------------------------------------------------------------------------------------------
+  Esta funcion permite obtener los checkboxs en estado checked  si se ha marcado algun contenido para se ACTIVADO, 
+  si hay alguno  en ese estado se abre el cuadro para poder ACTIVAR el contenido del panel correspondiente, que se encuentre
+  desactivado en la seccion Historial de cada panel
+*/
+	$("#btn_activar").click(function() {
+		$("input.enviar_documento:checked").each(function() {
+			checkboxes_princ.push($(this).val());
+		})
+		if (checkboxes_princ.length != 0) {
+		   input_tipo_panel = $('#eliminar_dialog_princ > input#input_panel').val();
+           input_tipo_contenido = $('#eliminar_dialog_princ > input#input_contenido').val();
+			$('#activar_dialog_princ').dialog('open');
+		} else {
+		  
+			alert('No hay documentos seleccionados!');
+		}
+	});    
+    	$('#activar_dialog_princ').dialog({
+		autoOpen: false,
+		width: '450px',
+		height: '350',
+		modal: true,
+		buttons: {
+			'Reactivar': function() {
+				$.ajax({
+					url: base_url +  input_tipo_panel +'/cambiar_estado_' + input_tipo_contenido,
+					type: 'POST',
+					dataType: 'json',
+					data: {
+						'array_id': checkboxes_princ,
+                        'estado'  : 'activo' 
+					},
+					// respuesta en formato JSON desde el metodo eliminar_articulo()					
+					success: function(response) {
+						// si la eliminacion del aviso ha sido exitosa se carga el mensaje de confirmacion en otro cuadro de dialogo
+						$('#activar_dialog_princ').dialog('close');
+						$('#activar_dialog_ok > p').html(response.text);
+						$('#activar_dialog_ok').dialog('option', 'title', 'Rectivacion Exitosa').dialog('open');
+					} //fin success                   
+				}); //fin llamada ajax()
+				return false;
+			},
+			//boton que cierra el cuadro de dialogo
+			'Cancelar': function() {
+				$(this).dialog('close');
+			}
+		}
+	}); //fin del cuadro de dialogo "activar_Dialog_princ" 
+    
+	$('#activar_dialog_ok').dialog({
+		autoOpen: false,
+		buttons: {
+			'Ok': function() {
+				$(this).dialog('close');
+				document.location = base_url + input_tipo_panel+'/editar/desactivado';
+			}
+		},
+		modal: true
+	});
+/*----------------------------------------------------------------------------------------------------------------------
 	 TABLA DE EDICION DE AVISOS DEL PANEL INFERIOR, CONTROLA LAS ACCIONES, AGREGAR, EDITAR Y ELIMINAR AVISOS DE LA CINTA DE
 	 MENSAJES INFERIOR
 	 
@@ -72,7 +255,7 @@ $(document).ready(function() {
 	  Seccion para CREAR un aviso nuevo en la cinta dae mensajes, se captura el evento click adael enlace Nuevo Aviso, se consultan los
 	  se abre un cuadro de dialogo con un formulario para crear el aviso, se valida y se muestra un mensaje de confirmacion.
 	  */
-	$('#edicion_panel ').delegate('a.crear_aviso_pi', 'click', function(event) {
+	$('#edicion_panel ').delegate('input#nuevo_aviso', 'click', function(event) {
 		event.preventDefault();
 		$('#form-crear-pi #contenido').empty();
 		$('#crearDialog-pi').dialog('open');
@@ -183,74 +366,25 @@ $(document).ready(function() {
 		autoOpen: false,
 		buttons: {
 			'Ok': function() {
-				document.location = base_url + panel_inferior;
+				document.location = base_url + panel_inferior+'/activo';
 			}
 		},
 		modal: true
 	}); //fin del cuadro de dialogo ""msDialog_pi"  
-/*------------------------------------------------------------------------------------------------------------------------------
-	 Seccion para ELIMINAR un aviso de la cinta dae mensajes, se captura el evento click adael enlace eliminar, se consultan los
-	 datos del aviso, se carga un cuadro de dialogo para confirmar la eliminacion y se muestra un aviso de confirmacion,
-	 */
-	$('#tabla_avisos').delegate('a.eliminar_pi', 'click', function(event) {
-		event.preventDefault();
-		var id = $(this).attr('href');
-		//alert('Eliminar aviso con id :'+id);
-		$.ajax({
-			url: base_url + 'panel_inferior/consultar_aviso_pi/' + id,
-			type: 'POST',
-			dataType: 'json',
-			success: function(respuesta) {
-				// se cargan en el cuadro de confirmacion  los datos del aviso a eliminar 
-				$('#form-eliminar-pi #contenido').val(respuesta.contenido);
-				$('#form-eliminar-pi #id').val(id);
-				//abrimos el cuadro de dialogo que contendra el mensaje de confirmacion             
-				$('#eliminarDialog-pi').dialog('open');
-			}
-		});
-		return false;
-	})
-	//configuracion del cuadro de dialogo para eliminar un aviso  
-	$('#eliminarDialog-pi').dialog({
-		autoOpen: false,
-		width: '450px',
-		height: '350',
-		modal: true,
-		buttons: {
-			'Eliminar': function() {
-				$.ajax({
-					url: base_url + 'panel_inferior/eliminar_aviso_pi',
-					type: 'POST',
-					dataType: 'json',
-					data: $('#eliminarDialog-pi form').serialize(),
-					// respuesta en formato JSON desde el metodo editar_aviso_pi()					
-					success: function(response) {
-						// si la eliminacion del aviso ha sido exitosa se carga el mensaje de confirmacion en otro cuadro de dialogo
-						$('#eliminarDialog-pi').dialog('close');
-						$('#msgDialog_pi > p').html(response.text);
-						$('#msgDialog_pi').dialog('option', 'title', 'Eliminacion Exitosa').dialog('open');
-					} //fin success                   
-				}); //fin llamada ajax()
-				return false;
-			},
-			//boton que cierra el cuadro de dialogo
-			'Cancelar': function() {
-				$(this).dialog('close');
-			}
-		}
-	}); //fin del cuadro de dialogo ""eliminarDialog"  
+
 /* FIN TABLA DE EDICION DE AVISOS DEL PANEL INFERIOR O CINTA DE MENSAJES
- /*-----------------------------------------------------------------------------------------------------------------------------
-	 	 
+ 	 
 /*----------------------------------------------------------------------------------------------------------------------
+
  TABLA DE EDICION DE NOTICIAS DEL PANEL LATERAL, CONTROLA LAS ACCIONES, AGREGAR, EDTIAR Y ELIMINAR NOTICIAS  DEL PANEL DE
  NOTICIAS LATERAL
  
-    /*-----------------------------------------------------------------------------------------------------------------------------  
-	 Seccion para CREAR una noticia nueva en el panel laterla de noticias, se captura el evento click adael enlace Nueva Noticia,
-	 se consultan los datos de la noticia   se abre un cuadro de dialogo con un formulario para crear la noticia, se valida y se muestra un mensaje de confirmacion.
-   */
-	$('#edicion_panel').delegate('a.crear_noticia_lat', 'click', function(event) {
+/*-----------------------------------------------------------------------------------------------------------------------------  
+* Seccion para CREAR una noticia nueva en el panel laterla de noticias, se captura el evento click adael enlace Nueva Noticia,
+* se consultan los datos de la noticia   se abre un cuadro de dialogo con un formulario para crear la noticia, se valida y se muestra
+* un mensaje de confirmacion.
+*/
+	$('#edicion_panel ').delegate('input#nueva_noticia', 'click', function(event) {
 		event.preventDefault();
 		$('#form-crear-lat #contenido').empty();
 		$('#crearDialog_lat > p').empty();
@@ -284,7 +418,7 @@ $(document).ready(function() {
 							$('#msgDialog_lat > h4').html(response.text);
 							$('#msgDialog_lat').dialog('option', 'title', 'Nueva Noticia').dialog('open');
 						}
-						$('#crearDialog_lat > h4').html(response.text);
+						//$('#crearDialog_lat > h4').html(response.text);
 					} //fin success                   
 				}); //fin llamada ajax()
 				return false;
@@ -294,7 +428,8 @@ $(document).ready(function() {
 				$(this).dialog('close');
 			}
 		}
-	}); //fin del cuadro de dialogo ""crearDialog"         
+	}); //fin del cuadro de dialogo ""crearDialog" 
+            
 /*---------------------------------------------------------------------------------------------------------------------------
       Seccion para editar un aviso daae la cinta dae mensajes, se captura el evento click del enlace editar, se consultan los
       datos del aviso, se carga un cuadro de dialogo para actualizar y se muestra un aviso daae confirmacion,
@@ -362,67 +497,14 @@ $(document).ready(function() {
 		buttons: {
 			'Ok': function() {
 				$(this).dialog('close');
-				document.location = base_url + panel_lateral;
+				document.location = base_url + panel_inferior +'/activo';
 			}
 		},
 		modal: true
 	}); //fin del cuadro de dialogo "msgDialog_lat" 
-/*--------------------------------------------------------------------------------------------------------------------------------
-	 Seccion para eliminar un aviso daae la cinta dae mensajes, se captura el evento click adael enlace eliminar, se consultan los
-	 datos del aviso, se carga un cuadro de dialogo para confirmar la eliminacion y se muestra un aviso de confirmacion,
-	*/
-	$('#tabla_avisos').delegate('a.eliminar_lat', 'click', function(event) {
-		event.preventDefault();
-		var id = $(this).attr('href');
-		//alert('Eliminar aviso con id :'+id);
-		$.ajax({
-			url: base_url + 'panel_lateral/consultar_noticia_lat/' + id,
-			type: 'POST',
-			dataType: 'json',
-			success: function(respuesta) {
-				// se cargan en el cuadro de confirmacion  los datos del aviso a eliminar 
-				$('#form-eliminar-lat #contenido').val(respuesta.contenido);
-				$('#form-eliminar-lat #id').val(id);
-				//abrimos el cuadro de dialogo que contendra el mensaje de confirmacion             
-				$('#eliminarDialog_lat').dialog('open');
-			}
-		});
-		return false;
-	})
-	//configuracion del cuadro de dialogo para eliminar un aviso  
-	$('#eliminarDialog_lat').dialog({
-		autoOpen: false,
-		width: '450px',
-		height: '350',
-		modal: true,
-		buttons: {
-			'Eliminar': function() {
-				//$( '#ajaxLoadAni' ).fadeIn( 'slow' );				
-				$.ajax({
-					url: base_url + 'panel_lateral/eliminar_noticia_lat',
-					type: 'POST',
-					dataType: 'json',
-					data: $('#eliminarDialog_lat form').serialize(),
-					// respuesta en formato JSON desde el metodo editar_aviso_pi()					
-					success: function(response) {
-						// si la eliminacion del aviso ha sido exitosa se carga el mensaje de confirmacion en otro cuadro de dialogo
-						$('#eliminarDialog_lat').dialog('close');
-						$('#msgDialog_lat > p').html(response.text);
-						$('#msgDialog_lat').dialog('option', 'title', 'Eliminacion Exitosa').dialog('open');
-						//$( '#ajaxLoadAni' ).fadeOut( 'slow' );		
-						$('#fila' + response.id).remove();
-					} //fin success                   
-				}); //fin llamada ajax()
-				return false;
-			},
-			//boton que cierra el cuadro de dialogo
-			'Cancelar': function() {
-				$(this).dialog('close');
-			}
-		}
-	}); //fin del cuadro de dialogo ""eliminarDialog"  
+
 /* FIN TABLA DE EDICION DE NOTICIAS DEL PANEL LATERAL
---------------------------------------------------------------------------------------------------------------------------
+
 
 /*----------------------------------------------------------------------------------------------------------------------
   TABLA DE EDICION DE ARTICULOS Y TEXTO DEL PANEL PRINCIPAL, CONTROLA LAS ACCIONES, AGREGAR, EDTIAR Y ELIMINAR TEXTO  DEL PANEL
@@ -432,15 +514,14 @@ $(document).ready(function() {
  seccion para crear un nuevo articulo en el panel principal, se captura el enlace nuevo_articulo y se muestra un dialog con el form
  para crear un nuevo articulo mas su imagen adjuntada
  */
- $('#edicion_panel ').delegate('input#nuevo_articulo', 'click', function(event) {
+	$('#edicion_panel ').delegate('input#nuevo_articulo', 'click', function(event) {
 		event.preventDefault();
 		$('#form_nuevo_articulo #contenido').empty();
-        $('#form_nuevo_articulo #titulo').empty();
-        $('#form_nuevo_articulo #desc').empty();
+		$('#form_nuevo_articulo #titulo').empty();
+		$('#form_nuevo_articulo #desc').empty();
 		$('#nuevo_articulo_dialog').dialog('open');
 	})
-    
-    var opciones_principal = {
+	var opciones_principal = {
 		'maxCharacterSize': MAX_CHAR_PRINC,
 		'originalStyle': 'originalDisplayInfo',
 		'warningStyle': 'warningDisplayInfo',
@@ -464,22 +545,21 @@ $(document).ready(function() {
 					//este plugin NO soporta serialize() para capturar los datos del form
 					data: {
 						'titulo': $('#form_nuevo_articulo #titulo').val(),
-                        'desc': $('#form_nuevo_articulo #desc').val(),
-                        'contenido': $('#form_nuevo_articulo #contenido').val()
+						'desc': $('#form_nuevo_articulo #desc').val(),
+						'contenido': $('#form_nuevo_articulo #contenido').val()
 					},
 					success: function(data, status) {
-						if (data.status != 'error') {                          
+						if (data.status != 'error') {
 							$('#nuevo_articulo_dialog').dialog('close');
 							$('#articulo_ok_dialog > h4').html(data.msg);
 							$('#articulo_ok_dialog').dialog('option', 'title', 'Crear Nuevo Articulo').dialog('open');
 						} else {
-						    $('#nuevo_articulo_dialog').dialog('close');
+							$('#nuevo_articulo_dialog').dialog('close');
 							$('#articulo_ok_dialog > h4').html(data.msg);
 							$('#articulo_ok_dialog').dialog('option', 'title', 'Crear Nuevo Articulo').dialog('open');
 						}
 					}
 				});
-			
 			},
 			//boton que cierra el cuadro de dialogo
 			'Cancelar': function() {
@@ -488,17 +568,17 @@ $(document).ready(function() {
 			}
 		}
 	}); //fin del cuadro de dialogo ""crearDialog"
-    $('#articulo_ok_dialog').dialog({
+	$('#articulo_ok_dialog').dialog({
 		autoOpen: false,
 		buttons: {
 			'Ok': function() {
-				document.location = base_url + 'panel_principal/editar';
+				document.location = base_url + panel_principal +'/activo';
 				$(this).dialog('close');
 			}
 		},
 		modal: true
-	});   
-  /*------------------------------------------------------------------------------------------------------------------------------
+	});
+/*------------------------------------------------------------------------------------------------------------------------------
    Seccion para editar un aviso daae la cinta dae mensajes, se captura el evento click adael enlace editar, se consultan los
    datos del aviso, se carga un cuadro de dialogo para actualizar y se muestra un aviso daae confirmacion,
   */
@@ -582,70 +662,6 @@ $(document).ready(function() {
 		modal: true
 	});
 /*------------------------------------------------------------------------------------------------------------------------------
- seccion para eliminar un articulo del panel principal, se elimina el contenido el titulo la descripcion y la imagen asociada
- al articulo animado que se muestra*/
-	$('#tabla_avisos').delegate('a.eliminar_princ', 'click', function(event) {
-		event.preventDefault();
-		var id = $(this).attr('href');
-		//alert('Eliminar aviso con id :'+id);
-		$.ajax({
-			url: base_url + 'panel_principal/consultar_texto/' + id,
-			type: 'POST',
-			dataType: 'json',
-			success: function(respuesta) {
-				// se cargan en el cuadro de confirmacion  los datos del aviso a eliminar 
-				// se cargan en el form de actualizacion los datos del aviso a editar 
-				$('#form-eliminar-princ #id').val(id);
-				$('#form-eliminar-princ #contenido').val(respuesta.contenido);
-				//abrimos el cuadro de dialogo que contendra el form de actualizacion             
-				$('#eliminar_dialog_princ').dialog('open');
-			}
-		});
-		return false;
-	})
-	//configuracion del cuadro de dialogo para eliminar un aviso  
-	$('#eliminar_dialog_princ').dialog({
-		autoOpen: false,
-		width: '450px',
-		height: '350',
-		modal: true,
-		buttons: {
-			'Eliminar': function() {
-				//$( '#ajaxLoadAni' ).fadeIn( 'slow' );				
-				$.ajax({
-					url: base_url + 'panel_principal/eliminar_articulo',
-					type: 'POST',
-					dataType: 'json',
-					data: $('#eliminar_dialog_princ > #form-eliminar-princ').serialize(),
-					// respuesta en formato JSON desde el metodo editar_aviso_pi()					
-					success: function(response) {
-						// si la eliminacion del aviso ha sido exitosa se carga el mensaje de confirmacion en otro cuadro de dialogo
-						$('#eliminar_dialog_princ').dialog('close');
-						$('#eliminar_dialog > p').html(response.text);
-						$('#eliminar_dialog').dialog('option', 'title', 'Eliminacion Exitosa').dialog('open');
-						//$( '#ajaxLoadAni' ).fadeOut( 'slow' );		
-						$('#fila' + response.id).remove();
-					} //fin success                   
-				}); //fin llamada ajax()
-				return false;
-			},
-			//boton que cierra el cuadro de dialogo
-			'Cancelar': function() {
-				$(this).dialog('close');
-			}
-		}
-	}); //fin del cuadro de dialogo ""eliminarDialog" 
-	$('#eliminar_dialog').dialog({
-		autoOpen: false,
-		buttons: {
-			'Ok': function() {
-				$(this).dialog('close');
-				//document.location = base_url+'panel_lateral';     
-			}
-		},
-		modal: true
-	});
-/*----------------------------------------------------------------------------------------------------------------------------
     Seccion para controlar el tipo de contenido visible en el panel principal, que puede ser Articulos con texto o imagenes animados
     o una lista de reproduccion de videos
   */
@@ -657,11 +673,11 @@ $(document).ready(function() {
 			data: $('#visualizar').serialize(),
 			success: function(respuesta) {
 				$('#visualizar > p').html(respuesta.text);
-				
 			}
 		});
 		return false;
 	});
+    
 /*-----------------------------------------------------------------------------------------------------------------------------
      Seccion apra subir un archivo de video al servidor, usando el plugin AjaxFileUpload y luego la libreria Upload de CI 
      */

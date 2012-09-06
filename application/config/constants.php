@@ -52,6 +52,24 @@ define('ROWS_FOR_PAGES',5);
 define('VIDEO_MODE','video');
 define('TEXT_MODE','texto');
 
+/*
+|--------------------------------------------------------------------------
+| Definicion de constantes para los perfiles de usuarios
+|--------------------------------------------------------------------------
+*/
+define('ADMIN','administrador');
+define('EDIT_NT','editor_noticias');
+define('EDIT_AV','editor_avisos');
+
+/*
+|--------------------------------------------------------------------------
+| Definicion de constantes para los estados de un tipo ed contenido
+|--------------------------------------------------------------------------
+*/
+define('ACTIVO','activo');
+define('DESACTIVADO','desactivado');
+
+
 
 /* End of file constants.php */
 /* Location: ./application/config/constants.php */

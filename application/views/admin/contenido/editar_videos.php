@@ -1,19 +1,5 @@
-<div id="edicion_panel">
-	<nav>
-		<ul>
-			<li>
-				<a href="<?echo base_url('panel_principal/editar');?>">Articulos</a>
-			</li>
-			<li>
-				<a href="<?echo base_url('panel_principal/videos');?>">Videos</a>
-			</li>
-			<li>
-				<a href="<?echo base_url('panel_principal/opciones');?>">Opciones</a>
-			</li>
-		</ul>
-	</nav>
-    <h4>Bienvenido <?php echo strtoupper($this->session->userdata('username'));?> <a id="session_panel" href="<? echo base_url('login/cerrar_sesion');?>">Cerrar Sesion</a></h4>
-    <h2>Panel Principal: Videos</h2>
+  <?
+       $this->load->view('admin/contenido/cabecera_panel');?>
 	<a class="subir-video" href="#">Subir Video</a>	<a class="video-online" href="#">Video Online</a>
 	<div id="contenedor_form_video" class="subir-video">
     <h3>Sube un video desde tu PC</h3>

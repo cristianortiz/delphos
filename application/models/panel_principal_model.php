@@ -48,21 +48,31 @@ class Panel_principal_model extends CI_Model
         $this->db->update('principal', $datos);
     }
 
-    function eliminar_texto($id)
+    function eliminar_articulo($array_id)
     {
-        $this->db->where('id', $id);
-        $this->db->delete('principal');
-
+        foreach($array_id as $id){
+            $this->db->where('id', $id);
+            $this->db->delete('principal');
+        }
+    }
+    
+      function cambiar_estado_articulo($array_id,$datos)
+    {
+        foreach($array_id as $id){
+             $this->db->where('id', $id);
+        $this->db->update('principal', $datos);
+        }
     }
 
-    function crear_nuevo_articulo($imagen,$descripcion,$titulo,$contenido)
+    function crear_nuevo_articulo($imagen,$descripcion,$titulo,$contenido,$estado)
     {
         $data = array(
             'titulo' => $titulo,
             'descripcion' => $descripcion,
             'contenido' => $contenido,
             'imagen' => $imagen,
-            'fecha' => mdate('%Y-%m-%d'));
+            'fecha' => mdate('%Y-%m-%d'),
+            'estado' => $estado);
         $this->db->insert('principal', $data);
         return $this->db->insert_id();
     }

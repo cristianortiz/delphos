@@ -548,7 +548,10 @@ aside h3{
     margin: 20px 15px 0px 10px;  
 }
 
-.nuevo_articulo #desactivar{
+.nuevo_articulo #btn_desactivar{
+   float: right;  
+}
+.nuevo_articulo #btn_eliminar{
    float: right;  
 }
 
