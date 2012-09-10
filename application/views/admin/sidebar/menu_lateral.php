@@ -11,8 +11,7 @@
             <li><a href="<?echo base_url('panel_inferior/editar/activo');?>"><h2 class="ca-main">Panel Inferior</h2>
 			             	<h3 class="ca-sub">Edite la cinta de avisos</h3></a>
             </li>
-             <li><a href="#"><h2 class="ca-main">Usuarios y Perfiles</h2>
-			             	<h3 class="ca-sub">Crear y editar usuarios y sus perfiles de acceso</h3></a>
+             
         
           <? }
           if( $this->session->userdata('perfil') == EDIT_NT){?>
@@ -31,7 +30,7 @@
 			             	<h3 class="ca-sub">Edite la cinta de avisos</h3></a>
             </li>
             <li><a href="#"><h2 class="ca-main">Mis Datos</h2>
-			             	<h3 class="ca-sub">Modificar la informacion asociada a su cuenta de usuario</h3></a>                
+			             	<h3 class="ca-sub">La informacion de su cuenta de usuario</h3></a>                
             </li>
            
           <?}?>                       

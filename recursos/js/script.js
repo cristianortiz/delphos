@@ -72,7 +72,7 @@ $(document).ready(function() {
 			display($('#rotmenu li:nth-child(' + i + ')'));
 		}
 		display($('#rotmenu li:first'));
-		var slidetime = setInterval(iterate, 8000);
+		var slidetime = setInterval(iterate, 10000);
 		$('#rotmenu li').bind('click', function(e) {
 			clearTimeout(slidetime);
 			display($(this));

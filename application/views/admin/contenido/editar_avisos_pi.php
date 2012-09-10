@@ -77,7 +77,7 @@
       
      <!-- cuadros de dialogos de confirmacion y finalizacion para cada una de las acciones anteriores -->   
      <div id="eliminar_dialog_ok">
-         <p></p><br/> 
+         <h4></h4><br/> 
       </div>
        <div id="desactivar_dialog_ok">
          <p></p><br/> 

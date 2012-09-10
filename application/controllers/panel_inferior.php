@@ -25,7 +25,7 @@ class Panel_inferior extends CI_Controller
             redirect('login');
         }
         $config = array();
-        if($estado = ACTIVO){
+        if($estado == ACTIVO){
             $config["base_url"] = base_url() . "panel_inferior/editar/activo";
         }
         else{
@@ -64,9 +64,7 @@ class Panel_inferior extends CI_Controller
                                         'enlace_label' => "Avisos"                                   
                                     ),
                              
-                               array( 'enlace' =>  "$enlace_panel/opciones", 
-                                        'enlace_label' => "Opciones"        
-                                    ),
+                               
                                 array( 'enlace' =>  "$enlace_panel/editar/desactivado", 
                                         'enlace_label' => "Historial"        
                                     )     
@@ -174,13 +172,10 @@ class Panel_inferior extends CI_Controller
     */
     public function eliminar_aviso()
     {
-        $id = $this->input->post('id');
-        $contenido = $this->input->post('contenido');
-        $respuesta = $this->Panel_inferior_model->eliminar_aviso($id);
-
-        $respuesta['id'] = $id;
-        $respuesta['contenido'] = $contenido;
-        $respuesta['text'] = "<b>Aviso Eliminado Correctamente</b>";
+        $array_id = $this->input->post('array_id');
+       
+        $respuesta = $this->Panel_inferior_model->eliminar_aviso($array_id);
+        $respuesta['text'] = "Aviso Eliminado Correctamente";
         echo json_encode($respuesta);
         //Devolvemos mediante notacion JSON los datos del aviso eliminado
         //echo  '{"id":"'.$id.'","contenido":"'.$contenido.'","text":"<b>Aviso Eliminado Correctamente</b>"}';

@@ -18,6 +18,7 @@ $(document).ready(function() {
     var MAX_CHAR_LAT = max_caracteres_lat();
 	var MAX_CHAR_PI = 85;
 	var MAX_CHAR_PRINC = 300;
+    
 	//array para mantener los input de seleccion multiple para eliminar y desactivar contenido en cada panel
 	var checkboxes_princ = new Array();
     //variable para mentener el tipo de panel cuando se ejecuten acciones generales como desactivar y eliminar contenido de algun panel cualquiera
@@ -55,10 +56,7 @@ que se deseen ver al mismo tiempo en el panel lateral deslizable y representa el
 		mode: 'tr',
 		width: 200
 	});
-	$("a.eliminar_princ").tooltip('Haga click para eliminar de forma permanente este articulo del panel principal.', {
-		mode: 'tr',
-		width: 200
-	});
+
 	$("a.borrar_imagen").tooltip('Haga click para borrar la imagen adjuntada a este articulo', {
 		mode: 'tr',
 		width: 200
@@ -71,18 +69,12 @@ que se deseen ver al mismo tiempo en el panel lateral deslizable y representa el
 		mode: 'tr',
 		width: 200
 	});
-	$("a.eliminar_pi").tooltip('Click para borrar  este aviso de la cinta en el panel inferior', {
-		mode: 'tr',
-		width: 200
-	});
+	$
 	$("a.editar_lat").tooltip('Click para editar esta noticia del panel lateral', {
 		mode: 'tr',
 		width: 200
 	});
-	$("a.eliminar_lat").tooltip('Click para borrar esta noticia del panel lateral', {
-		mode: 'tr',
-		width: 200
-	});
+
 /* fin seccion tooltips
 
 /*--------------------------------------------------------------------------------------------------------------------
@@ -129,7 +121,7 @@ que se deseen ver al mismo tiempo en el panel lateral deslizable y representa el
 					success: function(response) {
 						// si la eliminacion del aviso ha sido exitosa se carga el mensaje de confirmacion en otro cuadro de dialogo
 						$('#eliminar_dialog_princ').dialog('close');
-						$('#eliminar_dialog_ok > p').html(response.text);
+						$('#eliminar_dialog_ok > h4').html(response.text);
 						$('#eliminar_dialog_ok').dialog('option', 'title', 'Eliminacion Exitosa').dialog('open');
 					} //fin success                   
 				}); //fin llamada ajax()*/
@@ -273,11 +265,11 @@ que se deseen ver al mismo tiempo en el panel lateral deslizable y representa el
 		modal: true
 	});
 /*----------------------------------------------------------------------------------------------------------------------
-	 TABLA DE EDICION DE AVISOS DEL PANEL INFERIOR, CONTROLA LAS ACCIONES, AGREGAR, EDITAR Y ELIMINAR AVISOS DE LA CINTA DE
+	 TABLA DE EDICION DE AVISOS DEL PANEL INFERIOR, CONTROLA LAS ACCIONES,CREAR, EDITAR  AVISOS DE LA CINTA DE
 	 MENSAJES INFERIOR
 	 
 	 /*----------------------------------------------------------------------------------------------------------------------------
-	  Seccion para CREAR un aviso nuevo en la cinta dae mensajes, se captura el evento click adael enlace Nuevo Aviso, se consultan los
+	  Seccion para CREAR un aviso nuevo en la cinta dae mensajes, se captura el evento click adael enlace Nuevo Aviso,
 	  se abre un cuadro de dialogo con un formulario para crear el aviso, se valida y se muestra un mensaje de confirmacion.
 	  */
 	$('#edicion_panel ').delegate('input#nuevo_aviso', 'click', function(event) {
@@ -285,6 +277,7 @@ que se deseen ver al mismo tiempo en el panel lateral deslizable y representa el
 		$('#form-crear-pi #contenido').empty();
 		$('#crearDialog-pi').dialog('open');
 	})
+    //configuracion para el plugin de control de caracteres en el textearea
 	var opciones_inferior = {
 		'maxCharacterSize': MAX_CHAR_PI,
 		'originalStyle': 'originalDisplayInfo',
@@ -321,7 +314,7 @@ que se deseen ver al mismo tiempo en el panel lateral deslizable y representa el
 			//boton que cierra el cuadro de dialogo
 			'Cancelar': function() {
 				$(this).dialog('close');
-				//location = base_url+'/manager/panel_inferior';     
+			document.location = base_url + panel_inferior+'/activo';
 			}
 		}
 	}); //fin del cuadro de dialogo ""crearDialog" 

@@ -5,4 +5,4 @@
                  <h2>Departamento de Ingenieria Informatica y Ciencias de la Computacion</h2>
             </div>           
             <div id="logo-uda"><img src="recursos/images/uda.png"  /></div>          
-          </header>
+</header>

@@ -30,10 +30,12 @@ class Panel_inferior_model extends CI_Model {
         $this->db->update('inferior',$datos);                             
     }
     
-    function eliminar_aviso($id)
+    function eliminar_aviso($array_id)
     {       
-        $this->db->where('id', $id);
-        $this->db->delete('inferior');                    
+        foreach($array_id as $id){
+            $this->db->where('id', $id);
+            $this->db->delete('inferior');
+        }                   
        // return $consulta->row_array();           
     }
     
