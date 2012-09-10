@@ -25,11 +25,11 @@ class Panel_lateral extends CI_Controller
         $config["base_url"] = base_url() . "panel_lateral/editar";
         $config["total_rows"] = $this->Home_model->record_count('lateral',$estado);
         $config["per_page"] = ROWS_FOR_PAGES;
-        $config["uri_segment"] = 3;
+        $config["uri_segment"] = 4;
 
         $this->pagination->initialize($config);
 
-        $page = ($this->uri->segment(3)) ? $this->uri->segment(3) : 0;
+        $page = ($this->uri->segment(4)) ? $this->uri->segment(4) : 0;
         $lateral["avisos"] = $this->Home_model->filas_paginadas('lateral', $config["per_page"],$page,$estado);
         $lateral["links"] = $this->pagination->create_links();
         $lateral['estado'] = $estado;
@@ -55,7 +55,7 @@ class Panel_lateral extends CI_Controller
                                         'enlace_label' => "Noticias"                                   
                                     ),
                              
-                               array( 'enlace' =>  "$enlace_panel/opciones", 
+                               array( 'enlace' =>  "$enlace_panel/opciones_lateral", 
                                         'enlace_label' => "Opciones"        
                                     ),
                                 array( 'enlace' =>  "$enlace_panel/editar/desactivado", 
@@ -177,6 +177,51 @@ class Panel_lateral extends CI_Controller
         $array_id = $this->input->post('array_id');
         $respuesta = $this->Panel_lateral_model->eliminar_noticia($array_id);
         $respuesta['text'] = "<b>Noticia Eliminada Correctamente<b>";
+        echo json_encode($respuesta);
+    }
+    
+     public function opciones_lateral()
+    {
+        $titulo_panel = 'Panel Lateral: Opciones';
+        $enlace_panel = 'panel_lateral';
+
+        $cabecera['links_cabecera'] = array(
+            array('enlace' => "$enlace_panel/editar/activo", 'enlace_label' => "Noticias"),
+            array('enlace' => "$enlace_panel/opciones_lateral", 'enlace_label' => "Opciones"),
+            array('enlace' => "$enlace_panel/editar/desactivado", 'enlace_label' => "Historial")
+                                        );
+            
+        $cabecera['datos_panel'] = array('titulo_panel' => $titulo_panel);
+
+        $this->load->view('admin/contenido/cabecera_panel', $cabecera, true);
+        
+        $visualizar['opcion'] = $this->Home_model->get_visualizacion();
+        $this->load->view('admin/contenido/opciones_panel_lateral', $visualizar, true); // CARGAMOS el template del sitio, con el contenido principal
+        $data['header'] = 'admin/header/header_main';
+        $data['aside'] = 'admin/sidebar/menu_lateral';
+        $data['contenido'] = 'admin/contenido/opciones_panel_lateral';
+        $data['footer'] = 'admin/footer/footer_admin';
+
+        $this->load->view('admin/template_manager', $data); // CARGAMOS
+    }
+    
+     public function num_noticias_lateral(){
+    
+        $respuesta = $this->Home_model->get_visualizacion();
+            echo json_encode($respuesta);
+   }
+   
+    public function configurar_noticias()
+    {
+        $id = $this->input->post('id');
+        $num_noticias_lat = $this->input->post('num_noticias_lat');
+        $max_caracteres_lat = $this->input->post('max_caracteres_lat');
+        
+        $datos = array('num_noticias_lat' => $num_noticias_lat,
+                       'max_caracteres_lat' => $max_caracteres_lat );
+                       
+        $respuesta = $this->Panel_lateral_model->configurar_noticias($id,$datos);
+        $respuesta['text'] = "Configuracion Exitosa";
         echo json_encode($respuesta);
     }
 

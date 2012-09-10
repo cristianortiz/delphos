@@ -37,7 +37,7 @@ class Home_model extends CI_Model
 
     function get_visualizacion()
     {
-        $this->db->select('id,desplegar');
+        $this->db->select('id,desplegar,num_noticias_lat,max_caracteres_lat');
         $consulta = $this->db->get('visualizar');
         return $consulta->row_array();
 

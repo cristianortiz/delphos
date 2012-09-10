@@ -286,7 +286,7 @@ input{
     border: 1px solid lightgrey;
     background: rgba(255,255,255,0.5);
     border-radius:5px;  
-    margin:3px;  
+    margin:3px 30px 3px 3px;  
     
 }   
 
@@ -823,7 +823,7 @@ select{
     
 }   
 label{
-    margin-left: 15px;
+    margin-left: 3px;
     font-family: verdana;
     font-size: 14px;
 }
@@ -834,5 +834,11 @@ select:hover{
     -moz-box-shadow:0px 0px 5px rgba(0,0,0,0.5);
     -webkit-box-shadow:0px 0px 5px rgba(0,0,0,0.5);
     -o-box-shadow:0px 0px 5px rgba(0,0,0,0.5);
+    
+}
+#desplegar_opcion{
+    display:inline;
+    padding: 0px 0px 0px 10px;
+    font-size: 16px
     
 }

@@ -1,6 +1,8 @@
 $(document).ready(function() {
 	var base_url = 'http://localhost/delphos/';
 	//var base_url = 'http://146.83.74.15/delphos/';
+    
+    var num_noticias_lateral = num_noticias_lateral();
    
  /*----------------------------------------------------------------------------- 
    Script que controla la cinta inferior de mensajes
@@ -28,7 +30,7 @@ $(document).ready(function() {
 	$("#lateral").carouFredSel({
 		direction: 'down',
 		items: {
-			visible: 2,
+			visible: num_noticias_lateral,
 			minimum: 1
 		},
 		scroll: {
@@ -42,6 +44,21 @@ $(document).ready(function() {
 			delay: 5000
 		}
 	});
+    
+    function num_noticias_lateral()  {
+        var num_noticias = 0;
+        $.ajax({
+            url:  base_url + 'panel_lateral/num_noticias_lateral/',
+            type: 'post',
+            dataType: 'json',
+            async: false,
+            success: function(respuesta) {
+                num_noticias = respuesta.num_noticias_lat;
+            }
+        });
+       return num_noticias;
+    }   
+    
 /*--------------------------------------------------------------------------------------------------------------------------
   Esta seccion controla las animaciones del panel principal, es un content rotator que sincroniza las imagenes y los textos 
    En dicho panel.
@@ -125,11 +142,12 @@ $(document).ready(function() {
 		}
 	});
 
+
 /*-------------------------------------------------------------------------------------------------------------
     Bloque JS para el plugin projekktor, llama al metodo carga_playlist delcontrolador home que carga la lista de
     reproduccion desde la BD en formato JSON para el reproductor
   ----------------------------------------------------------------------------------------------------------------*/
-	projekktor('#player_a', {
+/*	projekktor('#player_a', {
 		debug: true,
 		// poster: 'intro.png',
 		useYTIframeAPI: false,
@@ -164,6 +182,9 @@ $(document).ready(function() {
 			return false;
 		});
 	});
+    
+ 
+    
    jQuery.extend({
     recupera_tiempo: function() {
         var tiempo_texto = null;
@@ -179,6 +200,10 @@ $(document).ready(function() {
        return tiempo_texto;
     }
 });
+
+ 
+    
+
 	
 	$.timer($.recupera_tiempo(), function() {
 		var opcion = 'video';
@@ -197,5 +222,5 @@ $(document).ready(function() {
 			}
 		});
 		return false;
-	})
+	})*/
 });

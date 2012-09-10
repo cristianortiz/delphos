@@ -27,7 +27,7 @@
         foreach($texto as $row){
           echo '<tr id="fila'.$row['id'].'">
                   <td id="fcheck"><input class="enviar_documento" type="checkbox" name="" value="'.$row['id'].'" /></td>
-                  <td id="f0"> '.$row['fecha'] .'</td>                  
+                  <td id="f0"> '.strftime("%d-%m-%Y", strtotime($row['fecha'])) .'</td>                  
                   <td id="f1"> '.$row['titulo'] .'</td> 
                   <td id="f2"> '.$row['descripcion'] .'</td>
                   <td id="f3"> '.word_limiter(str_replace('<h2>',"",$row['contenido']),5) .'</td>

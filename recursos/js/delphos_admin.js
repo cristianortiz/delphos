@@ -10,7 +10,12 @@ $(document).ready(function() {
 	var panel_lateral = 'panel_lateral/editar';
 	var panel_principal = 'panel_principal/editar';
 	// variables para controlar el maximo de caratectes permitido en cada aviso, noticia y articulo en los paneles lateral, inferior y proncipal
-	var MAX_CHAR_LAT = 150;
+	
+    var MAX_CHAR_LAT_UNO = 300;
+    var MAX_CHAR_LAT_DOS = 150;
+    var MAX_CHAR_LAT_TRES = 85;
+    
+    var MAX_CHAR_LAT = max_caracteres_lat();
 	var MAX_CHAR_PI = 85;
 	var MAX_CHAR_PRINC = 300;
 	//array para mantener los input de seleccion multiple para eliminar y desactivar contenido en cada panel
@@ -20,8 +25,28 @@ $(document).ready(function() {
     //variable para mentener el tipo de contenido a procesar cuando se ejecuten acciones generales como desactivar y eliminar contenido de algun panel cualquiera, se usa en conjunto con la variable anterior
    	var input_tipo_contenido = '';
     //variable para mentener el estado del contenido a procesar cuando se ejecuten acciones generales como desactivar y eliminar contenido de algun panel cualquiera, se usa para determinar que tabla de contenidos mostrar
-   	var input_estado = '';
+   	var input_estado = ''; 
+   
 /* Fin seccion de configuracion
+
+----------------------------------------------------------------------------------------------------------------
+Funcion para la consulta dinamica de la cantidad de caracteres del panel lateral, este valor depende de la cantidad de noticias
+que se deseen ver al mismo tiempo en el panel lateral deslizable y representa el  maximo ideal sin desbordar el tamaño del panel
+*/
+  function max_caracteres_lat()  {
+        var  max_caracteres = 0;
+        $.ajax({
+            url:  base_url + 'panel_lateral/num_noticias_lateral/',
+            type: 'post',
+            dataType: 'json',
+            async: false,
+            success: function(respuesta) {
+                max_caracteres = respuesta.max_caracteres_lat;
+            }
+        });
+       return  max_caracteres;
+    }   
+
  
 /*----------------------------------------------------------------------------------------------------------------------------------
   Seccion de tooltips, mensajes informativos que se muestran para las distintas funciones definidas en las tablas de avisos, noticias
@@ -502,12 +527,53 @@ $(document).ready(function() {
 		},
 		modal: true
 	}); //fin del cuadro de dialogo "msgDialog_lat" 
+    
+   $("#num_noticias_lat").change(function(){
+                var op = $("#num_noticias_lat option:selected").val();
+                switch(op){
+                    case '1':
+                     $(" input#max_caracteres_lat").val(MAX_CHAR_LAT_UNO);
+                    break;
+                     case '2':
+                     $(" input#max_caracteres_lat").val(MAX_CHAR_LAT_DOS);
+                    break;
+                    case '3':
+                     $(" input#max_caracteres_lat").val(MAX_CHAR_LAT_TRES);
+                    break;
+                    
+                }
+        });
+  	$('#config_panel_lateral').submit(function() {
+		$.ajax({
+			type: 'POST',
+			url: base_url + 'panel_lateral/configurar_noticias',
+			dataType: 'json',
+			data: $(this).serialize(),
+			success: function(respuesta) {
+			 
+			  	$('#msgDialogOpLat > h4').html(respuesta.text);  
+				$('#msgDialogOpLat').dialog('option', 'title', 'Configurar Noticias').dialog('open');
+			}
+		});
+		return false;
+	});
+     $('#msgDialogOpLat').dialog({
+		autoOpen: false,
+		buttons: {
+			'Ok': function() {
+				$(this).dialog('close');
+				document.location = base_url+'panel_lateral/opciones_lateral';     
+			}
+		},
+		modal: true
+	});      
+        
 
 /* FIN TABLA DE EDICION DE NOTICIAS DEL PANEL LATERAL
 
 
 /*----------------------------------------------------------------------------------------------------------------------
-  TABLA DE EDICION DE ARTICULOS Y TEXTO DEL PANEL PRINCIPAL, CONTROLA LAS ACCIONES, AGREGAR, EDTIAR Y ELIMINAR TEXTO  DEL PANEL
+  TABLA DE EDICION DE ARTICULOS Y TEXTO DEL PANEL PRINCIPAL, CONTROLA LAS ACCIONES, AGREGAR, EDITAR Y ELIMINAR TEXTO  DEL PANEL
   PRINCPAL
   */
 /*----------------------------------------------------------------------------------------------------------------------------
@@ -672,10 +738,22 @@ $(document).ready(function() {
 			dataType: 'json',
 			data: $('#visualizar').serialize(),
 			success: function(respuesta) {
-				$('#visualizar > p').html(respuesta.text);
+			 
+			  	$('#msgDialogOpcion > h4').html(respuesta.text);  
+				$('#msgDialogOpcion').dialog('option', 'title', 'Elegir Visualizacion').dialog('open');
 			}
 		});
 		return false;
+	});
+    $('#msgDialogOpcion').dialog({
+		autoOpen: false,
+		buttons: {
+			'Ok': function() {
+				$(this).dialog('close');
+				document.location = base_url+'panel_principal/opciones';     
+			}
+		},
+		modal: true
 	});
     
 /*-----------------------------------------------------------------------------------------------------------------------------

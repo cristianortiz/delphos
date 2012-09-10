@@ -25,14 +25,19 @@ class Panel_inferior extends CI_Controller
             redirect('login');
         }
         $config = array();
-        $config["base_url"] = base_url() . "panel_inferior/editar";
+        if($estado = ACTIVO){
+            $config["base_url"] = base_url() . "panel_inferior/editar/activo";
+        }
+        else{
+            $config["base_url"] = base_url() . "panel_inferior/editar/desactivado";
+        }
         $config["total_rows"] = $this->Home_model->record_count('inferior',$estado);
         $config["per_page"] = ROWS_FOR_PAGES;
-        $config["uri_segment"] = 3;
+        $config["uri_segment"] = 4;
 
         $this->pagination->initialize($config);
 
-        $page = ($this->uri->segment(3)) ? $this->uri->segment(3) : 0;
+        $page = ($this->uri->segment(4)) ? $this->uri->segment(4) : 0;
         $inferior["avisos"] = $this->Home_model->filas_paginadas('inferior', $config["per_page"],$page,$estado);
         $inferior["links"] = $this->pagination->create_links();
         $inferior['estado'] = $estado;

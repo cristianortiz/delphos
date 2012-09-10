@@ -30,6 +30,11 @@ class Panel_lateral_model extends CI_Model {
         $this->db->update('lateral',$datos);                             
     }
     
+    function configurar_noticias($id,$datos)
+    {       
+        $this->db->where('id',$id);
+        $this->db->update('visualizar',$datos);                             
+    }
      function eliminar_noticia($array_id)
     {
         foreach($array_id as $id){

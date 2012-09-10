@@ -13,11 +13,11 @@ class Panel_principal extends CI_Controller
         $this->load->helper('text');
         $data = array();
         $footer = array();
-       
+
     }
     /* Metodo para mostrar los articulos del panel principal, si se hace clik en Articulos en la barra de menu,
-       se mostraran solo los articulos activos,  y que aparecen en la seccion de Visualizacion del Panel, si se presiona
-       en Historial, se mostraran los articulos desactivados.
+    se mostraran solo los articulos activos,  y que aparecen en la seccion de Visualizacion del Panel, si se presiona
+    en Historial, se mostraran los articulos desactivados.
     */
     public function editar($estado)
     {
@@ -26,62 +26,52 @@ class Panel_principal extends CI_Controller
         }
         $config = array();
         $config["base_url"] = base_url() . "panel_principal/editar";
-        $config["total_rows"] = $this->Home_model->record_count('principal',$estado);
+        $config["total_rows"] = $this->Home_model->record_count('principal', $estado);
         $config["per_page"] = ROWS_FOR_PAGES;
-        $config["uri_segment"] = 3;
+        $config["uri_segment"] = 4;
 
         $this->pagination->initialize($config);
 
-        $page = ($this->uri->segment(3)) ? $this->uri->segment(3) : 0;
-        
-        $principal['texto'] = $this->Home_model->filas_paginadas('principal', $config["per_page"],$page,$estado);
+        $page = ($this->uri->segment(4)) ? $this->uri->segment(4) : 0;
+
+        $principal['texto'] = $this->Home_model->filas_paginadas('principal', $config["per_page"],
+            $page, $estado);
         $principal['links'] = $this->pagination->create_links();
         $principal['estado'] = $estado;
         $principal['input_panel'] = 'panel_principal';
-        $principal['input_contenido']= 'articulo';
-        
+        $principal['input_contenido'] = 'articulo';
+
         $enlace_panel = 'panel_principal';
-        $btn_nuevo ='nuevo_articulo'; 
-        $label_nuevo ='Nuevo Articulo';
-       
-      
-        if($estado == ACTIVO){
+        $btn_nuevo = 'nuevo_articulo';
+        $label_nuevo = 'Nuevo Articulo';
+
+
+        if ($estado == ACTIVO) {
             $titulo_panel = 'Panel Principal: Articulos Activos';
-            $btn_estado ='btn_desactivar'; 
-            $label_estado ='Desactivar';
-        }
-        else{
+            $btn_estado = 'btn_desactivar';
+            $label_estado = 'Desactivar';
+        } else {
             $titulo_panel = 'Panel Principal: Historial Articulos Desactivados';
-            $btn_estado ='btn_activar'; 
-            $label_estado ='Activar';
-            
+            $btn_estado = 'btn_activar';
+            $label_estado = 'Activar';
+
         }
-        
-        $cabecera['links_cabecera'] = array( array( 'enlace' =>  "$enlace_panel/editar/activo", 
-                                        'enlace_label' => "Articulos"                                   
-                                    ),
-                               array( 'enlace' => "$enlace_panel/videos", 
-                                        'enlace_label' => "Videos"       
-                                    ),
-                               array( 'enlace' => "$enlace_panel/opciones", 
-                                        'enlace_label' => "Opciones"        
-                                    ),
-                                array( 'enlace' => "$enlace_panel/editar/desactivado", 
-                                        'enlace_label' => "Historial"        
-                                    )     
-                              
-                             );
-          $cabecera['datos_panel'] = array( 'titulo_panel' => $titulo_panel,          
-                                             'estado'=> $estado,
-                                             'btn_estado'=>$btn_estado,
-                                             'label_estado'=> $label_estado,
-                                             'btn_nuevo'=>$btn_nuevo,
-                                             'label_nuevo'=> $label_nuevo
-                                            
-                                                
-                                    );     
-                                              
-        $this->load->view('admin/contenido/cabecera_panel_edicion',$cabecera,true);
+
+        $cabecera['links_cabecera'] = array(
+            array('enlace' => "$enlace_panel/editar/activo", 'enlace_label' => "Articulos"),
+            array('enlace' => "$enlace_panel/videos", 'enlace_label' => "Videos"),
+            array('enlace' => "$enlace_panel/opciones", 'enlace_label' => "Opciones"),
+            array('enlace' => "$enlace_panel/editar/desactivado", 'enlace_label' =>
+                    "Historial"));
+        $cabecera['datos_panel'] = array(
+            'titulo_panel' => $titulo_panel,
+            'estado' => $estado,
+            'btn_estado' => $btn_estado,
+            'label_estado' => $label_estado,
+            'btn_nuevo' => $btn_nuevo,
+            'label_nuevo' => $label_nuevo);
+
+        $this->load->view('admin/contenido/cabecera_panel_edicion', $cabecera, true);
         $this->load->view('admin/contenido/editar_principal_test', $principal, true); // CARGAMOS el template del sitio, con el contenido principal
 
         $data['header'] = 'admin/header/header_main';
@@ -140,7 +130,7 @@ class Panel_principal extends CI_Controller
                 $data = $this->upload->data();
                 $url = base_url('recursos/images') . '/' . $data['file_name'];
                 $file_id = $this->Panel_principal_model->crear_nuevo_articulo($data['file_name'],
-                    $desc, $titulo, $contenido,$estado);
+                    $desc, $titulo, $contenido, $estado);
                 if ($file_id) {
                     $status = "success";
                     $msg = "Articulo Creado  Correctamente";
@@ -200,7 +190,7 @@ class Panel_principal extends CI_Controller
         $respuesta['text'] = "<h3>Articulo Eliminado Correctamente</h3>";
         echo json_encode($respuesta);
     }
-    
+
     /*Metodo para la desactivacion manual de un articulo del panel principal en base a su id
     */
     public function cambiar_estado_articulo()
@@ -208,12 +198,11 @@ class Panel_principal extends CI_Controller
         $array_id = $this->input->post('array_id');
         $estado = $this->input->post('estado');
         $datos = array('estado' => $estado);
-        $respuesta = $this->Panel_principal_model->cambiar_estado_articulo($array_id,$datos);
-        if($estado == 'desactivado'){
+        $respuesta = $this->Panel_principal_model->cambiar_estado_articulo($array_id, $datos);
+        if ($estado == 'desactivado') {
             $respuesta['text'] = "<h3>Articulos Desactivados Correctamente</h3>";
-        }
-        else{
-            
+        } else {
+
             $respuesta['text'] = "<h3>Articulos Reactivados Correctamente</h3>";
         }
         echo json_encode($respuesta);
@@ -222,11 +211,12 @@ class Panel_principal extends CI_Controller
     /*******************************************************************************************************************************
     FIN SECCION DE GESTION DE CONTENIDO PARA EL  PANEL PRINCIPAL
     ******************************************************************************************************************************/
-   
-    
-    public function videos(){
-        
-       if ($this->session->userdata('logged_in') != true) {
+
+
+    public function videos()
+    {
+
+        if ($this->session->userdata('logged_in') != true) {
             redirect('login');
         }
         $config = array();
@@ -235,31 +225,24 @@ class Panel_principal extends CI_Controller
         $config["per_page"] = ROWS_FOR_PAGES;
         $config["uri_segment"] = 3;
 
-       $this->pagination->initialize($config);
+        $this->pagination->initialize($config);
 
         $page = ($this->uri->segment(3)) ? $this->uri->segment(3) : 0;
-        $principal['videos'] = $this->Home_model->filas_paginadas_videos('video', $config["per_page"],$page);
+        $principal['videos'] = $this->Home_model->filas_paginadas_videos('video', $config["per_page"],
+            $page);
         $principal['links'] = $this->pagination->create_links();
-        $titulo_panel = 'Panel Principal: Videos';  
-        $enlace_panel = 'panel_principal';         
-        
-        $cabecera['links_cabecera'] = array( array( 'enlace' => "$enlace_panel/editar/activo", 
-                                        'enlace_label' => "Articulos"                                   
-                                    ),
-                               array( 'enlace' => "$enlace_panel/videos", 
-                                        'enlace_label' => "Videos"       
-                                    ),
-                               array( 'enlace' => "$enlace_panel/opciones", 
-                                        'enlace_label' => "Opciones"        
-                                    ),
-                                array( 'enlace' =>"$enlace_panel/editar/desactivado", 
-                                        'enlace_label' => "Historial"        
-                                    )     
-                              
-                             );
-         $cabecera['datos_panel'] = array( 'titulo_panel' => $titulo_panel );     
-                                              
-        $this->load->view('admin/contenido/cabecera_panel',$cabecera,true);
+        $titulo_panel = 'Panel Principal: Videos';
+        $enlace_panel = 'panel_principal';
+
+        $cabecera['links_cabecera'] = array(
+            array('enlace' => "$enlace_panel/editar/activo", 'enlace_label' => "Articulos"),
+            array('enlace' => "$enlace_panel/videos", 'enlace_label' => "Videos"),
+            array('enlace' => "$enlace_panel/opciones", 'enlace_label' => "Opciones"),
+            array('enlace' => "$enlace_panel/editar/desactivado", 'enlace_label' =>
+                    "Historial"));
+        $cabecera['datos_panel'] = array('titulo_panel' => $titulo_panel);
+
+        $this->load->view('admin/contenido/cabecera_panel', $cabecera, true);
         $this->load->view('admin/contenido/editar_videos', $principal, true); // CARGAMOS el template del sitio, con el contenido principal
 
         $data['header'] = 'admin/header/header_main';
@@ -268,7 +251,7 @@ class Panel_principal extends CI_Controller
         $data['footer'] = 'admin/footer/footer_admin';
 
         $this->load->view('admin/template_manager', $data); // CARGAMOS
-        
+
     }
 
     public function do_upload()
@@ -335,26 +318,19 @@ class Panel_principal extends CI_Controller
 
     public function opciones()
     {
-         $titulo_panel = 'Panel Principal: Opciones'; 
-         $enlace_panel = 'panel_principal' ;
-                       
-         $cabecera['links_cabecera'] = array( array( 'enlace' => "$enlace_panel/editar/activo", 
-                                        'enlace_label' => "Articulos"                                   
-                                    ),
-                               array( 'enlace' => "$enlace_panel/videos", 
-                                        'enlace_label' => "Videos"       
-                                    ),
-                               array( 'enlace' => "$enlace_panel/opciones", 
-                                        'enlace_label' => "Opciones"        
-                                    ),
-                                array( 'enlace' =>"$enlace_panel/editar/desactivado", 
-                                        'enlace_label' => "Historial"        
-                                    )     
-                              
-                             );
-         $cabecera['datos_panel'] = array( 'titulo_panel' => $titulo_panel );     
-                                              
-        $this->load->view('admin/contenido/cabecera_panel',$cabecera,true);
+        $titulo_panel = 'Panel Principal: Opciones';
+        $enlace_panel = 'panel_principal';
+
+        $cabecera['links_cabecera'] = array(
+            array('enlace' => "$enlace_panel/editar/activo", 'enlace_label' => "Articulos"),
+            array('enlace' => "$enlace_panel/videos", 'enlace_label' => "Videos"),
+            array('enlace' => "$enlace_panel/opciones", 'enlace_label' => "Opciones"),
+            array('enlace' => "$enlace_panel/editar/desactivado", 'enlace_label' => "Historial")
+                                        );
+            
+        $cabecera['datos_panel'] = array('titulo_panel' => $titulo_panel);
+
+        $this->load->view('admin/contenido/cabecera_panel', $cabecera, true);
         $visualizar['opcion'] = $this->Home_model->get_visualizacion();
         $this->load->view('admin/contenido/opciones', $visualizar, true); // CARGAMOS el template del sitio, con el contenido principal
         $data['header'] = 'admin/header/header_main';
@@ -370,21 +346,26 @@ class Panel_principal extends CI_Controller
         $id = $this->input->post('id');
         $opcion = $this->input->post('opcion');
         $tiempo = $this->input->post('tiempo');
-        $tiempo_mls = $tiempo*60*1000;
+        $tiempo_mls = $tiempo * 60 * 1000;
         $datos = array('desplegar' => $opcion, 'tiempo' => $tiempo_mls);
         $respuesta = $this->Panel_principal_model->actualizar_opcion($id, $datos);
-        $respuesta['text'] = "<h3>Opcion '" . $opcion ."' Configurada Correctamente</h3>";
+        if($opcion == TEXT_MODE){
+            $respuesta['text'] = "<h3>Opcion 'Articulos' Configurada Correctamente</h3>";
+        }
+        else{
+            $respuesta['text'] = "<h3>Opcion 'Videos' Configurada Correctamente</h3>";
+        }
         $respuesta['id'] = $id;
         $respuesta['status'] = 'succes';
         echo json_encode($respuesta);
     }
-    
-     public function cambiar_a_texto()
+
+    public function cambiar_a_texto()
     {
         $id = $this->input->post('id');
         $opcion = $this->input->post('opcion');
         $datos = array('desplegar' => $opcion);
-        $respuesta = $this->Panel_principal_model->actualizar_opcion($id, $datos);      
+        $respuesta = $this->Panel_principal_model->actualizar_opcion($id, $datos);
         $respuesta['id'] = $id;
         $respuesta['status'] = 'succes';
         echo json_encode($respuesta);
@@ -522,7 +503,7 @@ class Panel_principal extends CI_Controller
         echo json_encode(array('status' => $status, 'msg' => $msg));
     }
 
-
+  
 } // fin clase panel_principal
 
 

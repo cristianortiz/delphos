@@ -4,12 +4,20 @@
  <legend>Configurar manualmente el tipo de visualizacion</legend>
  <label for="opcion">Elegir Visualizacion</label>
     <select  name="opcion" id="opcion">
-	<option value="video">Mostrar Videos</option>
-	<option value="texto" selected="">Mostrar Articulos</option>   
+    <option value="#">-----</option>
+	<option value="video">Lista de Videos</option>
+	<option value="texto" >Mostrar Articulos</option>   
 </select>
+    <?php if($opcion['desplegar'] == TEXT_MODE){
+        echo ' <div id="desplegar_opcion">Actual : Articulos</div>';
+    }
+    else{
+        echo ' <div id="desplegar_opcion">Actual : Videos</div>';
+    }
+    ?>
 </fieldset>
 <br />
- <fieldset>
+ <!--  <fieldset>
  <legend>Tiempo de reproduccion Articulos</legend>
  <label for="opcion">Duracion Articulos</label>
     <select  name="tiempo" id="tiempo">
@@ -20,16 +28,13 @@
     <option value="30"> 30 minutos</option>
     <option value="45"> 45 minutos</option>                   
 </select>
-</fieldset>
-<br />
+</fieldset>-->
 <input type="hidden" id="id" name="id" value="<? echo $opcion['id'] ?>" />
 <input type="submit" value="Configurar" />
-
-<p></p>
 </form>
     
-     <div id="msgDialog">
-         <p></p><br/> 
+     <div id="msgDialogOpcion">
+         <h4></h4>
 </div>                                                        
  </div>
 
