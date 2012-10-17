@@ -3,6 +3,7 @@ $(document).ready(function() {
 	//var base_url = 'http://146.83.74.15/delphos/';
     
     var num_noticias_lateral = num_noticias_lateral();
+    crear_articulo_RSS();
    
  /*----------------------------------------------------------------------------- 
    Script que controla la cinta inferior de mensajes
@@ -57,7 +58,21 @@ $(document).ready(function() {
             }
         });
        return num_noticias;
-    }   
+    } 
+    
+  function crear_articulo_RSS()  {
+        
+            $.ajax({
+            url:  base_url + 'panel_principal/crear_articulo_RSS/',
+            type: 'post',
+            dataType: 'json',
+            async: false,
+            success: function(respuesta) {
+               
+            }
+        });
+      
+    }        
     
 /*--------------------------------------------------------------------------------------------------------------------------
   Esta seccion controla las animaciones del panel principal, es un content rotator que sincroniza las imagenes y los textos 

@@ -121,18 +121,16 @@ span.diicc{
     
 }
 
-footer{
-    
+footer{  
     display:table;
-    margin: 0px;    
-    position:relative;
+    bottom: 0px;    
+    position:absolute;
     text-align: center;
     width: 100%;
-    height: auto;
+    height: 100px;
     background: rgba(0,0,0,1); 
     
-    }
-    
+    }  
 #contenido-footer{
     clear: both;    
     padding:5px;

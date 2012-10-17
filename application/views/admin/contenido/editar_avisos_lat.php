@@ -32,7 +32,8 @@
         }
      }  ?>
        </tbody>
-     </table> 
+     </table>         
+          
      <div class="page_numbers">
       <p><?php echo $links; ?></p>
      </div> 

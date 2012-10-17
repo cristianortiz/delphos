@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- generator="Joomla! - Open Source Content Management" -->
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+	<channel>
+		<title>Noticias</title>
+		<description>sitio oficial del departamento de ingenieria informatica y ciencias de la computacion universidad de atacama copiapo, region de atacama chile</description>
+		<link>http://146.83.74.15/sitiodiicc/index.php/noticias-diicc</link>
+		<lastBuildDate>Tue, 16 Oct 2012 23:11:37 +0000</lastBuildDate>
+		<generator>Joomla! - Open Source Content Management</generator>
+		<atom:link rel="self" type="application/rss+xml" href="http://146.83.74.15/sitiodiicc/index.php/noticias-diicc?format=feed&amp;type=rss"/>
+		<language>es-es</language>
+		<item>
+			<title>Llamado Ayudantes Química Gral</title>
+			<link>http://146.83.74.15/sitiodiicc/index.php/noticias-diicc/31-llamado-ayudantes-quimica</link>
+			<guid isPermaLink="true">http://146.83.74.15/sitiodiicc/index.php/noticias-diicc/31-llamado-ayudantes-quimica</guid>
+			<description><![CDATA[<h2 style="text-align: left;" align="center"><span style="font-size: medium;"> Se abre postulación para alumnos ayudantes de la asignatura Química General de Plan Común de Ingeniería, dirigirse al Departamento de Ciencias Naturales para mayores antecedentes.</span></h2>
+<p><span style="font-size: medium;"><img src="http://146.83.74.15/sitiodiicc/images/quimica.jpg" border="0" alt="" /></span></p>
+<h2 style="text-align: left;" align="center"> </h2>]]></description>
+			<author>admin@diicc.uda.cl (Super User)</author>
+			<category>Noticias</category>
+			<pubDate>Fri, 21 Sep 2012 15:10:33 +0000</pubDate>
+		</item>
+		<item>
+			<title>Práctica Laboral Aguas Chañar</title>
+			<link>http://146.83.74.15/sitiodiicc/index.php/noticias-diicc/30-practica-laboral-aguas-chanar</link>
+			<guid isPermaLink="true">http://146.83.74.15/sitiodiicc/index.php/noticias-diicc/30-practica-laboral-aguas-chanar</guid>
+			<description><![CDATA[<p><span>Aguas Cha&ntilde;ar S.A. desea reclutar en su Departamento de Inform&aacute;tica 2 alumnos memoristas, para mayor informaci&oacute;n comunicarse con Christian Riveras (</span><a href="mailto:criveras@aguaschanar.cl">criveras@aguaschanar.cl</a><span>) Encargado de Proyectos de Inform&aacute;tica.</span></p><p><span><br /></span></p><p><span><img style="border: 0;" src="http://146.83.74.15/sitiodiicc/images/aguas.jpg" border="0" alt="" width="400" height="400" /></span></p>]]></description>
+			<author>admin@diicc.uda.cl (Super User)</author>
+			<category>Noticias</category>
+			<pubDate>Fri, 21 Sep 2012 15:05:50 +0000</pubDate>
+		</item>
+		<item>
+			<title>Encuesta Acreditación Alumnos DIICC</title>
+			<link>http://146.83.74.15/sitiodiicc/index.php/noticias-diicc/29-encuesta-acreditacion-alumnos-diicc</link>
+			<guid isPermaLink="true">http://146.83.74.15/sitiodiicc/index.php/noticias-diicc/29-encuesta-acreditacion-alumnos-diicc</guid>
+			<description><![CDATA[<p>Se solicita al alumnado DIICC su cooperacion en esta encuesta que forma parte del nuevo proceso de acreditación de nuestro Departamento. Para responder la encuesta online es necesario iniciar sesión con su cuenta de correo institucional @alumnos.uda.cl</p>
+<p><img src="http://146.83.74.15/sitiodiicc/images/encuesta.jpg" border="0" style="vertical-align: bottom;" /></p>]]></description>
+			<author>admin@diicc.uda.cl (Super User)</author>
+			<category>Noticias</category>
+			<pubDate>Fri, 21 Sep 2012 15:02:34 +0000</pubDate>
+		</item>
+	</channel>
+</rss>

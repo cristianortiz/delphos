@@ -17,7 +17,7 @@ class Admin extends CI_Controller {
          //$data['aside']     ='sidebar/menu_lateral';
          $data['contenido'] ='admin/formularios/form_login';
          $data['footer']    ='admin/footer/footer_admin';                  
-         $this->load->view('admin/template_admin',$data);  // CARGAMOS el template del sitio de administracion, con el contenido principal
+         $this->load->view('admin/template_manager',$data);  // CARGAMOS el template del sitio de administracion, con el contenido principal
 	}
     
     public function manager()

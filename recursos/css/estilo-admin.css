@@ -21,7 +21,9 @@ h1,h2,h3,h4{
 font-family:Arial,Verdana, sans-serif  ;
 margin: 0px;   
 }
-
+h2{
+   font-size: 20px;
+}
 h1{
     font-size: 38px;
    
@@ -551,7 +553,7 @@ aside h3{
 .nuevo_articulo #btn_desactivar{
    float: right;  
 }
-.nuevo_articulo #btn_eliminar{
+.nuevo_articulo #btn_eliminar,#btn_eliminar_usuarios{
    float: right;  
 }
 
@@ -587,13 +589,20 @@ aside h3{
     background:rgba(255,255,255,0.7) ;
     color: black;
 }
-
+#tabla_avisos #fcheck{
+    width: 3%;
+    text-align: center;
+}
+#tabla_avisos #f0{
+    width: 5%;
+    text-align: left;
+}
 #tabla_avisos #f1{
-    width: 17%;
+    width: 20%;
     text-align: left;
 }
 #tabla_avisos #f2{
-    width: 30%;
+    width: 40%;
     text-align: left;
     
 }

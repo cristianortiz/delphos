@@ -48,7 +48,6 @@ que se deseen ver al mismo tiempo en el panel lateral deslizable y representa el
        return  max_caracteres;
     }   
 
- 
 /*----------------------------------------------------------------------------------------------------------------------------------
   Seccion de tooltips, mensajes informativos que se muestran para las distintas funciones definidas en las tablas de avisos, noticias
    videos y articulos del sistema */

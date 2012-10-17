@@ -23,11 +23,11 @@ class Login extends CI_Controller {
        //si las validaciones fallan, cargo nuevamente el form mostrando los mensajes de error, en la vista form_login           
        if ($this->form_validation->run() == FALSE)
 		{
-		    $data['header']    ='header/header_main';
+		    $data['header']    ='admin/header/header_main';
             $data['contenido'] ='admin/formularios/form_login';
             $data['footer']    ='admin/footer/footer_admin';  
                 
-            $this->load->view('admin/template_admin',$data);  // CARGAMOS el template del sitio de administracion, con el contenido principal
+            $this->load->view('admin/template_manager',$data);  // CARGAMOS el template del sitio de administracion, con el contenido principal
 		}
         // si los datos pasan las validaciones se limpia el POST y se inicia el proceso de login para ingresar al sistema
 		else
@@ -52,17 +52,17 @@ class Login extends CI_Controller {
                    {
                        $this->session->set_userdata(array('logged_in' =>true,'username' => $username,'perfil' => $existe['perfil_id']));
                        
-                       redirect("admin/manager");                         
+                      redirect(base_url('admin'));                         
                    }
                    // si el login es incorrecto se carga nuevamente el form_login con el mensaje de error correspondiente
                    else
                    {                        
-                      $data['header']    ='header/header_main';
+                      $data['header']    ='admin/header/header_main';
                       $data['contenido'] ='admin/formularios/form_login';
                       $data['footer']    ='admin/footer/footer_admin';                      
                       $data['login_fail'] ='<div class="error_pass">El password ingresado es incorrecto</div>'; 
                       
-                      $this->load->view('admin/template_admin',$data);  // CARGAMOS el template del sitio de administracion, con el contenido principal             
+                      $this->load->view('admin/template_manager',$data);  // CARGAMOS el template del sitio de administracion, con el contenido principal             
                                   
                    }
                 }

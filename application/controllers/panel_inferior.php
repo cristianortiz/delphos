@@ -24,13 +24,9 @@ class Panel_inferior extends CI_Controller
           if ($this->session->userdata('logged_in') != true) {
             redirect('login');
         }
-        $config = array();
-        if($estado == ACTIVO){
-            $config["base_url"] = base_url() . "panel_inferior/editar/activo";
-        }
-        else{
-            $config["base_url"] = base_url() . "panel_inferior/editar/desactivado";
-        }
+        $config = array();     
+      
+        $config["base_url"] = base_url() . "panel_inferior/editar/".$estado;      
         $config["total_rows"] = $this->Home_model->record_count('inferior',$estado);
         $config["per_page"] = ROWS_FOR_PAGES;
         $config["uri_segment"] = 4;

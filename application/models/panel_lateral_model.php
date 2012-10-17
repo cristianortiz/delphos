@@ -16,6 +16,16 @@ class Panel_lateral_model extends CI_Model {
         return $consulta->row_array();           
     }
     
+    function verificar_noticia($contenido)
+   {               
+        $this->db->select('COUNT(*) AS resultado');
+        $this->db->where('contenido', $contenido);
+        $consulta = $this->db->get('lateral');
+        return $consulta->row_array(); 
+              
+        $consulta = $this->db->get('lateral');          
+    }
+    
      function cambiar_estado_noticia($array_id,$datos)
     {
         foreach($array_id as $id){

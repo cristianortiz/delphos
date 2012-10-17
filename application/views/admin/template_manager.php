@@ -14,7 +14,8 @@
         <script type="text/javascript" src="<?echo base_url('recursos/js/AjaxUploader/ajaxfileupload.js');?>"></script>
         <script type="text/javascript" src="<?echo base_url('recursos/js/jquery.validate.min.js');?>"></script>
         <script type="text/javascript" src="<?echo base_url('recursos/js/jquery.textareaCounter.plugin.js');?>"></script>   
-        <script type="text/javascript" src="<?echo base_url('recursos/js/delphos_admin.js');?>"></script>       
+        <script type="text/javascript" src="<?echo base_url('recursos/js/delphos_admin.js');?>"></script>
+        <script type="text/javascript" src="<?echo base_url('recursos/js/delphos_usuarios.js');?>"></script>          
         <script type="text/javascript" src="<? echo base_url('recursos/js/sexy-tooltips-1.1/sexy-tooltips.v1.1.jquery.min.js'); ?>"></script>
         
         

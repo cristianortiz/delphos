@@ -47,6 +47,7 @@ define('FOPEN_READ_WRITE_CREATE_STRICT',		'x+b');
 */
 define('MAX_CHAR_PI', 75);
 define('MAX_CHAR_LAT', 150);
+define('MAX_CHAR_PRINC', 300);
 define('ROWS_FOR_PAGES',5);
 
 define('VIDEO_MODE','video');
@@ -60,6 +61,8 @@ define('TEXT_MODE','texto');
 define('ADMIN','administrador');
 define('EDIT_NT','editor_noticias');
 define('EDIT_AV','editor_avisos');
+define('EDITOR','editor'); //perfil que puede editar el panel lateral y el panel inferior
+
 
 /*
 |--------------------------------------------------------------------------

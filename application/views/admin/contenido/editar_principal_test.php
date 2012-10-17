@@ -55,7 +55,7 @@
      
           
      <!-- cuadros de dialogo para el boton  Nuevo Articulo, del panel principal -->
-     <div id="nuevo_articulo_dialog"  style="width: 500px;" title="Nuevo Articulo">
+     <div id="nuevo_articulo_dialog"  style="width: 500px;text-align: left;font-size: 12px;;padding-top: 50px;" title="Nuevo Articulo">
        <form id="form_nuevo_articulo">
        <table border="0">
         <tr>
@@ -95,8 +95,9 @@
        <h3>¿Seguro desea Reactivar r los Articulos seleccionados?</h3><br />
        <h4> Los Articulos Reactivados seran nuevamente visibles en el panel Principal, seccion articulos</h4>          
      </div> 
+     
       <!-- cuadros de dialogo para el en lace de Editar Articulo, en la tabla de articulos del panel principal -->
-     <div id="editarPrincipal"  style="width: 500px;" title="Editar Principal">
+     <div id="editarPrincipal"  style="width: 500px;text-align: left;font-size: 12px;padding-top: 50px;" title="Editar Principal">
        <form id="form-edicion-princ">
        <table border="0">
         <tr>
@@ -144,7 +145,7 @@
       </div>  
         
       <div id="eliminar_dialog_ok">
-         <p></p><br/> 
+         <h4></h4> 
       </div>
        <div id="desactivar_dialog_ok">
          <p></p><br/> 

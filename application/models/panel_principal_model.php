@@ -68,7 +68,7 @@ class Panel_principal_model extends CI_Model
     {
         $data = array(
             'titulo' => $titulo,
-            'descripcion' => $descripcion,
+            'descripcion' => "$descripcion",
             'contenido' => $contenido,
             'imagen' => $imagen,
             'fecha' => mdate('%Y-%m-%d'),
@@ -124,6 +124,16 @@ class Panel_principal_model extends CI_Model
         $this->db->where('id', $id);
         $this->db->update('principal', $data);
        return $id; 
+    }
+    
+      function verificar_descripcion_articulo($descripcion)
+   {               
+        $this->db->select('COUNT(*) AS resultado');
+        $this->db->where('descripcion', "$descripcion");
+        $consulta = $this->db->get('principal');
+        return $consulta->row_array(); 
+              
+        //$consulta = $this->db->get('lateral');          
     }
 
 }

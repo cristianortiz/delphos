@@ -3,7 +3,6 @@
 
 class Panel_principal extends CI_Controller
 {
-
     function __construct()
     {
         // Función constructora aquí podemos hacer la carga de algunos elementos adicionales cómo librerías, helpers, etc...
@@ -24,8 +23,13 @@ class Panel_principal extends CI_Controller
         if ($this->session->userdata('logged_in') != true) {
             redirect('login');
         }
-        $config = array();
-        $config["base_url"] = base_url() . "panel_principal/editar";
+         $config = array();
+        if($estado == ACTIVO){
+            $config["base_url"] = base_url() . "panel_principal/editar/activo";
+        }
+        else{
+            $config["base_url"] = base_url() . "panel_principal/editar/desactivado";
+        }
         $config["total_rows"] = $this->Home_model->record_count('principal', $estado);
         $config["per_page"] = ROWS_FOR_PAGES;
         $config["uri_segment"] = 4;
@@ -34,8 +38,7 @@ class Panel_principal extends CI_Controller
 
         $page = ($this->uri->segment(4)) ? $this->uri->segment(4) : 0;
 
-        $principal['texto'] = $this->Home_model->filas_paginadas('principal', $config["per_page"],
-            $page, $estado);
+        $principal['texto'] = $this->Home_model->filas_paginadas('principal', $config["per_page"],$page, $estado);
         $principal['links'] = $this->pagination->create_links();
         $principal['estado'] = $estado;
         $principal['input_panel'] = 'panel_principal';
@@ -112,6 +115,7 @@ class Panel_principal extends CI_Controller
         $file_element_name = 'articulo_img';
         $ruta = './recursos/images';
         if (!file_exists($ruta)) {
+            
             //creamos el directorio para la empresa nueva agregada y le asignamos permisos de lec/esct
             mkdir($ruta, 0777);
         }
@@ -129,8 +133,7 @@ class Panel_principal extends CI_Controller
             } else {
                 $data = $this->upload->data();
                 $url = base_url('recursos/images') . '/' . $data['file_name'];
-                $file_id = $this->Panel_principal_model->crear_nuevo_articulo($data['file_name'],
-                    $desc, $titulo, $contenido, $estado);
+                $file_id = $this->Panel_principal_model->crear_nuevo_articulo($data['file_name'],$desc, $titulo, $contenido, $estado);
                 if ($file_id) {
                     $status = "success";
                     $msg = "Articulo Creado  Correctamente";
@@ -143,6 +146,68 @@ class Panel_principal extends CI_Controller
             @unlink($_FILES[$file_element_name]);
         }
         echo json_encode(array('status' => $status, 'msg' => $msg));
+    }
+    
+     /*Este metodo crea una noticia a partir del RSS que genera el sitio web diicc, usando la libreria RSSParse, luego de leer el feed
+    separa el contenido  texto  del feed de la imagen asociada. si la noticia trae una, se almacena solo el texto en el panel Lateral, tambien comprueba que
+    se cumpla el maximo de caracteres permitido antes de crear la noticia en el panel lateral
+    */
+    public function crear_articulo_RSS()
+    {
+        //cargamos la libreria RSS y le pasamos la informacion del feed que queremos abrir    
+        $this->load->library('RSSParser', array('url' =>'http://146.83.74.15/sitiodiicc/index.php/noticias-diicc?format=feed&type=rss','life' => 2));
+        $articulo = array();
+            
+        //leemos el RSS Feed usand los metodos de la libreria RSSParser
+        $rss_data = $this->rssparser->getFeed(6);
+
+        //recorremos el contenido del feed y separamos el texto de la imagen del mismo, en el caso del Panel Lateral solo nos interesa el texto
+        foreach ($rss_data as $row) {
+            $content = "";
+            $articulo['descripcion'] = $row['title'];
+            $content = explode("<img", strip_tags($row['description'], "<img>")); //se separa el texto de la imagen del contenido del feed que se lee
+            $articulo["contenido"] = $content[0]; // el texto de la noticia a crear a partir del procesamiento previo del feed
+            $articulo["img"]= $content[1]; 
+            $image_url = explode('src="',$articulo["img"]); // dentro de la etiqueta <img> separo el atributo 'src' de la url de la imagen
+            $image_url = explode('" border',$image_url[1]); // separo el atributo border de la etiqueta <img> para aislar la url de la imagen
+            $estado = ACTIVO; // seteamos el articulo como inactiva por motivos de testeo en el panel principal
+            
+             //echo '<p><b>Descripcion:</b> ' . $articulo['descripcion'] . ' <b>Contenido:</b> ' .$articulo['contenido'] . ' <b>URL IMG:</b> ' .$articulo['img']. ' <b>Caracteres</b> ' .strlen($articulo['contenido']);
+
+            /*si el texto de la noticia del feed que se procesa supera el maximo de caracteres permitidos por el panel lateral
+            se aplica una funcion para cortar el texto y ajustarlo al maximo permitido.*/
+            if (!empty($articulo['contenido'])) {
+                
+                if (strlen($articulo['contenido']) > MAX_CHAR_PRINC) {
+                    $articulo['contenido'] = character_limiter($articulo['contenido'], MAX_CHAR_PRINC);
+                    
+                } 
+                else{               
+                    //se verifica si ya existe esta noticia en el panel lateral basado en el contenido de la misma, es importante no modificar este atributo en el futuro
+                    $existe = $this->Panel_principal_model->verificar_descripcion_articulo($articulo['descripcion']);
+                    if ($existe['resultado'] == 0) {
+                        
+                        //este bloque guarda la imagen que trae la descripcion del la noticia del sfeed mediante su url, procesada anteriormente
+                        $contents = file_get_contents($image_url[0]);                   // uso la url de la imagen previamente aislada para almacenar la imagen en server
+                        $articulo_img = explode('images/',$image_url[0]);               //separo de la url de la imagen el nombre del archivo y su extension                     
+                        $savefile = fopen('./recursos/images/'.$articulo_img[1], 'w'); // guardo en el servidor la imagen mediante su nombre de archivo extraido de su url
+                        fwrite($savefile, $contents);
+                        fclose($savefile);
+                       
+                        // si no existe la noticia se guarda en el panel principal, pero desactivada, bajo el titulo generido de Noticias DIICC 
+                        $respuesta = $this->Panel_principal_model->crear_nuevo_articulo($articulo_img[1],$articulo["descripcion"], "Noticias DIICC",
+                                                                                        $articulo["contenido"], $estado);
+                                                                                        
+                       // echo '<p><b>Descripcion:</b> ' . $articulo['descripcion'] . ' <b>Contenido:</b> ' .$articulo['contenido'] . ' <b>URL IMG:</b> ' .$image_url[0]. ' <b>Caracteres</b> ' .strlen($articulo['contenido']);
+                           
+                     } 
+                      else {
+                       //  echo '<p>este articulo ya existe : ' . $articulo["descripcion"] . ' <b>URL IMG:</b> ' .$image_url[0].'</p>';
+                      }
+                }
+            }
+            //echo '<p>salte directo aca</p>';
+        } //fin foreach
     }
 
     /* metodo que recibe los datos del form de edicion de mensajes del panel inferior y realiza la actualizacion a traves del metodo
@@ -187,7 +252,7 @@ class Panel_principal extends CI_Controller
     {
         $array_id = $this->input->post('array_id');
         $respuesta = $this->Panel_principal_model->eliminar_articulo($array_id);
-        $respuesta['text'] = "<h3>Articulo Eliminado Correctamente</h3>";
+        $respuesta['text'] = "Articulo Eliminado Correctamente";
         echo json_encode($respuesta);
     }
 
